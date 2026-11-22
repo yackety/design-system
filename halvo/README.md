@@ -9,6 +9,14 @@ Halvo is a smart-home dashboard "under glass": frosted panels float over a full-
 - Build screens from the component classes as their guidelines describe; never restyle glass by hand.
 - Typeface: **Be Vietnam Pro** 400 / 500 / 600 / 700 from Google Fonts (bundle.css imports it); it covers Latin, Latin Extended and every Vietnamese tone mark. Turn on tabular numerals everywhere (`font-variant-numeric: tabular-nums`).
 
+### With Angular
+
+Install `@halvo/angular` next to the design system: directives for the Select, the sliding pill, the dial and the motion moves, plus a typed `HalvoService`. See `angular/README.md`. Both packages share one version number.
+
+### With TypeScript
+
+`dist/halvo.d.ts` types `window.Halvo` (`MotionProps`, `UiProps`, `SelectHandle`, `DialHandle`). Add `"types": ["@halvo/design-system"]` to tsconfig, or `import type { MotionProps } from '@halvo/design-system'`.
+
 ### With Tailwind
 
 Tailwind is optional: use it for layout (grid, flex, spacing, breakpoints) and let Halvo's classes paint the surfaces. `tailwind/halvo.css` (v4) and `tailwind/halvo.preset.js` (v3) map the tokens into Tailwind's theme, so `bg-glass`, `text-muted`, `border-line`, `rounded-lg` (22px), `p-gap`, `shadow-surface`, `ease-expo-out`, `duration-base` and `dark:` (on `data-theme`) all resolve to Halvo values. They are generated from `tokens.json` by `python tools/build_tailwind.py .`.

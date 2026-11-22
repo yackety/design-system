@@ -3,3 +3,6 @@ demo/
 __pycache__/
 node_modules/
 *.tgz
+angular/dist/
+angular/node_modules/
+angular/.angular/

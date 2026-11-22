@@ -6,6 +6,12 @@ Write changes under **Unreleased** as you make them, grouped as *Breaking*, *Add
 
 ## [Unreleased]
 
+## [1.1.0] — 2026-11-22
+
+### Added
+- **`@halvo/angular`**: a new package, released with the design system at the same version. Typed, SSR-safe `HalvoService` (motion, ui, version, `run()` outside the zone, `setTheme` / `toggleTheme`) and standalone directives: `halvoSelect` (works with reactive forms and `ngModel`, follows option and value changes, cleans up), `halvoPill`, `halvoDial` (`[(value)]` and form control), `halvoMotion`, `halvoCount`, `halvoMagnetic`, `halvoLift`. Supports Angular 17.3+ (tested on 20.3). See `angular/README.md`.
+- TypeScript declarations for `window.Halvo` ship in the package: `dist/halvo.d.ts` (`"types"` in package.json).
+
 ## [1.0.0] — 2026-11-22
 
 First versioned release: the baseline every project upgrades from.

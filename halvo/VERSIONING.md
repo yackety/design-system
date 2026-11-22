@@ -1,6 +1,6 @@
 # Versioning
 
-Halvo uses semantic versioning, `MAJOR.MINOR.PATCH`, applied to what projects depend on: token names, CSS class names and the markup each component expects, and the functions on `window.Halvo`.
+Halvo uses semantic versioning, `MAJOR.MINOR.PATCH`, applied to what projects depend on: token names, CSS class names and the markup each component expects, the functions on `window.Halvo`, and the exports, selectors, inputs and outputs of `@halvo/angular`. The two packages are released together and always share a version.
 
 ## What goes in which version
 

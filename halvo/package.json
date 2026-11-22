@@ -1,15 +1,22 @@
 {
   "name": "@halvo/design-system",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Halvo: a glass smart-home design system — tokens, CSS components, a motion kit and Tailwind presets.",
   "private": true,
   "license": "UNLICENSED",
   "style": "dist/halvo.css",
   "main": "dist/halvo.js",
+  "types": "dist/halvo.d.ts",
   "exports": {
-    ".": "./dist/halvo.js",
+    ".": {
+      "types": "./dist/halvo.d.ts",
+      "default": "./dist/halvo.js"
+    },
     "./halvo.css": "./dist/halvo.css",
-    "./halvo.js": "./dist/halvo.js",
+    "./halvo.js": {
+      "types": "./dist/halvo.d.ts",
+      "default": "./dist/halvo.js"
+    },
     "./tokens.css": "./dist/tokens.css",
     "./components.css": "./dist/components.css",
     "./tokens.json": "./tokens.json",

@@ -4,7 +4,7 @@ One repository, one folder per design system. Each system is versioned and relea
 
 | System | Folder | Current | What it is |
 | --- | --- | --- | --- |
-| Halvo | [halvo/](halvo/) | see [halvo/CHANGELOG.md](halvo/CHANGELOG.md) | Glass smart-home UI: tokens, CSS components, motion kit, Tailwind presets |
+| Halvo | [halvo/](halvo/) | see [halvo/CHANGELOG.md](halvo/CHANGELOG.md) | Glass smart-home UI: tokens, CSS components, motion kit, Tailwind presets; Angular package in `halvo/angular/` |
 
 ## Layout
 
@@ -32,7 +32,9 @@ design-system/
 Install the released package, pinned to an exact version:
 
 ```
-npm i D:/workspace/design-system/releases/halvo-design-system-1.0.0.tgz
+npm i D:/workspace/design-system/releases/halvo-design-system-1.1.0.tgz
+# Angular projects also:
+npm i D:/workspace/design-system/releases/halvo-angular-1.1.0.tgz
 ```
 
 (npm cannot install a sub-folder of a git repository, so projects install the packed `.tgz`. When this repo moves to a shared host, publish the same package to a private registry — GitHub Packages, GitLab, Verdaccio — and install `@halvo/design-system@1.0.0` instead.)
