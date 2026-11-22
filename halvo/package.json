@@ -1,6 +1,6 @@
 {
   "name": "@halvo/design-system",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Halvo: a glass smart-home design system — tokens, CSS components, a motion kit and Tailwind presets.",
   "private": true,
   "license": "UNLICENSED",

@@ -6,10 +6,18 @@ Write changes under **Unreleased** as you make them, grouped as *Breaking*, *Add
 
 ## [Unreleased]
 
+## [1.1.1] — 2026-11-22
+
+### Fixed
+- Links used as nav items, tabs, buttons, chips or rows (`a.snav__item`, `.tabs a`, `.tabbar a`, `a.btn` …) no longer show the browser's underline and link colour.
+
+### Added
+- `angular/CLAUDE.template.md`: a CLAUDE.md for new Angular projects, so a Claude session can scaffold the app, install Halvo and follow its rules.
+
 ## [1.1.0] — 2026-11-22
 
 ### Added
-- **`@halvo/angular`**: a new package, released with the design system at the same version. Typed, SSR-safe `HalvoService` (motion, ui, version, `run()` outside the zone, `setTheme` / `toggleTheme`) and standalone directives: `halvoSelect` (works with reactive forms and `ngModel`, follows option and value changes, cleans up), `halvoPill`, `halvoDial` (`[(value)]` and form control), `halvoMotion`, `halvoCount`, `halvoMagnetic`, `halvoLift`. Supports Angular 17.3+ (tested on 20.3). See `angular/README.md`.
+- **`@halvo/angular`**: a new package, released with the design system at the same version. Typed `HalvoService` (motion, ui, version, `run()` outside the zone, `setTheme` / `toggleTheme`) and standalone directives: `halvoSelect` (works with reactive forms and `ngModel`, follows option and value changes, cleans up), `halvoPill`, `halvoDial` (`[(value)]` and form control), `halvoMotion`, `halvoCount`, `halvoMagnetic`, `halvoLift`. Supports Angular 17.3+ (tested on 20.3), client-rendered apps only: **server-side rendering (SSR) is not supported**. See `angular/README.md`.
 - TypeScript declarations for `window.Halvo` ship in the package: `dist/halvo.d.ts` (`"types"` in package.json).
 
 ## [1.0.0] — 2026-11-22

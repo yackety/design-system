@@ -1,13 +1,19 @@
 # Halvo for Angular
 
-`@halvo/angular` wraps the Halvo design system for Angular 17.3 and newer (tested on Angular 20): a typed, SSR-safe `HalvoService` and standalone directives for the parts that need JavaScript. Everything else in Halvo is plain CSS classes you use straight in templates.
+`@halvo/angular` wraps the Halvo design system for Angular 17.3 and newer (tested on Angular 20): a typed `HalvoService` and standalone directives for the parts that need JavaScript. Everything else in Halvo is plain CSS classes you use straight in templates.
+
+> **Server-side rendering (SSR) is not supported.** Use Halvo in client-rendered Angular apps (`ng new --ssr=false`). Apps with `@angular/ssr`, prerendering or hydration are untested and may break.
 
 It is released together with `@halvo/design-system`, at the same version.
+
+## Starting a new project with Claude
+
+Copy `angular/CLAUDE.template.md` (in the design-system repo) into an empty folder as `CLAUDE.md` and start a Claude session there: it scaffolds the Angular app, installs the latest 1.x pair of Halvo packages, wires `angular.json` and builds a first page shell.
 
 ## Install
 
 ```
-npm i D:/workspace/design-system/releases/halvo-design-system-1.1.0.tgz D:/workspace/design-system/releases/halvo-angular-1.1.0.tgz
+npm i D:/workspace/design-system/releases/halvo-design-system-1.1.1.tgz D:/workspace/design-system/releases/halvo-angular-1.1.1.tgz
 ```
 
 In `angular.json` → `projects › <app> › architect › build › options`:
@@ -68,13 +74,13 @@ export class RoomsComponent {
 
 ### HalvoService
 
-- `motion`, `ui`, `version`: typed `window.Halvo` (null on the server).
+- `motion`, `ui`, `version`: typed `window.Halvo` (null if `halvo.js` is not loaded).
 - `run(h => …)`: runs Halvo work outside Angular's zone, so animation frames don't trigger change detection. Use it for any `motion.*` call you make yourself.
 - `theme`, `setTheme('light', buttonEl)`, `toggleTheme(buttonEl)`: theme switch with the circle wipe.
 
 ## Notes
 
-- **SSR**: every directive and the service do nothing on the server; `halvoCount` prints the final value. Load `halvo.js` only through `"scripts"`, never `import` it in code. (Written for SSR but not yet tested in an SSR app.)
+- **SSR is not supported** (see the top of this page). Load `halvo.js` only through `"scripts"` in angular.json, never `import` it in code.
 - **Zoneless apps** work the same; `run()` simply calls the function.
 - Don't redefine Halvo's classes in component styles; they are global and need no `::ng-deep`.
 - Tailwind and Lucide: see the design system README (`lucide-angular` icons take `class="ico"`).

@@ -12,7 +12,7 @@ export interface HalvoGlobal {
 export type HalvoTheme = 'dark' | 'light';
 
 /**
- * Typed, SSR-safe access to `window.Halvo`.
+ * Typed access to `window.Halvo`. Client-rendered apps only: SSR is not supported.
  * Load `node_modules/@halvo/design-system/dist/halvo.js` through `"scripts"` in angular.json.
  */
 @Injectable({ providedIn: 'root' })

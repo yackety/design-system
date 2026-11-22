@@ -11,7 +11,7 @@ Halvo is a smart-home dashboard "under glass": frosted panels float over a full-
 
 ### With Angular
 
-Install `@halvo/angular` next to the design system: directives for the Select, the sliding pill, the dial and the motion moves, plus a typed `HalvoService`. See `angular/README.md`. Both packages share one version number.
+Install `@halvo/angular` next to the design system: directives for the Select, the sliding pill, the dial and the motion moves, plus a typed `HalvoService`. See `angular/README.md`. Both packages share one version number. Client-rendered apps only: server-side rendering (SSR) is not supported.
 
 ### With TypeScript
 
