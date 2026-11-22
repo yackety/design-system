@@ -1,0 +1,22 @@
+<!-- @dsCard group="Data" height=260 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Area</title></head>
+<body>
+<div class="hv-stage"><section class="card">
+  <div class="chead"><div class="chead__text"><h3>Indoor temperature</h3><p>Last 24 hours</p></div><div class="legend"><span><i></i>Today</span><span><i class="is-dash"></i>Yesterday</span></div><button class="btn btn--sm btn--ghost" data-replay><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Replay</button></div>
+  <div class="area"><svg class="area__svg" viewBox="0 0 600 150" preserveAspectRatio="none" style="height:150px">
+    <g class="area__grid"><line x1="0" x2="600" y1="10" y2="10"/><line x1="0" x2="600" y1="75" y2="75"/><line x1="0" x2="600" y1="140" y2="140" style="stroke-dasharray:none"/></g>
+    <path class="area__fill" id="fill" d="M0 110 C 60 108, 90 120, 150 112 S 240 60, 300 58 S 400 80, 450 70 S 540 30, 600 34 L600 140 L0 140Z"/>
+    <path class="area__cmp" d="M0 118 C 70 116, 110 124, 170 118 S 260 84, 320 82 S 420 96, 470 90 S 550 64, 600 66"/>
+    <path class="area__line" id="line" d="M0 110 C 60 108, 90 120, 150 112 S 240 60, 300 58 S 400 80, 450 70 S 540 30, 600 34"/>
+    <circle class="area__dot" id="dot" cx="450" cy="70" r="5"/>
+  </svg></div>
+</section></div>
+<script>
+var M = Halvo.motion;
+function play() { M.draw(document.getElementById('line')); M.fromTo(document.getElementById('fill'), { opacity: 0 }, null, { duration: .8, delay: .6, ease: 'power2.out' }); M.pop(document.getElementById('dot'), { delay: 1 }); }
+document.querySelector('[data-replay]').onclick = play; play();
+</script>
+</body>
+</html>

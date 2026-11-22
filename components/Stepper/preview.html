@@ -1,0 +1,15 @@
+<!-- @dsCard group="Inputs" height=100 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Stepper</title></head>
+<body>
+<div class="hv-stage hv-row" style="gap:18px">
+  <div class="cell__text" style="flex:none"><b>Guests tonight</b><small>Adds codes and lights the porch</small></div>
+  <div class="stepper"><button aria-label="Fewer" data-d="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><output><span id="v">2</span></output><button class="is-add" aria-label="More" data-d="1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/> <path d="M12 5v14"/></svg></button></div>
+</div>
+<script>
+var v = document.getElementById('v'), n = 2;
+document.querySelectorAll('[data-d]').forEach(function (b) { b.onclick = function () { var d = +b.dataset.d; if (n + d < 0 || n + d > 12) { Halvo.motion.shake(b.parentElement); return; } n += d; v.textContent = n; Halvo.motion.roll(v, d > 0); }; });
+</script>
+</body>
+</html>

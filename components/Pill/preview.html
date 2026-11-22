@@ -1,0 +1,14 @@
+<!-- @dsCard group="Status" height=120 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Pill</title></head>
+<body>
+<div class="hv-stage hv-col" style="gap:10px">
+  <div class="hv-row" style="gap:6px"><span class="pill pill--good">Fresh</span><span class="pill pill--warn">Filter due</span><span class="pill pill--bad">Offline</span><span class="pill pill--info">Updating</span><span class="pill pill--accent">Scene on</span><span class="pill">Idle</span><span class="pill pill--plain"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/> <path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Every door locked</span></div>
+  <div class="hv-row" style="gap:10px"><span class="badge">2</span><span class="delta delta--up">↑ 4%</span><span class="delta delta--down">↑ 25%</span><span style="font-size:12px;font-weight:600"><span class="live"></span>live</span><span class="eq"><i></i><i></i><i></i><i></i></span><span class="muted" style="font-size:12px;font-weight:600">Playing in Media room</span></div>
+</div>
+<script>
+Halvo.motion.pop(document.querySelectorAll('.pill'), { stagger: .04 });
+</script>
+</body>
+</html>

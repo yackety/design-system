@@ -1,0 +1,23 @@
+<!-- @dsCard group="Data" height=170 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Ring</title></head>
+<body>
+<div class="hv-stage hv-row" style="gap:28px">
+  <div class="ring" style="width:118px;height:118px"><svg viewBox="0 0 120 120"><circle class="ring__track" cx="60" cy="60" r="52" stroke-width="11"/><circle class="ring__arc" data-v=".74" cx="60" cy="60" r="52" stroke-width="11" transform="rotate(-90 60 60)"/></svg><div class="ring__in"><b style="font-size:22px;font-weight:600" data-n="74">74</b><b style="font-size:13px">%</b><br><small class="muted" style="font-size:11px;font-weight:600">roof cover</small></div></div>
+  <div class="ring" style="width:92px;height:92px"><svg viewBox="0 0 120 120"><circle class="ring__track" cx="60" cy="60" r="50" stroke-width="13"/><circle class="ring__arc" data-v=".64" style="stroke:var(--s3)" cx="60" cy="60" r="50" stroke-width="13" transform="rotate(-90 60 60)"/></svg><div class="ring__in"><b style="font-size:17px;font-weight:600" data-n="64">64</b><b style="font-size:12px">%</b><br><small class="muted" style="font-size:11px;font-weight:600">battery</small></div></div>
+  <button class="btn btn--sm btn--ghost" data-replay><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Replay</button>
+</div>
+<script>
+var M = Halvo.motion;
+function play() {
+  document.querySelectorAll('.ring__arc').forEach(function (c, i) {
+    var len = 2 * Math.PI * c.r.baseVal.value, v = +c.dataset.v; c.style.strokeDasharray = len;
+    M.tweenValue(0, v, { duration: 1.2, delay: i * .1, ease: 'power3.out' }, function (x) { c.style.strokeDashoffset = len * (1 - x); });
+  });
+  document.querySelectorAll('[data-n]').forEach(function (el, i) { M.countTo(el, +el.dataset.n, null, { from: 0, delay: i * .1 }); });
+}
+document.querySelector('[data-replay]').onclick = play; play();
+</script>
+</body>
+</html>

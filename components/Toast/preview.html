@@ -1,0 +1,26 @@
+<!-- @dsCard group="Feedback" height=210 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Toast</title></head>
+<body>
+<div class="hv-stage" style="min-height:170px;display:flex;flex-direction:column;align-items:center;gap:12px">
+  <div class="hv-row"><button class="btn btn--primary" id="go">Run Film night</button><button class="btn" id="warn">Unlock back door</button></div>
+  <div id="stack" style="display:flex;flex-direction:column;gap:8px;align-items:center;width:100%;margin-top:auto"></div>
+</div>
+<script>
+var M = Halvo.motion, stack = document.getElementById('stack');
+var ICON = { ok: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>', warn: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/> <path d="M12 9v4"/> <path d="M12 17h.01"/></svg>' };
+function toast(text, warn) {
+  var t = document.createElement('div'); t.className = 'toast' + (warn ? ' is-warn' : '');
+  t.innerHTML = ICON[warn ? 'warn' : 'ok'] + '<span></span><button>Undo</button>'; t.querySelector('span').textContent = text;
+  stack.appendChild(t); while (stack.children.length > 2) stack.firstChild.remove();
+  M.toastIn(t);
+  var close = function () { M.toastOut(t).then(function () { t.remove(); }); };
+  t.querySelector('button').onclick = close; setTimeout(close, 5500);
+}
+document.getElementById('go').onclick = function () { toast('Film night is on'); };
+document.getElementById('warn').onclick = function () { toast('Back door unlocked for 10 minutes', true); };
+toast('Front door locked');
+</script>
+</body>
+</html>

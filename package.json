@@ -1,0 +1,35 @@
+{
+  "name": "@halvo/design-system",
+  "version": "1.0.0",
+  "description": "Halvo: a glass smart-home design system — tokens, CSS components, a motion kit and Tailwind presets.",
+  "private": true,
+  "license": "UNLICENSED",
+  "style": "dist/halvo.css",
+  "main": "dist/halvo.js",
+  "exports": {
+    ".": "./dist/halvo.js",
+    "./halvo.css": "./dist/halvo.css",
+    "./halvo.js": "./dist/halvo.js",
+    "./tokens.css": "./dist/tokens.css",
+    "./components.css": "./dist/components.css",
+    "./tokens.json": "./tokens.json",
+    "./tailwind.css": "./dist/tailwind/halvo.css",
+    "./tailwind-preset": "./dist/tailwind/halvo.preset.js",
+    "./icons/*": "./icons/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "icons",
+    "tokens.json",
+    "components/*/README.md",
+    "README.md",
+    "CHANGELOG.md",
+    "VERSIONING.md"
+  ],
+  "scripts": {
+    "build": "python tools/release.py build",
+    "check": "python tools/release.py check",
+    "demo": "python tools/build_demo.py ."
+  }
+}

@@ -1,0 +1,18 @@
+<!-- @dsCard group="Status" height=270 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Empty</title></head>
+<body>
+<div class="hv-stage"><section class="card"><div class="empty" id="e">
+  <span class="empty__icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/> <rect x="2" y="6" width="14" height="12" rx="2"/></svg></span>
+  <b>No cameras yet</b>
+  <p>Add one and its live view and motion alerts show up here.</p>
+  <button class="btn btn--primary btn--sm"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/> <path d="M12 5v14"/></svg>Add a camera</button>
+</div><div style="text-align:center"><button class="btn btn--sm btn--ghost" data-replay><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Replay</button></div></section></div>
+<script>
+var M = Halvo.motion, e = document.getElementById('e');
+function play() { M.pop(e.querySelector('.empty__icon')); M.slide(e.querySelectorAll('b, p, .btn'), { delay: .15 }); }
+document.querySelector('[data-replay]').onclick = play; play();
+</script>
+</body>
+</html>

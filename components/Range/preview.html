@@ -1,0 +1,23 @@
+<!-- @dsCard group="Inputs" height=130 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Range</title></head>
+<body>
+<div class="hv-stage"><div class="card hv-col" style="gap:4px">
+  <div class="cell__text"><b>Arc floor lamp</b><small>Brightness</small></div>
+  <div class="range" id="r"><span class="range__track"><span class="range__fill"></span><span class="range__knob"></span></span><input type="range" min="0" max="100" value="72" aria-label="Brightness"><output>72%</output></div>
+  <div class="hv-row" style="gap:6px"><button class="chip" data-v="20">Dim</button><button class="chip" data-v="60">Evening</button><button class="chip" data-v="100">Bright</button></div>
+</div></div>
+<script>
+var M = Halvo.motion, r = document.getElementById('r'), inp = r.querySelector('input'), fill = r.querySelector('.range__fill'), knob = r.querySelector('.range__knob'), out = r.querySelector('output');
+var cur = { v: 72 };
+function set(v, d) {
+  var from = cur.v; cur.v = v;
+  M.tweenValue(from, v, { duration: d, ease: 'power3.out' }, function (x) { fill.style.transform = 'scaleX(' + x / 100 + ')'; knob.style.transform = 'translateX(' + x + '%)'; out.textContent = Math.round(x) + '%'; });
+}
+set(72, 0);
+inp.oninput = function () { set(+inp.value, .3); };
+document.querySelectorAll('[data-v]').forEach(function (b) { b.onclick = function () { inp.value = b.dataset.v; set(+b.dataset.v, .8); }; });
+</script>
+</body>
+</html>

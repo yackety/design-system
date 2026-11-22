@@ -1,0 +1,17 @@
+<!-- @dsCard group="Status" height=150 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Meter</title></head>
+<body>
+<div class="hv-stage"><div class="card" style="display:grid;grid-template-columns:auto 1fr auto;gap:12px 14px;align-items:center">
+  <span class="muted" style="font-size:12.5px;font-weight:600">Battery</span><span class="meter" role="meter" aria-label="Battery"><i data-v=".64"></i></span><b>64%</b>
+  <span class="muted" style="font-size:12.5px;font-weight:600">CO₂</span><span class="meter is-warn" role="meter" aria-label="CO2"><i data-v=".76"></i></span><b>905</b>
+  <span class="muted" style="font-size:12.5px;font-weight:600">Filter</span><span class="meter is-bad" role="meter" aria-label="Filter"><i data-v=".12"></i></span><b>12%</b>
+  <span></span><span><button class="btn btn--sm btn--ghost" data-replay><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Replay</button></span><span></span>
+</div></div>
+<script>
+function play() { document.querySelectorAll('.meter i').forEach(function (i, k) { i.__f = 0; Halvo.motion.fill(i, +i.dataset.v, { delay: .15 + k * .08 }); }); }
+document.querySelector('[data-replay]').onclick = play; play();
+</script>
+</body>
+</html>

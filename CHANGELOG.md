@@ -1,0 +1,21 @@
+# Changelog
+
+Every release of Halvo, newest first. Versions follow [VERSIONING.md](VERSIONING.md): **major** breaks something (a removed or renamed token, class, markup contract or function), **minor** adds or visibly changes something, **patch** fixes without changing the public surface. Pin an exact version in projects and read this file before upgrading.
+
+Write changes under **Unreleased** as you make them, grouped as *Breaking*, *Added*, *Changed*, *Deprecated*, *Fixed*. `python tools/release.py minor` (or `patch` / `major`) turns that section into the next version.
+
+## [Unreleased]
+
+## [1.0.0] — 2026-11-22
+
+First versioned release: the baseline every project upgrades from.
+
+### Contents
+- Tokens for dark (default) and light themes: 44 colours, 13 type styles, spacing, radius, shadows, backdrop blur, 10 eases, 7 durations.
+- Typeface **Be Vietnam Pro** 400–700 (full Vietnamese support).
+- 36 components with guidelines and live previews: Motion, Button, IconButton, Chip, Card, Kpi, PageHead, Tabs, Segmented, SideNav, TabBar, Field, Select, Switch, Check, Range, Stepper, Dial, Pill, Avatar, Meter, Empty, Toast, Menu, Notices, Modal, Drawer, Finder, SignIn, Bars, Area, Heatmap, Ring, Table, Feed, Device.
+- `window.Halvo.motion`: the motion kit (rise, slide, deal, grow, draw, pop, flash, countTo, shake, ring, magnetic, lift, pill, gridPop, overlays, themeSwap …).
+- `window.Halvo.ui`: `select`, `selects` (glass dropdown replacing the native one), `dial` (thermostat).
+- Lucide icons (ISC) in `icons/`.
+- Tailwind v4 theme (`dist/tailwind/halvo.css`) and v3 preset (`dist/tailwind/halvo.preset.js`).
+- Distribution files in `dist/`: `halvo.css`, `tokens.css`, `components.css`, `halvo.js`.

@@ -1,0 +1,21 @@
+<!-- @dsCard group="Navigation" height=110 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Tabs</title></head>
+<body>
+<div class="hv-stage">
+  <nav class="tabs" id="tabs"><span class="tabs__line"></span>
+    <button aria-current="page">Living room <span class="badge">2</span></button>
+    <button>Kitchen <span class="badge">1</span></button>
+    <button>Media room <span class="badge">1</span></button>
+    <button>Studio <span class="badge">1</span></button>
+    <button>Garden lounge</button>
+  </nav>
+</div>
+<script>
+var M = Halvo.motion, tabs = document.getElementById('tabs'), line = tabs.querySelector('.tabs__line');
+tabs.querySelectorAll('button').forEach(function (b) { b.onclick = function () { tabs.querySelector('[aria-current]').removeAttribute('aria-current'); b.setAttribute('aria-current', 'page'); M.pill(line, b, { radius: 12 }); }; });
+requestAnimationFrame(function () { M.pill(line, tabs.querySelector('[aria-current]'), { radius: 12, animate: false }); });
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!-- @dsCard group="Surfaces" height=300 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Card</title></head>
+<body>
+<div class="hv-stage" style="display:grid;grid-template-columns:1.3fr 1fr;gap:12px">
+  <section class="card">
+    <div class="chead"><div class="chead__text"><h3>Lights</h3><p>2 on · drag to dim, pick a colour</p></div><span class="switch" role="switch" aria-checked="true"><i></i></span></div>
+    <div class="well" style="padding:12px 14px;display:flex;align-items:center;gap:12px"><span class="dev__ico" style="background:var(--accent);color:var(--accent-ink);box-shadow:0 0 22px -4px var(--glow)"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/> <path d="M9 18h6"/> <path d="M10 22h4"/></svg></span><div class="cell__text"><b>Arc floor lamp</b><small>72% · 2700 K · 9 W</small></div></div>
+    <div class="section-label">Scenes</div>
+    <div class="hv-row"><span class="chip">Slow morning</span><span class="chip">Film night</span><span class="chip">Lights out</span></div>
+  </section>
+  <section class="card" data-lift>
+    <div class="chead"><div class="chead__text"><h3>Climate</h3><p>House set to 21.5° · heat</p></div><button class="btn btn--sm">Thermostat</button></div>
+    <div class="kpi__value" style="font-size:34px;margin:0">21°<small>0.3° under</small></div>
+    <p class="muted" style="font-size:12.5px;font-weight:600;margin-top:6px">Warming toward it now</p>
+    <div style="margin-top:14px"><button class="btn btn--sm btn--ghost" data-replay><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Replay</button></div>
+  </section>
+</div>
+<script>
+var M = Halvo.motion; M.lift();
+function play() { M.rise(document.querySelectorAll('.card')); }
+document.querySelector('[data-replay]').onclick = play; play();
+</script>
+</body>
+</html>

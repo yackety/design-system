@@ -1,0 +1,35 @@
+<!-- @dsCard group="Navigation" height=470 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>SideNav</title></head>
+<body>
+<div class="hv-stage" style="display:flex;gap:16px;align-items:flex-start">
+  <aside class="side glass" id="side">
+    <div class="brand"><span class="mark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/> <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="brand__text"><b>Halvo</b><small>Larch House</small></span></div>
+    <nav class="snav" id="snav"><span class="snav__pill"></span>
+      <div class="snav__sec"><span class="snav__group">Home</span>
+        <button class="snav__item" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/> <rect width="7" height="7" x="14" y="3" rx="1"/> <rect width="7" height="7" x="14" y="14" rx="1"/> <rect width="7" height="7" x="3" y="14" rx="1"/></svg><span class="snav__label">Overview</span></button>
+        <button class="snav__item"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/> <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="snav__label">Rooms</span></button>
+        <button class="snav__item"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/> <path d="M9 18h6"/> <path d="M10 22h4"/></svg><span class="snav__label">Devices</span><span class="snav__count">2</span></button></div>
+      <div class="snav__sec"><span class="snav__group">Systems</span>
+        <button class="snav__item"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg><span class="snav__label">Climate</span></button>
+        <button class="snav__item"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg><span class="snav__label">Energy</span></button>
+        <button class="snav__item"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg><span class="snav__label">Security</span></button>
+        <button class="snav__item"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13"/> <circle cx="6" cy="18" r="3"/> <circle cx="18" cy="16" r="3"/></svg><span class="snav__label">Media</span></button></div>
+    </nav>
+  </aside>
+  <div><button class="btn btn--sm btn--ghost" data-replay><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Replay</button></div>
+</div>
+<script>
+var M = Halvo.motion, nav = document.getElementById('snav'), pill = nav.querySelector('.snav__pill');
+nav.querySelectorAll('.snav__item').forEach(function (b) { b.onclick = function () { nav.querySelector('[aria-current]').removeAttribute('aria-current'); b.setAttribute('aria-current', 'page'); M.pill(pill, b, { radius: 14 }); }; });
+function boot() {
+  M.fromTo(document.getElementById('side'), { x: -40, opacity: 0 }, null, { duration: .9, ease: 'expo.out' });
+  M.fromTo(document.querySelectorAll('.side .brand, .snav__group, .snav__item'), { opacity: 0, x: -12 }, null, { duration: .5, ease: 'power3.out', stagger: .025, delay: .3 });
+  M.fromTo(pill, { opacity: 0, scaleX: .4 }, null, { duration: .6, ease: 'expo.out', delay: .55, origin: '0 50%' });
+}
+requestAnimationFrame(function () { M.pill(pill, nav.querySelector('[aria-current]'), { radius: 14, animate: false }); boot(); });
+document.querySelector('[data-replay]').onclick = boot;
+</script>
+</body>
+</html>

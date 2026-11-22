@@ -1,0 +1,15 @@
+<!-- @dsCard group="Inputs" height=200 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Switch</title></head>
+<body>
+<div class="hv-stage"><div class="card" style="padding-top:4px;padding-bottom:4px">
+  <div class="row-set"><div class="row-set__text"><b>Arrival lights</b><small>Hall and porch come on when someone gets home after dark.</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Arrival lights"><i></i></button></div>
+  <div class="row-set"><div class="row-set__text"><b>Quiet hours</b><small>No chimes or speaker alerts 22:00–07:00.</small></div><button class="switch" role="switch" aria-checked="false" aria-label="Quiet hours"><i></i></button></div>
+  <div class="row-set"><div class="row-set__text"><b>Eco heating</b><small>Lets rooms drift 1° when nobody is in.</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Eco heating"><i></i></button></div>
+</div></div>
+<script>
+document.querySelectorAll('.switch').forEach(function (s) { s.onclick = function () { s.setAttribute('aria-checked', s.getAttribute('aria-checked') !== 'true'); Halvo.motion.switchKnob(s); }; });
+</script>
+</body>
+</html>

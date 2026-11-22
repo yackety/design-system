@@ -1,0 +1,28 @@
+<!-- @dsCard group="Inputs" height=440 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Select</title></head>
+<body>
+<div class="hv-stage" style="min-height:410px"><div class="card" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:start">
+  <label class="field"><span>Heating mode</span><select class="input" data-hv-select>
+    <option value="heat" data-hint="Hold the set point" selected>Heat</option>
+    <option value="eco" data-hint="Drift 1° when nobody is in">Eco</option>
+    <option value="cool" data-hint="Air conditioning on">Cool</option>
+    <option value="auto" data-hint="Follow the heating plan">Auto</option>
+    <option value="off" disabled>Off (locked by schedule)</option>
+  </select></label>
+  <label class="field"><span>Room</span><select class="input" data-hv-select>
+    <option value="" selected>Choose a room</option>
+    <optgroup label="Ground floor"><option>Living room</option><option>Kitchen</option><option>Media room</option></optgroup>
+    <optgroup label="First floor"><option>Studio</option><option>Garden lounge</option></optgroup>
+  </select><small id="out">Nothing chosen yet.</small></label>
+  <div class="field"><span>Sort</span><select class="input select--sm" data-hv-select aria-label="Sort devices">
+    <option>Most used</option><option>Name A–Z</option><option>Room</option><option>Power draw</option>
+  </select></div>
+</div></div>
+<script>
+Halvo.ui.selects();
+document.querySelectorAll('select')[1].addEventListener('change', function (e) { document.getElementById('out').textContent = 'Moves to ' + e.target.value + '.'; });
+</script>
+</body>
+</html>

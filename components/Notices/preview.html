@@ -1,0 +1,25 @@
+<!-- @dsCard group="Overlays" height=420 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Notices</title></head>
+<body>
+<div class="hv-stage" style="min-height:400px;display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+  <button class="ibtn" aria-label="Notifications" id="bell"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/> <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="ibtn__badge" id="badge">2</span></button>
+  <div class="pop notices" id="pop">
+    <div class="notices__head"><b>Notifications</b><button class="linkbtn" id="read">Mark all read</button></div>
+    <div class="notices__list" id="list">
+      <button class="notice is-unread"><span class="notice__ico tone--warn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z"/> <path d="M12 12v.01"/></svg></span><span class="notice__text"><b>Purifier filter at 12%</b><p>Order a new one before it stops cleaning.</p><small>12 min ago</small></span></button>
+      <button class="notice is-unread"><span class="notice__ico tone--bad"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/> <rect x="2" y="6" width="14" height="12" rx="2"/></svg></span><span class="notice__text"><b>Side gate camera offline</b><p>Last seen 14:02. Check its power.</p><small>5 h ago</small></span></button>
+      <button class="notice"><span class="notice__ico tone--good"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/> <path d="M12 2v2"/> <path d="M12 20v2"/> <path d="m4.93 4.93 1.41 1.41"/> <path d="m17.66 17.66 1.41 1.41"/> <path d="M2 12h2"/> <path d="M20 12h2"/> <path d="m6.34 17.66-1.41 1.41"/> <path d="m19.07 4.93-1.41 1.41"/></svg></span><span class="notice__text"><b>Roof covered 74% of today</b><p>Battery is at 64% going into the evening.</p><small>Today</small></span></button>
+    </div>
+  </div>
+</div>
+<script>
+var M = Halvo.motion, pop = document.getElementById('pop'), bell = document.getElementById('bell'), badge = document.getElementById('badge');
+function open() { pop.hidden = false; M.popIn(pop, '92% 0%'); M.fromTo(pop.querySelectorAll('.notice'), { opacity: 0, y: 8 }, null, { duration: .45, ease: 'power3.out', stagger: .04, delay: .08 }); }
+bell.onclick = function () { if (pop.hidden) open(); else pop.hidden = true; };
+document.getElementById('read').onclick = function () { pop.querySelectorAll('.is-unread').forEach(function (n) { n.classList.remove('is-unread'); }); M.fromTo(badge, { scale: 1 }, { scale: 0 }, { duration: .25, ease: 'power2.in', keep: true }); };
+open(); setTimeout(function () { M.ring(bell.querySelector('svg'), badge); }, 700);
+</script>
+</body>
+</html>

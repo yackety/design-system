@@ -1,0 +1,23 @@
+<!-- @dsCard group="Data" height=330 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Table</title></head>
+<body>
+<div class="hv-stage"><section class="card card--flush">
+  <div class="chead"><div class="chead__text"><h3>Plugs &amp; power</h3><p>5 devices · 312 W now</p></div><select class="input select--sm" data-hv-select aria-label="Sort" style="width:150px"><option>Most power</option><option>Name A–Z</option><option>Room</option></select></div>
+  <div class="table-wrap"><table class="table">
+    <thead><tr><th>Device</th><th>Room</th><th class="r">Now</th><th class="r">Today</th><th>Status</th></tr></thead>
+    <tbody id="rows">
+      <tr class="is-click"><td><div class="cell"><span class="feed__ico tone--accent"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/> <path d="M9 8V2"/> <path d="M15 8V2"/> <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></span><div class="cell__text"><b>Dishwasher</b><small>Bosch · eco 50°</small></div></div></td><td class="muted">Kitchen</td><td class="r">186 W</td><td class="r">0.82 kWh</td><td><span class="pill pill--accent">Running</span></td></tr>
+      <tr class="is-click"><td><div class="cell"><span class="feed__ico tone--plain"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/> <polyline points="17 2 12 7 7 2"/></svg></span><div class="cell__text"><b>Media wall</b><small>TV + soundbar</small></div></div></td><td class="muted">Media room</td><td class="r">74 W</td><td class="r">0.41 kWh</td><td><span class="pill pill--good">On</span></td></tr>
+      <tr class="is-click"><td><div class="cell"><span class="feed__ico tone--plain"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/> <path d="M9 8V2"/> <path d="M15 8V2"/> <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></span><div class="cell__text"><b>Desk strip</b><small>Studio</small></div></div></td><td class="muted">Studio</td><td class="r">52 W</td><td class="r">0.33 kWh</td><td><span class="pill pill--good">On</span></td></tr>
+      <tr class="is-click"><td><div class="cell"><span class="feed__ico tone--plain"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z"/> <path d="M12 12v.01"/></svg></span><div class="cell__text"><b>Air purifier</b><small>Filter 12%</small></div></div></td><td class="muted">Living room</td><td class="r">0 W</td><td class="r">0.09 kWh</td><td><span class="pill pill--warn">Filter due</span></td></tr>
+    </tbody>
+  </table></div>
+</section></div>
+<script>
+Halvo.ui.selects();
+Halvo.motion.slide(document.querySelectorAll('#rows tr'));
+</script>
+</body>
+</html>

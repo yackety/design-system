@@ -1,0 +1,18 @@
+<!-- @dsCard group="Data" height=250 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Device</title></head>
+<body>
+<div class="hv-stage"><div class="devs" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+  <button class="dev glass is-on" data-lift><div class="dev__top"><span class="dev__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/> <path d="M9 18h6"/> <path d="M10 22h4"/></svg></span><span class="switch" role="switch" aria-checked="true"><i></i></span></div><div class="dev__name"><small>Living room</small><b>Arc floor lamp</b></div><div class="dev__state"><span>72%</span><span class="meter"><i style="transform:scaleX(.72)"></i></span></div></button>
+  <button class="dev glass" data-lift><div class="dev__top"><span class="dev__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/> <path d="M9 18h6"/> <path d="M10 22h4"/></svg></span><span class="switch" role="switch" aria-checked="false"><i></i></span></div><div class="dev__name"><small>Living room</small><b>Beam pendants</b></div><div class="dev__state"><span>Off</span></div></button>
+  <button class="dev glass is-on" data-lift><div class="dev__top"><span class="dev__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2"/> <path d="M12 6h.01"/> <circle cx="12" cy="14" r="4"/> <path d="M12 14h.01"/></svg></span><span class="eq"><i></i><i></i><i></i><i></i></span></div><div class="dev__name"><small>Media room</small><b>Living speaker</b></div><div class="dev__state"><span>Playing · 38%</span></div></button>
+  <button class="dev glass is-off-line" data-lift><div class="dev__top"><span class="dev__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/> <rect x="2" y="6" width="14" height="12" rx="2"/></svg></span><span class="pill pill--bad">Offline</span></div><div class="dev__name"><small>Garden</small><b>Side gate camera</b></div><div class="dev__state"><span>Last seen 14:02</span></div></button>
+</div></div>
+<script>
+var M = Halvo.motion; M.lift();
+document.querySelectorAll('.dev').forEach(function (d) { var sw = d.querySelector('.switch'); if (!sw) return; d.onclick = function () { var on = !d.classList.contains('is-on'); d.classList.toggle('is-on', on); sw.setAttribute('aria-checked', on); M.switchKnob(sw); M.nudge(d.querySelector('.dev__ico')); d.querySelector('.dev__state span').textContent = on ? '100%' : 'Off'; }; });
+M.deal(document.querySelectorAll('.dev'));
+</script>
+</body>
+</html>

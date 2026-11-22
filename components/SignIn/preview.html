@@ -1,0 +1,30 @@
+<!-- @dsCard group="Overlays" height=500 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>SignIn</title></head>
+<body>
+<div class="hv-stage" style="min-height:480px;display:grid">
+  <div class="signin"><form class="signin__card" id="card" novalidate>
+    <span class="mark mark--lg"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/> <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+    <h1>Welcome home</h1>
+    <p>Sign in to Larch House.</p>
+    <div class="signin__fields" id="fields">
+      <label class="field"><span>Email</span><input class="input" type="email" value="amara@larch.house" autocomplete="off"></label>
+      <label class="field"><span>Password</span><input class="input" type="password" id="pw" placeholder="Try anything, then “halvo”"><small id="msg"></small></label>
+    </div>
+    <button class="btn btn--primary btn--lg btn--block">Sign in</button>
+  </form></div>
+</div>
+<script>
+var M = Halvo.motion, card = document.getElementById('card'), pw = document.getElementById('pw'), msg = document.getElementById('msg');
+function enter() { card.style.opacity = ''; card.getAnimations().forEach(function (a) { a.cancel(); }); M.fromTo(card.children, { opacity: 0, y: 18 }, null, { duration: .6, ease: 'expo.out', stagger: .06 }); }
+card.onsubmit = function (e) {
+  e.preventDefault();
+  if (pw.value !== 'halvo') { pw.classList.add('is-bad'); msg.className = 'bad'; msg.textContent = 'That password doesn’t match. Try again.'; M.shake(document.getElementById('fields')); return; }
+  pw.classList.remove('is-bad'); msg.textContent = '';
+  M.fromTo(card, { scale: 1, opacity: 1 }, { scale: .96, opacity: 0 }, { duration: .3, ease: 'power2.in', keep: true }).then(function () { setTimeout(function () { pw.value = ''; enter(); }, 700); });
+};
+enter();
+</script>
+</body>
+</html>

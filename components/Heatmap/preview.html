@@ -1,0 +1,32 @@
+<!-- @dsCard group="Data" height=330 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Heatmap</title></head>
+<body>
+<div class="hv-stage"><section class="card">
+  <div class="chead"><div class="chead__text"><h3>When the house uses power</h3><p>Average kWh by weekday and hour · peak Sunday 19:00</p></div><button class="btn btn--sm btn--ghost" data-replay><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Replay</button></div>
+  <div class="heat" id="heat"></div>
+</section></div>
+<script>
+var heat = document.getElementById('heat'), days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], hours = ['00', '02', '04', '06', '08', '10', '12', '14', '16', '18', '20', '22'];
+heat.style.gridTemplateColumns = 'auto repeat(' + hours.length + ', minmax(0, 1fr))';
+var html = '<span></span>' + hours.map(function (h) { return '<span class="heat__col">' + h + '</span>'; }).join('');
+var cells = [];
+days.forEach(function (d, r) {
+  html += '<span class="heat__row">' + d + '</span>';
+  hours.forEach(function (h, c) {
+    var base = [.12, .08, .06, .22, .48, .3, .34, .28, .36, .72, .62, .3][c], v = Math.min(1, base + (r > 4 ? .18 : 0) * (c > 3 && c < 10 ? 1 : .4) + ((r * 7 + c * 3) % 5) * .02);
+    var peak = r === 6 && c === 9; if (peak) v = 1;
+    html += '<span class="heat__cell' + (peak ? ' is-peak' : '') + '" data-tip="' + (v * 1.6).toFixed(2) + ' kWh|' + d + ' · ' + h + ':00"><i style="background:color-mix(in oklab, var(--data) ' + Math.round(14 + v * 86) + '%, var(--glass-3))"></i></span>';
+  });
+});
+heat.innerHTML = html;
+heat.querySelectorAll('.heat__cell').forEach(function (c) {
+  c.onpointerenter = function () { var t = c.dataset.tip.split('|'), tip = document.createElement('span'); tip.className = 'charttip'; tip.innerHTML = '<b></b><small></small>'; tip.querySelector('b').textContent = t[0]; tip.querySelector('small').textContent = t[1]; c.appendChild(tip); };
+  c.onpointerleave = function () { var t = c.querySelector('.charttip'); if (t) t.remove(); };
+});
+function play() { Halvo.motion.gridPop(heat.querySelectorAll('.heat__cell i'), hours.length); }
+document.querySelector('[data-replay]').onclick = play; play();
+</script>
+</body>
+</html>

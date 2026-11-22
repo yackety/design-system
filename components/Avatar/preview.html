@@ -1,0 +1,17 @@
+<!-- @dsCard group="Status" height=100 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Avatar</title></head>
+<body>
+<div class="hv-stage hv-row" style="gap:14px">
+  <span class="av av--xl" style="--h:var(--h1)">AL</span>
+  <span class="av av--lg" style="--h:var(--h2)">TO<i class="av__dot"></i></span>
+  <span class="av" style="--h:var(--h3)">MK<i class="av__dot"></i></span>
+  <span class="av av--sm" style="--h:var(--h4)">JB</span>
+  <span class="avstack"><span class="av" style="--h:var(--h1)">AL</span><span class="av" style="--h:var(--h2)">TO</span><span class="av" style="--h:var(--h5)">+1</span></span>
+</div>
+<script>
+Halvo.motion.pop(document.querySelectorAll('.hv-stage > .av, .avstack .av'), { stagger: .05 });
+</script>
+</body>
+</html>

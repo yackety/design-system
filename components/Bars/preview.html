@@ -1,0 +1,24 @@
+<!-- @dsCard group="Data" height=270 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Bars</title></head>
+<body>
+<div class="hv-stage"><section class="card">
+  <div class="chead"><div class="chead__text"><h3>Energy by hour</h3><p>Today · peak at 19:00</p></div><button class="btn btn--sm btn--ghost" data-replay><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Replay</button></div>
+  <div class="bars" style="height:170px">
+    <div class="bars__grid"><div><span>2 kW</span></div><div><span>1 kW</span></div><div><span>0</span></div></div>
+    <div class="bars__cols" id="cols"></div>
+  </div>
+</section></div>
+<script>
+var M = Halvo.motion, cols = document.getElementById('cols');
+[['07', .35], ['09', .5], ['11', .3], ['13', .42], ['15', .28], ['17', .6], ['19', .92], ['21', .7], ['23', .38]].forEach(function (d) {
+  var c = document.createElement('div'); c.className = 'bars__col' + (d[0] === '19' ? ' is-hi' : '');
+  c.innerHTML = '<div class="bars__track"><i class="bars__ghost"></i><i class="bars__bar" style="height:' + d[1] * 100 + '%"></i></div><span class="bars__label">' + d[0] + '</span>';
+  cols.appendChild(c);
+});
+function play() { M.grow(cols.querySelectorAll('.bars__bar')); }
+document.querySelector('[data-replay]').onclick = play; play();
+</script>
+</body>
+</html>

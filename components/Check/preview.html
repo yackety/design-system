@@ -1,0 +1,15 @@
+<!-- @dsCard group="Inputs" height=140 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Check</title></head>
+<body>
+<div class="hv-stage"><div class="card hv-col" style="gap:10px">
+  <label class="hv-row" style="gap:10px"><button class="check" role="checkbox" aria-checked="true" aria-label="Lock all doors"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></button><span>Lock all doors</span></label>
+  <label class="hv-row" style="gap:10px"><button class="check" role="checkbox" aria-checked="true" aria-label="Lights off"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></button><span>Turn every light off</span></label>
+  <label class="hv-row" style="gap:10px"><button class="check" role="checkbox" aria-checked="false" aria-label="Heating"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></button><span>Drop heating to 16°</span></label>
+</div></div>
+<script>
+document.querySelectorAll('.check').forEach(function (c) { c.onclick = function (e) { e.preventDefault(); var on = c.getAttribute('aria-checked') !== 'true'; c.setAttribute('aria-checked', on); if (on) Halvo.motion.nudge(c); }; });
+</script>
+</body>
+</html>

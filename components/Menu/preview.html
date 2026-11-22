@@ -1,0 +1,30 @@
+<!-- @dsCard group="Overlays" height=300 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Menu</title></head>
+<body>
+<div class="hv-stage" style="min-height:270px">
+  <div style="position:relative;display:inline-block">
+    <button class="btn btn--primary" id="open" aria-haspopup="menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/> <path d="M12 5v14"/></svg>New</button>
+    <div class="pop" id="menu" role="menu" style="position:absolute;top:50px;left:0" hidden>
+      <div class="menu__label">Create</div>
+      <button class="menu__item" role="menuitem"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/> <path d="M20 3v4"/> <path d="M22 5h-4"/> <path d="M4 17v2"/> <path d="M5 18H3"/></svg>Scene<span class="kbd">S</span></button>
+      <button class="menu__item" role="menuitem"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v8"/> <path d="m4.93 10.93 1.41 1.41"/> <path d="M2 18h2"/> <path d="M20 18h2"/> <path d="m19.07 10.93-1.41 1.41"/> <path d="M22 22H2"/> <path d="m8 6 4-4 4 4"/> <path d="M16 18a4 4 0 0 0-8 0"/></svg>Routine<span class="kbd">R</span></button>
+      <button class="menu__item" role="menuitem"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/> <path d="M9 8V2"/> <path d="M15 8V2"/> <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>Device<span class="kbd">D</span></button>
+      <div class="menu__sep"></div>
+      <button class="menu__item" role="menuitem"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/> <circle cx="9" cy="7" r="4"/> <path d="M22 21v-2a4 4 0 0 0-3-3.87"/> <path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Invite a guest</button>
+      <button class="menu__item menu__item--danger" role="menuitem"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/> <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/> <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/> <line x1="10" x2="10" y1="11" y2="17"/> <line x1="14" x2="14" y1="11" y2="17"/></svg>Clear history</button>
+    </div>
+  </div>
+</div>
+<script>
+var M = Halvo.motion, b = document.getElementById('open'), m = document.getElementById('menu');
+function show() { m.hidden = false; b.setAttribute('aria-expanded', 'true'); M.popIn(m, '40px 0%'); M.slide(m.querySelectorAll('.menu__item'), { y: 6, stagger: .02 }); }
+function hide() { m.hidden = true; b.setAttribute('aria-expanded', 'false'); }
+b.onclick = function (e) { e.stopPropagation(); m.hidden ? show() : hide(); };
+m.onclick = function (e) { e.stopPropagation(); if (e.target.closest('.menu__item')) hide(); };
+document.addEventListener('click', hide); document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+show();
+</script>
+</body>
+</html>
