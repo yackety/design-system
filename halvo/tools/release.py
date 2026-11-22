@@ -187,8 +187,9 @@ def bump(kind, git=True, force=False):
     if git:
         tag = '%s@%s' % (SYSTEM, new)
         # stage and commit only this design system's folder: the repo holds several systems
-        subprocess.run(['git', '-C', ROOT, 'add', '-A', '--', '.'], check=True)
-        subprocess.run(['git', '-C', ROOT, 'commit', '-q', '-m', 'release(%s): %s' % (SYSTEM, new), '--', '.'], check=True)
+        paths = ['.'] + ([os.path.relpath(tarball, ROOT)] if tarball else [])
+        subprocess.run(['git', '-C', ROOT, 'add', '-A', '--'] + paths, check=True)
+        subprocess.run(['git', '-C', ROOT, 'commit', '-q', '-m', 'release(%s): %s' % (SYSTEM, new), '--'] + paths, check=True)
         subprocess.run(['git', '-C', ROOT, 'tag', '-a', tag, '-m', '%s %s' % (SYSTEM, new)], check=True)
         print('committed and tagged %s' % tag)
     else:
