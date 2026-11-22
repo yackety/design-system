@@ -1,5 +1,4 @@
-# generated locally by tools/build_demo.py
-demo/
-__pycache__/
 node_modules/
-*.tgz
+__pycache__/
+.DS_Store
+Thumbs.db

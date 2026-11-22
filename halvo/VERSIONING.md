@@ -24,14 +24,15 @@ When unsure between two, choose the larger one.
 ```
 # 1. make the change, then describe it in CHANGELOG.md under "## [Unreleased]"
 python tools/release.py check          # what changed in the public surface?
-python tools/release.py minor          # or patch / major: bumps, builds dist/, snapshots, commits, tags vX.Y.Z
+python tools/release.py minor          # or patch / major: bumps, builds dist/, snapshots, packs releases/*.tgz,
+                                       # commits this folder and tags halvo@X.Y.Z
 ```
 
 Then publish the design-system artifact so the brand book matches.
 
 ## Using a version in a project
 
-- **Pin an exact version** (a git tag such as `v1.2.0`, or a copied `dist/` folder named with its version). Never track `main`.
+- **Pin an exact version**: install `releases/halvo-design-system-1.2.0.tgz` (or `@halvo/design-system@1.2.0` from a registry). Never point a project at the working folder or at `main`.
 - **Upgrading within the same major** (1.2 → 1.5) is safe: read the changelog for visual changes and deprecations, then fix deprecation warnings before the next major.
 - **Upgrading across a major** (1.x → 2.0): read every *Breaking* entry; each one says what to change.
 - Check what you are running: `Halvo.version` in the browser console, or the banner at the top of each `dist/` file.

@@ -1,0 +1,5 @@
+# generated locally by tools/build_demo.py
+demo/
+__pycache__/
+node_modules/
+*.tgz

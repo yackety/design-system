@@ -3,8 +3,10 @@
 Run from the halvo folder:
   python tools/release.py build                 rebuild dist/ (and tailwind/) at the current version
   python tools/release.py check                 compare the public surface with the last release
-  python tools/release.py patch|minor|major     check -> bump -> build -> snapshot -> changelog -> git commit + tag
+  python tools/release.py patch|minor|major     check -> bump -> build -> snapshot -> changelog -> npm pack
+                                                -> commit this folder + tag halvo@X.Y.Z
       --no-git    do everything except the commit and tag
+  Packages land in ../releases/<name>-<version>.tgz; projects install those (or a registry copy).
       --force     allow a minor/patch even though something public was removed (don't)
   python tools/release.py snapshot              record the current surface as released (first release only)
 
@@ -21,6 +23,7 @@ import subprocess
 import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+SYSTEM = os.path.basename(ROOT)  # tag prefix: halvo@1.2.0 (one repo, many design systems)
 P = lambda *a: os.path.join(ROOT, *a)
 FONT_RE = re.compile(r'@import url\("https://fonts\.googleapis\.com/[^"]+"\);\s*')
 
@@ -180,13 +183,30 @@ def bump(kind, git=True, force=False):
     write('CHANGELOG.md', cl)
     build()
     snapshot()
+    tarball = pack()
     if git:
-        subprocess.run(['git', '-C', ROOT, 'add', '-A'], check=True)
-        subprocess.run(['git', '-C', ROOT, 'commit', '-q', '-m', 'release: v%s' % new], check=True)
-        subprocess.run(['git', '-C', ROOT, 'tag', '-a', 'v%s' % new, '-m', 'Halvo v%s' % new], check=True)
-        print('committed and tagged v%s' % new)
+        tag = '%s@%s' % (SYSTEM, new)
+        # stage and commit only this design system's folder: the repo holds several systems
+        subprocess.run(['git', '-C', ROOT, 'add', '-A', '--', '.'], check=True)
+        subprocess.run(['git', '-C', ROOT, 'commit', '-q', '-m', 'release(%s): %s' % (SYSTEM, new), '--', '.'], check=True)
+        subprocess.run(['git', '-C', ROOT, 'tag', '-a', tag, '-m', '%s %s' % (SYSTEM, new)], check=True)
+        print('committed and tagged %s' % tag)
     else:
-        print('v%s ready (not committed)' % new)
+        print('%s %s ready (not committed)' % (SYSTEM, new))
+    if tarball:
+        print('package: %s' % tarball)
+
+
+def pack():
+    """npm pack this system into <repo>/releases/, the file projects install from (npm can't install a git subfolder)."""
+    dest = os.path.join(os.path.dirname(ROOT), 'releases')
+    os.makedirs(dest, exist_ok=True)
+    try:
+        out = subprocess.run('npm pack --silent --pack-destination "%s"' % dest, cwd=ROOT, shell=True, check=True, capture_output=True, text=True).stdout.strip().splitlines()
+        return os.path.join(dest, out[-1]) if out else None
+    except (OSError, subprocess.CalledProcessError) as e:
+        print('npm pack failed (%s): the release is fine, build the package later with `npm pack`' % e)
+        return None
 
 
 if __name__ == '__main__':
