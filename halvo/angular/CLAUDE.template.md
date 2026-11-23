@@ -4,7 +4,7 @@ This app's UI is built with **Halvo**: `@halvo/design-system` (tokens, CSS compo
 `@halvo/angular` (directives + `HalvoService`). Both packages are installed from `.tgz` files in
 `D:\workspace\design-system\releases` and always share one version. Their docs ship inside the packages.
 
-**Pinned Halvo major: 1.x** (1.1.1 at the time of writing). Never move to a new major unless asked.
+**Pinned Halvo major: 1.x** (1.2.0 at the time of writing). Never move to a new major unless asked.
 
 ## 1. Bootstrap (only if this folder has no `angular.json` yet)
 
@@ -29,10 +29,13 @@ Do these steps in order and stop to report if one fails.
    Never `import` halvo.js in TypeScript; it is loaded only through `"scripts"`.
 4. `src/index.html`: `<html lang="vi" data-theme="dark">` (theme `light` is the other option).
 5. Replace the starter template in `src/app/app.html` (and empty `src/app/app.css`) with the page shell below, and set the
-   root component's `imports` to `[RouterOutlet, RouterLink, RouterLinkActive, ...HALVO_DIRECTIVES]`
-   (`import { HALVO_DIRECTIVES } from '@halvo/angular';`).
+   root component's `imports` to `[RouterOutlet, RouterLink, RouterLinkActive, ...HALVO_DIRECTIVES, HalvoRouteTransitionDirective]`
+   (`import { HALVO_DIRECTIVES } from '@halvo/angular';` and `import { HalvoRouteTransitionDirective } from '@halvo/angular/router';`).
+   In `src/app/app.routes.ts` wrap the routes: `export const routes: Routes = withHalvoTransitions([...]);`
+   (`import { withHalvoTransitions } from '@halvo/angular/router';`) so pages swap with Halvo's transition.
 6. Verify: `npx ng build` finishes without errors, then run `npx ng serve` and open the page: Be Vietnam Pro font,
-   dark glass surfaces, the tabs pill slides when clicked. Report what you checked.
+   dark glass surfaces, the nav pill slides when clicked, and switching pages slides the page and rises its cards.
+   Report what you checked.
 
 ## 2. Read before building any UI
 
@@ -49,8 +52,10 @@ Do these steps in order and stop to report if one fails.
 - Use the directives from `HALVO_DIRECTIVES`:
   - `halvoSelect` on **every** `<select>` (never a bare native dropdown); it works with `formControlName` / `ngModel`.
   - `halvoPill` on `.tabs`, `.seg`, `.snav`, `.tabbar`; mark the active item with `aria-current="page"` (router: `routerLinkActive ariaCurrentWhenActive="page"`).
-  - `halvoDial` for temperatures, `halvoMotion` for entrances, `halvoCount` for changing numbers, `halvoLift` on clickable tiles,
-    `halvoMagnetic` on the one primary action.
+  - `halvoDial` for temperatures, `halvoCount` for changing numbers, `halvoLift` on clickable tiles, `halvoMagnetic` on the one primary action.
+  - Page entrances come from the route transition (`halvoRouteTransition` + `withHalvoTransitions`): every new route gets one; it rises the
+    page's `.card` / `.kpi` / `.tile` elements, so don't add `halvoMotion="rise"` to those. Use `halvoMotion` only for content that appears
+    later (inside an `@if` after data loads) or for `split` headings.
 - Any Halvo call you write yourself goes through `HalvoService` (`inject(HalvoService)`, then `halvo.run(h => h.motion.rise(...))`).
 - Icons: Lucide line icons as inline SVG with `class="ico"` (`ico--sm` for 16px). 40 are shipped in
   `node_modules/@halvo/design-system/icons/`; for others use the `lucide-angular` package with `class="ico"`. No emoji, no icon fonts.
@@ -72,14 +77,19 @@ Do these steps in order and stop to report if one fails.
         <span class="snav__label">Tổng quan</span></a>
     </nav>
   </aside>
-  <main style="min-width:0;display:flex;flex-direction:column;gap:var(--gap)">
-    <header class="phead">
-      <div class="phead__text"><h1 halvoMotion="split">Chào buổi tối</h1><p>Một câu tóm tắt tình trạng.</p></div>
-    </header>
-    <div class="kpis" halvoMotion="rise"><!-- .kpi tiles --></div>
+  <main halvoRouteTransition style="min-width:0">
     <router-outlet />
   </main>
 </div>
+```
+
+Each routed page starts with its own page head and content:
+
+```html
+<header class="phead">
+  <div class="phead__text"><h1>Tổng quan</h1><p>Một câu tóm tắt tình trạng.</p></div>
+</header>
+<div class="kpis" style="margin-top:var(--gap)"><!-- .kpi tiles --></div>
 ```
 
 ## 5. Upgrading Halvo

@@ -1,5 +1,5 @@
 {
- "version": "1.1.1",
+ "version": "1.2.0",
  "surface": {
   "tokens": [
    "backdrop:blur",
@@ -347,7 +347,10 @@
    "motion.modalIn",
    "motion.modalOut",
    "motion.nudge",
+   "motion.pageIn",
    "motion.pageLeave",
+   "motion.pageOut",
+   "motion.pageReset",
    "motion.pill",
    "motion.pop",
    "motion.popIn",
@@ -401,6 +404,11 @@
    "HalvoPillDirective.input:pillIndicator",
    "HalvoPillDirective.input:pillRadius",
    "HalvoPillDirective.update()",
+   "HalvoRouteTransitionDirective.input:transitionCards",
+   "HalvoRouteTransitionDirective.input:transitionDepth",
+   "HalvoRouteTransitions.attach()",
+   "HalvoRouteTransitions.detach()",
+   "HalvoRouteTransitions.leave()",
    "HalvoSelectDirective.close()",
    "HalvoSelectDirective.open()",
    "HalvoSelectDirective.refresh()",
@@ -425,12 +433,17 @@
    "export:HalvoSelectDirective",
    "export:HalvoService",
    "export:HalvoTheme",
+   "export:router/HalvoRouteTransitionDirective",
+   "export:router/HalvoRouteTransitions",
+   "export:router/halvoLeaveGuard",
+   "export:router/withHalvoTransitions",
    "selector:[halvoCount]",
    "selector:[halvoDial]",
    "selector:[halvoLift]",
    "selector:[halvoMagnetic]",
    "selector:[halvoMotion]",
    "selector:[halvoPill]",
+   "selector:[halvoRouteTransition]",
    "selector:select[halvoSelect]"
   ]
  }

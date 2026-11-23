@@ -13,7 +13,7 @@ Copy `angular/CLAUDE.template.md` (in the design-system repo) into an empty fold
 ## Install
 
 ```
-npm i D:/workspace/design-system/releases/halvo-design-system-1.1.1.tgz D:/workspace/design-system/releases/halvo-angular-1.1.1.tgz
+npm i D:/workspace/design-system/releases/halvo-design-system-1.2.0.tgz D:/workspace/design-system/releases/halvo-angular-1.2.0.tgz
 ```
 
 In `angular.json` → `projects › <app> › architect › build › options`:
@@ -71,6 +71,39 @@ export class RoomsComponent {
 
 <div halvoDial formControlName="target" [indoor]="indoor()" [mode]="mode()" class="dial--md"></div>
 ```
+
+### Page transitions (router)
+
+Halvo's page swap between routes lives in the secondary entry `@halvo/angular/router` (only apps that use `@angular/router` import it):
+
+1. On leaving, the visible cards sink and fade, the page head and tabs fade up, and the page slides 16px against the direction of travel (≈0.18s; the route waits for it, at most 400ms).
+2. The new page slides in from 26px on the side it comes from (0.7s), its page head and tabs fade in, and its cards rise one after another.
+
+Direction comes from the order of the links in your side nav / tab bar: going down the menu slides left, going up slides right; the browser's back button slides right.
+
+```ts
+// app.routes.ts
+import { withHalvoTransitions } from '@halvo/angular/router';
+export const routes: Routes = withHalvoTransitions([
+  { path: '', component: OverviewPage },
+  { path: 'rooms', component: RoomsPage },
+]);
+```
+
+```html
+<!-- app.html: the element that holds the outlet -->
+<main halvoRouteTransition><router-outlet /></main>
+```
+
+```ts
+// root component
+imports: [RouterOutlet, RouterLink, RouterLinkActive, ...HALVO_DIRECTIVES, HalvoRouteTransitionDirective]
+```
+
+- `transitionDepth` (default 1): how many URL segments name a page. `/rooms/living → /rooms/kitchen` stays on the same page and doesn't swap.
+- `transitionCards` (default true): the transition rises the new page's `.card`, `.kpi`, `.tile` and `[data-lift]` elements. Don't also put `halvoMotion="rise"` on those grids, or set `[transitionCards]="false"` and keep your own.
+- Without `withHalvoTransitions` you still get the entrance, just not the exit. Wrap lazily loaded child routes (`loadChildren`) with it too.
+- Cards that appear later (after data loads) aren't part of the swap: give them `halvoMotion="rise"` inside the `@if` that renders them.
 
 ### HalvoService
 

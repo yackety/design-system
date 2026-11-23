@@ -161,11 +161,14 @@ def surface():
 def angular_surface():
     """Exported names, directive selectors, inputs, outputs and public methods of @halvo/angular."""
     names = set()
-    for f in sorted(os.listdir(P('angular', 'src', 'lib'))):
-        if not f.endswith('.ts') or f == 'halvo-api.ts':
-            continue
-        src = read('angular/src/lib/' + f)
-        names |= {'export:' + n for n in re.findall(r'^export (?:class|function|const|type|interface) (\w+)', src, re.M)}
+    sources = [('', 'angular/src/lib/')]
+    if os.path.isdir(P('angular', 'router', 'src')):
+        sources.append(('router/', 'angular/router/src/'))  # secondary entry point @halvo/angular/router
+    files = [(prefix, d + f) for prefix, d in sources for f in sorted(os.listdir(P(*d.strip('/').split('/'))))
+             if f.endswith('.ts') and f not in ('halvo-api.ts', 'public-api.ts')]
+    for prefix, path in files:
+        src = read(path)
+        names |= {'export:' + prefix + n for n in re.findall(r'^export (?:class|function|const|type|interface) (\w+)', src, re.M)}
         for part in re.split(r'(?=^@(?:Directive|Injectable|Component)\()', src, flags=re.M)[1:]:
             cls = re.search(r'export class (\w+)', part)
             if not cls:

@@ -6,6 +6,13 @@ Write changes under **Unreleased** as you make them, grouped as *Breaking*, *Add
 
 ## [Unreleased]
 
+## [1.2.0] — 2026-11-23
+
+### Added
+- **Page transitions between routes**, as in the original Halvo: the old page's cards sink and the page slides out, then the new page slides in from the side it comes from and its cards rise.
+  - Core: `Halvo.motion.pageOut(container, {direction})`, `pageIn(container, {direction, cards})`, `pageReset(container)` (framework-free).
+  - Angular: new entry point `@halvo/angular/router` with `HalvoRouteTransitionDirective` (`halvoRouteTransition` on the element around `<router-outlet>`), `withHalvoTransitions(routes)`, `halvoLeaveGuard` and `HalvoRouteTransitions`. `@angular/router` is an optional peer dependency, needed only for this entry point.
+
 ## [1.1.1] — 2026-11-22
 
 ### Fixed

@@ -53,6 +53,12 @@ export interface MotionProps {
   finderIn(el: Element, items: Targets): Promise<void>; finderOut(el: Element): Promise<void>;
   toastIn(el: Element): Promise<void>; toastOut(el: Element): Promise<void>;
   pageLeave(cards: Targets): Promise<void>;
+  /** Page swap out: cards sink, page head/tabs fade, container slides 16px against `direction`. Held until pageIn/pageReset. */
+  pageOut(container: Element, opts?: { direction?: 1 | -1 }): Promise<void>;
+  /** Page swap in: container slides from 26px, page head/tabs fade in, top-level cards rise (unless cards: false). */
+  pageIn(container: Element, opts?: { direction?: 1 | -1; cards?: boolean }): Promise<void>;
+  /** Cancels a pageOut that won't be followed by a new page. */
+  pageReset(container: Element): void;
   themeSwap(button: Element | null, apply: () => void): Promise<void>;
 
   gridPop(cells: Targets, cols: number, opts?: { each?: number; delay?: number }): Promise<void>;

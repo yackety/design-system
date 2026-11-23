@@ -24,6 +24,7 @@ The source animates with GSAP; `bundle.js` ports every move to the Web Animation
 | `ring(bell, badge)` | New notification | rotate `0,16,-14,10,-6,0` from 50% 10%, 0.8s; badge `scale .4 → 1` |
 | `magnetic(root)` | The one primary action in the top bar (`.magnetic`) | follows the pointer 20% x / 28% y, 0.5s `power3.out` |
 | `lift(root)` | `[data-lift]` tiles | `y -4` on hover, 0.45s in / 0.5s out |
+| `pageOut(container, {direction})` / `pageIn(container, {direction, cards})` | Switching pages | out: visible cards sink 8px (0.135s), page head/tabs lift 6px, the page slides 16px against the direction (0.18s `power2.in`); in: the page slides from 26px (0.7s `expo.out`), page head/tabs fade in, cards rise 50ms apart. `pageReset` undoes an out |
 | `pill(indicator, target)` | Tabs, segmented, side nav, tab bar | clip-path inset morph: leading edge 0.36s `power3.out`, trailing 0.55s `power3.inOut`, cross axis 0.45s; re-measures on resize |
 | `gridPop(cells, cols)` | Heatmap cells | `scale 0 → 1`, 0.6s `back.out(2.2)`, 12ms per cell of distance from the top-left |
 

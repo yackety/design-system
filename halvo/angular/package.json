@@ -1,6 +1,6 @@
 {
   "name": "@halvo/angular",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Angular directives and a typed service for the Halvo design system.",
   "private": true,
   "license": "UNLICENSED",
@@ -9,7 +9,8 @@
     "@angular/common": ">=17.3.0",
     "@angular/core": ">=17.3.0",
     "@angular/forms": ">=17.3.0",
-    "@halvo/design-system": "^1.1.0",
+    "@angular/router": ">=17.3.0",
+    "@halvo/design-system": "^1.2.0",
     "rxjs": ">=7.4.0"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "@angular/core": "17.3.12",
     "@angular/forms": "17.3.12",
     "@angular/platform-browser": "17.3.12",
+    "@angular/router": "17.3.12",
     "ng-packagr": "17.3.0",
     "rxjs": "7.8.1",
     "typescript": "5.4.5",
@@ -29,5 +31,10 @@
   },
   "scripts": {
     "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json"
+  },
+  "peerDependenciesMeta": {
+    "@angular/router": {
+      "optional": true
+    }
   }
 }
