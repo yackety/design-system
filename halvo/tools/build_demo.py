@@ -49,7 +49,7 @@ order = [c['name'] for c in json.loads(m.group(1))['components']] if m else []
 folders = sorted(os.path.basename(os.path.dirname(p)) for p in glob.glob(os.path.join(root, 'components', '*', 'preview.html')))
 names = [n for n in ['Cover'] + order if n in folders] + [n for n in folders if n not in order and n != 'Cover']
 
-HEAD = ('<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="../components/bundle.css">'
+HEAD = ('<meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="../components/bundle.css">'
         '<script src="../components/bundle.js"></script>'
         '<script>try{var t=new URLSearchParams(location.search).get("theme")||localStorage.getItem("halvo-demo-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>')
 cards = []

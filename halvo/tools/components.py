@@ -334,14 +334,15 @@ The floating glass sidebar: app mark, grouped page links with a sliding highligh
 
 **Provide** `.side` (glass) > `.brand` (`.mark` + `.brand__text`) and `.snav` holding `<span class="snav__pill">` then `.snav__sec` groups (`.snav__group` label + `.snav__item` links with a 20px icon, `.snav__label`, optional `.snav__count`). Current item: `aria-current="page"`. Move the highlight with `Halvo.motion.pill(pill, item, {radius: 14})`.
 
-- Panel: fixed at `inset` from the edges, width `side` (256px) or `side-rail` (84px, labels hidden, counts become 8px dots), radius `r-xl`, padding 16 12 12.
+- Panel: sticks at `inset` from the top and is at most the viewport height minus 2 × `inset`; width `side` (256px) or `side-rail` (84px, labels hidden, counts become 8px dots), radius `r-xl`, padding 16 12 12. Hidden below 761px, where the TabBar takes over.
+- A long menu scrolls inside `.snav` (no visible scrollbar); the highlight moves with the items and covers the whole scroll area.
 - Item: 42px, radius 14, padding-left 20, `fs-md` 600 `ink-2`; icon `muted`, current icon `accent-text`. Highlight: `glass-3` + rim (dark 13% white).
 - Counts: `warn` on `warn-soft`, 20px pill.
 - Mark: 40px tile, radius 13, gradient 160° `accent-hi` → `accent`, `accent-ink` glyph, `glow` shadow.
 - Motion (boot): panel slides in from x −40 (0.9s `expo.out`), then the brand, groups and items from x −12 with 25ms stagger (0.5s `power3.out`), the highlight scales in from 0.4 on x.
 """, doc('Navigation', 470, 'SideNav', """
-<div class="hv-stage" style="display:flex;gap:16px;align-items:flex-start">
-  <aside class="side glass" id="side">
+<div class="hv-stage hv-demo" style="display:flex;gap:16px;align-items:flex-start">
+  <aside class="side glass" id="side" style="max-height:440px">
     <div class="brand"><span class="mark">@@home@@</span><span class="brand__text"><b>Halvo</b><small>Larch House</small></span></div>
     <nav class="snav" id="snav"><span class="snav__pill"></span>
       <div class="snav__sec"><span class="snav__group">Home</span>
@@ -353,6 +354,10 @@ The floating glass sidebar: app mark, grouped page links with a sliding highligh
         <button class="snav__item">@@bolt@@<span class="snav__label">Energy</span></button>
         <button class="snav__item">@@shield@@<span class="snav__label">Security</span></button>
         <button class="snav__item">@@music@@<span class="snav__label">Media</span></button></div>
+      <div class="snav__sec"><span class="snav__group">More</span>
+        <button class="snav__item">@@auto@@<span class="snav__label">Automations</span></button>
+        <button class="snav__item">@@users@@<span class="snav__label">Family</span></button>
+        <button class="snav__item">@@gear@@<span class="snav__label">Settings</span></button></div>
     </nav>
   </aside>
   <div>""" + REPLAY + """</div>
@@ -410,11 +415,18 @@ A 44×26 on/off toggle; on is solid teal with a glow, the white knob springs 18p
 - Knob: 20px white, 3px inset, `0 2px 5px #0000004d`.
 - Motion: knob travel 0.45s `back.out(2.2)` — a little overshoot, then rest.
 - Settings lists use `.row-set`: title `b` 600, `small` `muted` `fs-sm`, 14px padding, `line` dividers.
-""", doc('Inputs', 200, 'Switch', """
-<div class="hv-stage"><div class="card" style="padding-top:4px;padding-bottom:4px">
+- Group related rows in a `.row-group`: a `glass-2` frame (radius `r-md`, padding 2px 16px, `line` outline) that gives the rows their side padding; stack groups `gap` apart, each under a `.section-label`. (Intentional addition: the source only has bare `.row-set` lists.)
+""", doc('Inputs', 330, 'Switch', """
+<div class="hv-stage"><div class="card">
+  <div class="section-label">Arrival</div>
+  <div class="row-group">
   <div class="row-set"><div class="row-set__text"><b>Arrival lights</b><small>Hall and porch come on when someone gets home after dark.</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Arrival lights"><i></i></button></div>
   <div class="row-set"><div class="row-set__text"><b>Quiet hours</b><small>No chimes or speaker alerts 22:00–07:00.</small></div><button class="switch" role="switch" aria-checked="false" aria-label="Quiet hours"><i></i></button></div>
+  </div>
+  <div class="section-label">Comfort</div>
+  <div class="row-group">
   <div class="row-set"><div class="row-set__text"><b>Eco heating</b><small>Lets rooms drift 1° when nobody is in.</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Eco heating"><i></i></button></div>
+  </div>
 </div></div>""", """
 document.querySelectorAll('.switch').forEach(function (s) { s.onclick = function () { s.setAttribute('aria-checked', s.getAttribute('aria-checked') !== 'true'); Halvo.motion.switchKnob(s); }; });
 """))
@@ -619,23 +631,24 @@ C['Modal'] = ("""
 
 A centred glass dialog for short, focused tasks; it grows out of the control that opened it.
 
-**Provide** a `.scrim` and a `.modal` (`role="dialog" aria-modal="true"` with a label) holding `.modal__head` (h2 `fs-2xl` 700 + `p` `muted`, close `ibtn--flat`), `.modal__body`, `.modal__foot` (ghost cancel + primary). `modal--wide` is 760px. Trap focus; Escape closes.
+**Provide** a `.scrim` and a `.modal-wrap` (the fixed layer that centres it) holding the `.modal` (`role="dialog" aria-modal="true"` with a label, a `.sheet__grip` first for phones) holding `.modal__head` (h2 `fs-2xl` 700 + `p` `muted`, close `ibtn--flat`), `.modal__body`, `.modal__foot` (ghost cancel + primary). `modal--wide` is 760px. Trap focus; Escape closes.
 
 - `glass-strong` + `blur-overlay` + rims + `shadow-lg`, radius `r-xl`, width ≤520. Scrim: light `#14120e47`, dark `#00000080`.
-- On phones it becomes a bottom sheet (radius 26 26 0 0, ≤92dvh) with a grip.
+- On phones (≤760px) `.modal-wrap` drops it to the bottom as a sheet (radius 26 26 0 0, ≤92dvh) with the grip, and `modalIn` / `modalOut` play the sheet motion.
 - Motion: scrim fades 0.3s; dialog `modalIn` from 0.86 with transform-origin at the trigger, 0.5s `back.out(1.5)`; out to 0.94 in 0.2s `power2.in`. Sheets use `sheetIn/Out`.
 """, doc('Overlays', 400, 'Modal', """
-<div class="hv-stage" style="min-height:370px;display:grid;place-items:center">
+<div class="hv-stage hv-demo" style="min-height:370px">
   <button class="btn btn--primary" id="open" style="position:absolute;top:20px;left:20px">@@plus@@Add a device</button>
   <div class="scrim" id="scrim" hidden></div>
-  <div class="modal" id="dlg" role="dialog" aria-modal="true" aria-labelledby="mt" hidden>
+  <div class="modal-wrap"><div class="modal" id="dlg" role="dialog" aria-modal="true" aria-labelledby="mt" hidden>
+    <div class="sheet__grip"><i></i></div>
     <div class="modal__head"><div style="flex:1"><h2 id="mt">Add a device</h2><p>Put it in pairing mode, then pick it below.</p></div><button class="ibtn ibtn--flat ibtn--sm" aria-label="Close" data-close>@@x|ico ico--sm@@</button></div>
     <div class="modal__body"><div class="hv-col" style="gap:6px">
       <div class="well" style="padding:10px 12px;display:flex;gap:12px;align-items:center"><span class="finder__ico">@@bulb@@</span><div class="cell__text"><b>Lumvik bulb E27</b><small>Found 2 seconds ago · strong signal</small></div><span class="pill pill--accent">New</span></div>
       <div class="well" style="padding:10px 12px;display:flex;gap:12px;align-items:center"><span class="finder__ico">@@plug@@</span><div class="cell__text"><b>Smart plug mini</b><small>Found 6 seconds ago</small></div></div>
     </div></div>
     <div class="modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" data-close>Add 2 devices</button></div>
-  </div>
+  </div></div>
 </div>""", """
 var M = Halvo.motion, s = document.getElementById('scrim'), d = document.getElementById('dlg'), o = document.getElementById('open');
 function open() {
@@ -657,14 +670,15 @@ A tall glass panel that slides in from the right for detail and editing (a devic
 
 **Provide** `.scrim` + `.drawer` (`role="dialog"`) with `.drawer__head` (h2 `fs-3xl` 700, `p` `muted`, close), `.drawer__body` (scrolls), `.drawer__foot`. Inside, device facts use `.facts` tiles and controls use `.row-set`.
 
-- Floats 12px from the top, right and bottom; width ≤460; radius `r-xl`; overlay glass recipe. Head and foot separated by `line`.
-- On phones it becomes a bottom sheet (full width, ≤92dvh, radius 26 26 0 0).
-- Motion: `drawerIn` — x 104% → 0 in 0.6s `expo.out`, scrim 0.3s, body rows `slide` in after; out 0.32s `power3.in`.
+- Fixed 12px from the top, right and bottom of the viewport; width ≤460; radius `r-xl`; overlay glass recipe. Head and foot separated by `line`.
+- On phones (≤760px) Halvo's CSS turns it into a bottom sheet (full width, ≤92dvh, radius 26 26 0 0); put a `<div class="sheet__grip"><i></i></div>` first inside it (hidden on larger screens).
+- Motion: `drawerIn` — x 104% → 0 in 0.6s `expo.out`, scrim 0.3s, body rows `slide` in after; out 0.32s `power3.in`. On phones `drawerIn` / `drawerOut` play the sheet motion (up from the bottom) by themselves.
 """, doc('Overlays', 520, 'Drawer', """
-<div class="hv-stage" style="min-height:490px">
+<div class="hv-stage hv-demo" style="min-height:490px">
   <button class="btn" id="open">@@bulb@@Arc floor lamp</button>
   <div class="scrim" id="scrim" hidden></div>
   <aside class="drawer" id="dr" role="dialog" aria-modal="true" aria-labelledby="dt" hidden>
+    <div class="sheet__grip"><i></i></div>
     <div class="drawer__head"><div style="flex:1"><h2 id="dt">Arc floor lamp</h2><p>Living room · Lumvik · on for 3 h 24 min</p></div><button class="ibtn ibtn--flat ibtn--sm" aria-label="Close" data-close>@@x|ico ico--sm@@</button></div>
     <div class="drawer__body">
       <div class="row-set" data-row><div class="row-set__text"><b>Power</b><small>9 W now</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Power"><i></i></button></div>

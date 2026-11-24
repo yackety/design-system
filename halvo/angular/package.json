@@ -1,6 +1,6 @@
 {
   "name": "@halvo/angular",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Angular directives and a typed service for the Halvo design system.",
   "private": true,
   "license": "UNLICENSED",
@@ -10,7 +10,7 @@
     "@angular/core": ">=17.3.0",
     "@angular/forms": ">=17.3.0",
     "@angular/router": ">=17.3.0",
-    "@halvo/design-system": "^1.2.0",
+    "@halvo/design-system": "^1.3.0",
     "rxjs": ">=7.4.0"
   },
   "dependencies": {

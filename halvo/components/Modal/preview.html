@@ -3,17 +3,18 @@
 <html>
 <head><meta charset="utf-8"><title>Modal</title></head>
 <body>
-<div class="hv-stage" style="min-height:370px;display:grid;place-items:center">
+<div class="hv-stage hv-demo" style="min-height:370px">
   <button class="btn btn--primary" id="open" style="position:absolute;top:20px;left:20px"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/> <path d="M12 5v14"/></svg>Add a device</button>
   <div class="scrim" id="scrim" hidden></div>
-  <div class="modal" id="dlg" role="dialog" aria-modal="true" aria-labelledby="mt" hidden>
+  <div class="modal-wrap"><div class="modal" id="dlg" role="dialog" aria-modal="true" aria-labelledby="mt" hidden>
+    <div class="sheet__grip"><i></i></div>
     <div class="modal__head"><div style="flex:1"><h2 id="mt">Add a device</h2><p>Put it in pairing mode, then pick it below.</p></div><button class="ibtn ibtn--flat ibtn--sm" aria-label="Close" data-close><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/> <path d="m6 6 12 12"/></svg></button></div>
     <div class="modal__body"><div class="hv-col" style="gap:6px">
       <div class="well" style="padding:10px 12px;display:flex;gap:12px;align-items:center"><span class="finder__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/> <path d="M9 18h6"/> <path d="M10 22h4"/></svg></span><div class="cell__text"><b>Lumvik bulb E27</b><small>Found 2 seconds ago · strong signal</small></div><span class="pill pill--accent">New</span></div>
       <div class="well" style="padding:10px 12px;display:flex;gap:12px;align-items:center"><span class="finder__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/> <path d="M9 8V2"/> <path d="M15 8V2"/> <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></span><div class="cell__text"><b>Smart plug mini</b><small>Found 6 seconds ago</small></div></div>
     </div></div>
     <div class="modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" data-close>Add 2 devices</button></div>
-  </div>
+  </div></div>
 </div>
 <script>
 var M = Halvo.motion, s = document.getElementById('scrim'), d = document.getElementById('dlg'), o = document.getElementById('open');

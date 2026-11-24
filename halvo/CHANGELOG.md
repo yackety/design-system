@@ -6,6 +6,22 @@ Write changes under **Unreleased** as you make them, grouped as *Breaking*, *Add
 
 ## [Unreleased]
 
+## [1.3.0] — 2026-11-24
+
+### Added
+- **Mobile layout (≤760px)** in the CSS: `.tabbar` is fixed at the bottom (hidden on larger screens) and `.side` hides; `.drawer` and modals become bottom sheets with a `.sheet__grip`; `.toasts` sit above the tab bar. New helpers: `.tabbar-space` (bottom padding so content clears the tab bar), `.modal-wrap` (the fixed layer that centres a modal, or drops it to the bottom on phones), `.modal--wide`, `.toasts` (toast stack).
+- `.row-group`: a framed group of `.row-set` settings rows with its own padding (intentional addition).
+- `.hv-demo`: keeps overlays and the tab bar inside a preview frame (for docs and previews, not apps).
+
+### Changed
+- `.hv-stage` uses `overflow: clip` instead of `hidden`, so `position: sticky` works inside it.
+- `.side` is sticky at `--inset` and never taller than the viewport; `.snav` scrolls when the menu is long (no visible scrollbar).
+- `.drawer` and `.scrim` are `position: fixed` (as in the original Halvo) instead of `absolute`. If you placed a drawer inside a positioned container on purpose, give it `position: absolute` yourself.
+- `Halvo.motion.drawerIn/drawerOut` and `modalIn/modalOut` play the bottom-sheet motion on phones.
+
+### Fixed
+- The sliding pill (`Halvo.motion.pill`, `halvoPill`) now covers the whole scroll area of a scrolling container, so the side-nav highlight stays on the right item after scrolling.
+
 ## [1.2.0] — 2026-11-23
 
 ### Added

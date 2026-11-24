@@ -4,7 +4,7 @@ This app's UI is built with **Halvo**: `@halvo/design-system` (tokens, CSS compo
 `@halvo/angular` (directives + `HalvoService`). Both packages are installed from `.tgz` files in
 `D:\workspace\design-system\releases` and always share one version. Their docs ship inside the packages.
 
-**Pinned Halvo major: 1.x** (1.2.0 at the time of writing). Never move to a new major unless asked.
+**Pinned Halvo major: 1.x** (1.3.0 at the time of writing). Never move to a new major unless asked.
 
 ## 1. Bootstrap (only if this folder has no `angular.json` yet)
 
@@ -61,6 +61,9 @@ Do these steps in order and stop to report if one fails.
   `node_modules/@halvo/design-system/icons/`; for others use the `lucide-angular` package with `class="ico"`. No emoji, no icon fonts.
 - Copy: Vietnamese, sentence case, numbers with smaller units (`1.478 W`, `21,5°`), facts joined by ` · `, status in words.
 - Glass needs a backdrop: a room photo with the veil, or `class="hv-stage"` on the page wrapper when there is no photo.
+- Mobile (≤760px) is handled by Halvo's CSS: add a `.tabbar` (5 `routerLink`s, `halvoPill`, `.tabbar__pill`) next to the side nav and
+  `class="tabbar-space"` on `<main>`; `.side` hides and the tab bar sticks to the bottom by itself. Wrap modals in `.modal-wrap`,
+  start drawers and modals with `<div class="sheet__grip"><i></i></div>`. Group settings rows in `.row-group`. Never add `.hv-demo` in the app.
 - Never edit files in `node_modules`. If Halvo lacks something, build it from tokens in the app and tell the user it could
   become a Halvo component.
 
