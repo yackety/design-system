@@ -58,7 +58,7 @@ Halvo talks like a thoughtful housemate: plain, specific, in full sentences abou
 
 **Focus and states.** Focus is a 2px solid `accent` outline, 2px offset. Inputs focus with an inset 1.5px `accent` ring plus a 4px `accent-soft` halo. Disabled is 45% opacity. Touch targets grow to 44px on coarse pointers.
 
-**Layout.** Floating sidebar + sticky glass top bar + a page head + a 12px-gap grid of cards. At ≤760px the sidebar is replaced by a floating five-item tab bar with a sliding teal pill, dialogs become bottom sheets with a grip, and tables stack.
+**Layout.** Floating sidebar + sticky glass top bar + a page head + a 12px-gap grid of cards. Build the frame with `.hv-shell` (side nav + main column); never hand-write the shell grid. At ≤760px the sidebar is replaced by a floating five-item tab bar with a sliding teal pill, dialogs become bottom sheets with a grip, and tables stack.
 
 ## Motion
 

@@ -6,6 +6,15 @@ Write changes under **Unreleased** as you make them, grouped as *Breaking*, *Add
 
 ## [Unreleased]
 
+## [1.4.0] — 2026-11-24
+
+### Added
+- `.hv-shell`: the app frame (side nav + main column, `gap` apart; one column on phones). Use it instead of a hand-written grid.
+
+### Fixed
+- Uneven side margins on phones: with the side nav hidden, the 1.3.0 page shell (an inline `auto 1fr` grid) left an empty column and gap on the right (20px left vs 38px right at 375px). A compatibility rule now collapses such shells to one column; new pages should use `.hv-shell`.
+- `angular/CLAUDE.template.md` uses `.hv-shell` and includes the mobile tab bar and `tabbar-space` in the page shell.
+
 ## [1.3.0] — 2026-11-24
 
 ### Added

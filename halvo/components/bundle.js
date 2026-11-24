@@ -561,6 +561,6 @@
       selects: function (root) { return list((root || document).querySelectorAll('select[data-hv-select]')).map(select); },
       dial: dial
     },
-    version: '1.3.0'
+    version: '1.4.0'
   };
 })();

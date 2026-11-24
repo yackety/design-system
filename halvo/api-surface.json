@@ -1,5 +1,5 @@
 {
- "version": "1.3.0",
+ "version": "1.4.0",
  "surface": {
   "tokens": [
    "backdrop:blur",
@@ -196,6 +196,7 @@
    "hv-select__native",
    "hv-select__opt",
    "hv-select__value",
+   "hv-shell",
    "hv-stage",
    "ibtn",
    "ibtn--flat",
