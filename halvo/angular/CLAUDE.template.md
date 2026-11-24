@@ -4,7 +4,7 @@ This app's UI is built with **Halvo**: `@halvo/design-system` (tokens, CSS compo
 `@halvo/angular` (directives + `HalvoService`). Both packages are installed from `.tgz` files in
 `D:\workspace\design-system\releases` and always share one version. Their docs ship inside the packages.
 
-**Pinned Halvo major: 1.x** (1.4.0 at the time of writing). Never move to a new major unless asked.
+**Pinned Halvo major: 1.x** (1.4.1 at the time of writing). Never move to a new major unless asked.
 
 ## 1. Bootstrap (only if this folder has no `angular.json` yet)
 
@@ -62,7 +62,8 @@ Do these steps in order and stop to report if one fails.
 - Copy: Vietnamese, sentence case, numbers with smaller units (`1.478 W`, `21,5°`), facts joined by ` · `, status in words.
 - Glass needs a backdrop: a room photo with the veil, or `class="hv-stage"` on the page wrapper when there is no photo.
 - Lay the app out with `.hv-shell` (side nav + main column; one column on phones). Never build the shell grid with inline
-  `grid-template-columns`: it can't follow the mobile layout and leaves uneven side margins.
+  `grid-template-columns`: it can't follow the mobile layout and leaves uneven side margins. Don't set `max-width` on `<main>` either:
+  `.hv-shell` already caps the content at `--max` and centres the frame on wide screens.
 - Mobile (≤760px) is handled by Halvo's CSS: add a `.tabbar` (5 `routerLink`s, `halvoPill`, `.tabbar__pill`) next to the side nav and
   `class="tabbar-space"` on `<main>`; `.side` hides and the tab bar sticks to the bottom by itself. Wrap modals in `.modal-wrap`,
   start drawers and modals with `<div class="sheet__grip"><i></i></div>`. Group settings rows in `.row-group`. Never add `.hv-demo` in the app.

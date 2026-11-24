@@ -13,7 +13,7 @@ Copy `angular/CLAUDE.template.md` (in the design-system repo) into an empty fold
 ## Install
 
 ```
-npm i D:/workspace/design-system/releases/halvo-design-system-1.4.0.tgz D:/workspace/design-system/releases/halvo-angular-1.4.0.tgz
+npm i D:/workspace/design-system/releases/halvo-design-system-1.4.1.tgz D:/workspace/design-system/releases/halvo-angular-1.4.1.tgz
 ```
 
 In `angular.json` → `projects › <app> › architect › build › options`:

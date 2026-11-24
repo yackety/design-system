@@ -6,6 +6,11 @@ Write changes under **Unreleased** as you make them, grouped as *Breaking*, *Add
 
 ## [Unreleased]
 
+## [1.4.1] — 2026-11-24
+
+### Fixed
+- Uneven outer margins on wide screens: when the main column was capped at `--max` (1480px), it sat against the side nav and the leftover width piled up on the right (20px left vs ≈130px right at 1920px). `.hv-shell` now caps the main column itself and centres the whole frame on screens wider than `--side` + `--gap` + `--max`, so both outer margins match (86px / 86px at 1920px). Remove any `max-width` you set on the main column yourself.
+
 ## [1.4.0] — 2026-11-24
 
 ### Added
