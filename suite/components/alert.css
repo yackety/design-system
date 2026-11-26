@@ -1,0 +1,22 @@
+/* ---------- alert, banner ---------- */
+.s-alert {
+  display: flex; gap: var(--space-3); align-items: flex-start;
+  padding: var(--space-3) var(--space-4); border-radius: var(--radius-md);
+  background: var(--info-soft); color: var(--fg); border: 1px solid transparent;
+}
+.s-alert > .s-ico { margin-top: 2px; color: var(--info); }
+.s-alert__title { font-weight: var(--fw-semibold); }
+.s-alert__body { flex: 1; min-width: 0; font-size: var(--fs-sm); color: var(--fg-2); }
+.s-alert--success { background: var(--success-soft); }
+.s-alert--success > .s-ico { color: var(--success); }
+.s-alert--warning { background: var(--warning-soft); }
+.s-alert--warning > .s-ico { color: var(--warning); }
+.s-alert--danger { background: var(--danger-soft); }
+.s-alert--danger > .s-ico { color: var(--danger); }
+
+.s-banner {
+  display: flex; align-items: center; justify-content: center; gap: var(--space-3); flex-wrap: wrap;
+  padding: var(--space-2) var(--space-4); text-align: center;
+  background: var(--warning-soft); color: var(--warning); font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+  border-bottom: 1px solid var(--border);
+}

@@ -5,6 +5,7 @@ One repository, one folder per design system. Each system is versioned and relea
 | System | Folder | Current | What it is |
 | --- | --- | --- | --- |
 | Halvo | [halvo/](halvo/) | see [halvo/CHANGELOG.md](halvo/CHANGELOG.md) | Glass smart-home UI: tokens, CSS components, motion kit, Tailwind presets; Angular package in `halvo/angular/` |
+| Suite | [suite/](suite/) | 0.1.0 (sample) | Business Suite UI: token contract, per-client themes generated from a brand colour with contrast checks, CSS components, Tailwind v4 theme |
 
 ## Layout
 

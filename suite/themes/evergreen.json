@@ -1,0 +1,24 @@
+{
+  "id": "evergreen",
+  "name": "Evergreen (mẫu)",
+  "description": "Theme mẫu cho khách hàng thích phong cách mềm: xanh lá đậm, bo góc lớn, font Inter. Chỉ khai báo màu thương hiệu, phần còn lại được suy ra tự động.",
+  "extends": "default",
+  "density": "comfortable",
+  "brand": {
+    "primary": "#0f7b5f",
+    "accent": "#b45309"
+  },
+  "theme": {
+    "font-sans": "\"Inter\", \"Be Vietnam Pro\", \"Segoe UI\", system-ui, sans-serif",
+    "radius-sm": "6px",
+    "radius-md": "10px",
+    "radius-lg": "16px"
+  },
+  "modes": {
+    "light": {
+      "bg": "#f5f7f4",
+      "surface-2": "#f0f3ef",
+      "surface-3": "#e2e8e1"
+    }
+  }
+}

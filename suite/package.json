@@ -1,0 +1,25 @@
+{
+  "name": "@suite/design-system",
+  "version": "0.1.0",
+  "description": "Suite: design system cho Business Suite — hợp đồng token, theme theo khách hàng, CSS component, Tailwind v4 theme.",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "style": "dist/suite.css",
+  "exports": {
+    "./suite.css": "./dist/suite.css",
+    "./base.css": "./dist/base.css",
+    "./components.css": "./dist/components.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./themes/*": "./dist/themes/*",
+    "./themes.all.css": "./dist/themes.all.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./contract.json": "./tokens/contract.json",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "tokens", "README.md", "CHANGELOG.md"],
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "new-theme": "node tools/build.mjs new-theme"
+  }
+}

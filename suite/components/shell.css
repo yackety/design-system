@@ -1,0 +1,68 @@
+/* ---------- app shell ----------
+   .s-shell > .s-sidebar + .s-main (.s-topbar + .s-content). Below 1024px the sidebar becomes a drawer
+   (toggle .is-open on .s-shell) and, in self-service pages, .s-bottom-nav appears below 768px. */
+.s-shell { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100dvh; }
+.s-sidebar {
+  position: sticky; top: 0; height: 100dvh; overflow-y: auto; z-index: var(--z-sidebar);
+  display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-3);
+  background: var(--surface); border-right: 1px solid var(--border);
+}
+.s-brand { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-2) var(--space-4); font-weight: var(--fw-bold); }
+.s-brand__mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--radius-md); background: var(--primary); color: var(--primary-fg); font-size: var(--fs-sm); }
+.s-nav-group { padding: var(--space-3) var(--space-2) var(--space-1); font-size: 11px; font-weight: var(--fw-bold); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.s-nav-item {
+  display: flex; align-items: center; gap: var(--space-3); min-height: var(--control-h); padding: 0 var(--space-3);
+  border-radius: var(--radius-md); color: var(--fg-2); text-decoration: none; font-weight: var(--fw-medium);
+}
+.s-nav-item:hover { background: var(--surface-2); color: var(--fg); }
+.s-nav-item[aria-current="page"] { background: var(--primary-soft); color: var(--primary-text); font-weight: var(--fw-semibold); }
+.s-nav-item .s-count { margin-left: auto; }
+
+.s-main { min-width: 0; display: flex; flex-direction: column; }
+.s-topbar {
+  position: sticky; top: 0; z-index: var(--z-sticky); height: var(--topbar-h);
+  display: flex; align-items: center; gap: var(--space-3); padding: 0 var(--space-6);
+  background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border); box-shadow: inset 0 3px 0 var(--product);
+}
+.s-topbar__title { font-weight: var(--fw-semibold); font-size: var(--fs-md); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.s-topbar__spacer { flex: 1; }
+.s-menu-toggle { display: none; }
+.s-content { width: 100%; max-width: var(--content-max); margin: 0 auto; padding: var(--space-6); display: flex; flex-direction: column; gap: var(--gap); }
+
+.s-page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+.s-page-head h1 { font-size: var(--fs-2xl); letter-spacing: -0.01em; }
+.s-page-head p { color: var(--muted); margin-top: var(--space-1); }
+.s-breadcrumb { display: flex; gap: var(--space-2); font-size: var(--fs-sm); color: var(--muted); margin-bottom: var(--space-1); flex-wrap: wrap; }
+.s-breadcrumb a { color: inherit; text-decoration: none; }
+.s-breadcrumb a:hover { color: var(--fg); }
+
+.s-bottom-nav { display: none; }
+.s-scrim { display: none; }
+
+@media (max-width: 1023px) {
+  .s-shell { grid-template-columns: minmax(0, 1fr); }
+  .s-sidebar {
+    position: fixed; inset: 0 auto 0 0; width: min(300px, 86vw); z-index: var(--z-dialog);
+    transform: translateX(-100%); transition: transform var(--dur-slow) var(--ease-out); box-shadow: var(--shadow-lg);
+  }
+  .s-shell.is-open .s-sidebar { transform: none; }
+  .s-shell.is-open .s-scrim { display: block; position: fixed; inset: 0; background: var(--overlay); z-index: var(--z-overlay); }
+  .s-menu-toggle { display: inline-flex; }
+  .s-topbar { padding: 0 var(--space-4); }
+  .s-content { padding: var(--space-4); }
+}
+@media (max-width: 767px) {
+  .s-shell--self-service .s-content { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  .s-shell--self-service .s-bottom-nav {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-sticky);
+    padding: var(--space-1) var(--space-2) calc(var(--space-1) + env(safe-area-inset-bottom));
+    background: var(--surface); border-top: 1px solid var(--border);
+  }
+  .s-bottom-nav a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px;
+    color: var(--muted); text-decoration: none; font-size: 11px; font-weight: var(--fw-semibold); border-radius: var(--radius-md);
+  }
+  .s-bottom-nav a[aria-current="page"] { color: var(--primary-text); }
+}

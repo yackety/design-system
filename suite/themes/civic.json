@@ -1,0 +1,25 @@
+{
+  "id": "civic",
+  "name": "Civic (mẫu)",
+  "description": "Theme mẫu cho khách hàng khối hành chính: xanh navy, góc gần vuông, mật độ dày, font Noto Sans, độ tương phản cao.",
+  "extends": "default",
+  "density": "compact",
+  "brand": {
+    "primary": "#1e3a8a",
+    "accent": "#9f1239"
+  },
+  "theme": {
+    "font-sans": "\"Noto Sans\", \"Be Vietnam Pro\", \"Segoe UI\", system-ui, sans-serif",
+    "radius-sm": "2px",
+    "radius-md": "3px",
+    "radius-lg": "4px"
+  },
+  "modes": {
+    "light": {
+      "bg": "#eef0f3",
+      "border": "#d5dae1",
+      "border-strong": "#6b7585",
+      "muted": "#4f5868"
+    }
+  }
+}

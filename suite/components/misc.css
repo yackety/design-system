@@ -1,0 +1,17 @@
+/* ---------- empty state, skeleton, divider, kbd ---------- */
+.s-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-2); padding: var(--space-8) var(--space-4); color: var(--muted); }
+.s-empty__title { color: var(--fg); font-weight: var(--fw-semibold); font-size: var(--fs-md); }
+.s-empty > .s-ico { width: 32px; height: 32px; color: var(--muted); }
+
+.s-skeleton {
+  display: block; height: 12px; border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface-3) 50%, var(--surface-2) 75%) 0 0 / 200% 100%;
+  animation: s-shimmer 1.4s linear infinite;
+}
+@keyframes s-shimmer { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .s-skeleton, .s-btn[aria-busy="true"]::before { animation: none; } }
+
+.s-divider { height: 1px; background: var(--border); border: 0; margin: var(--space-2) 0; }
+.s-kbd { display: inline-block; padding: 1px 6px; border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; color: var(--fg-2); background: var(--surface-2); }
+.s-progress { height: 6px; border-radius: var(--radius-full); background: var(--surface-3); overflow: hidden; }
+.s-progress > span { display: block; height: 100%; background: var(--primary); border-radius: inherit; }

@@ -1,0 +1,38 @@
+/* ---------- table ----------
+   Markup: .s-table-wrap > table.s-table. Each <td> carries data-label (used by the stacked layout).
+   Below 640px of container width the table becomes one card per row, without JavaScript. */
+.s-table-wrap { container-type: inline-size; overflow-x: auto; max-width: 100%; }
+.s-table { width: 100%; font-size: var(--fs-sm); }
+.s-table th, .s-table td { padding: 0 var(--cell-px); height: var(--row-h); text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.s-table thead th {
+  position: sticky; top: 0; z-index: 1; background: var(--surface-2);
+  color: var(--muted); font-size: var(--fs-xs); font-weight: var(--fw-semibold); height: calc(var(--row-h) - 8px);
+}
+.s-table tbody tr:last-child td { border-bottom: 0; }
+.s-table tbody tr:hover td { background: var(--surface-2); }
+.s-table tbody tr[aria-selected="true"] td { background: var(--primary-soft); }
+.s-table .s-num, .s-table .is-num { text-align: right; font-variant-numeric: tabular-nums; }
+.s-table td.is-wrap { white-space: normal; }
+.s-table th:first-child, .s-table td:first-child { position: sticky; left: 0; background: var(--surface); }
+.s-table thead th:first-child { background: var(--surface-2); z-index: 2; }
+.s-table tbody tr:hover td:first-child { background: var(--surface-2); }
+.s-sort { display: inline-flex; align-items: center; gap: 4px; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.s-sort[aria-sort="ascending"]::after { content: "↑"; }
+.s-sort[aria-sort="descending"]::after { content: "↓"; }
+.s-cell { display: flex; align-items: center; gap: var(--space-3); }
+.s-cell b { display: block; font-weight: var(--fw-semibold); color: var(--fg); }
+.s-cell small { display: block; color: var(--muted); font-size: var(--fs-xs); }
+
+@container (max-width: 640px) {
+  .s-table--stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .s-table--stack, .s-table--stack tbody, .s-table--stack tr, .s-table--stack td { display: block; width: 100%; }
+  .s-table--stack tr { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); }
+  .s-table--stack tbody tr:hover td { background: none; }
+  .s-table--stack td { height: auto; padding: 2px 0; border: 0; position: static; white-space: normal; display: flex; justify-content: space-between; gap: var(--space-3); }
+  .s-table--stack td::before { content: attr(data-label); color: var(--muted); font-size: var(--fs-xs); font-weight: var(--fw-medium); }
+  .s-table--stack td:first-child { background: none; margin-bottom: var(--space-1); }
+  .s-table--stack td:first-child::before, .s-table--stack td[data-label=""]::before { content: none; }
+  .s-table--stack .s-num, .s-table--stack .is-num { text-align: right; }
+}
+
+.s-pager { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; padding: var(--space-3) var(--card-pad); border-top: 1px solid var(--border); font-size: var(--fs-sm); color: var(--muted); }

@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="vi" data-brand="default" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suite Design System</title>
+<!-- Demo only: products self-host their fonts. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../dist/base.css">
+<link rel="stylesheet" href="../dist/themes.all.css">
+<link rel="stylesheet" href="../dist/components.css">
+<script src="../dist/themes.index.js"></script>
+<style>
+  /* demo-only helpers, built from Suite tokens */
+  .d-swatches { display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); }
+  .d-swatch { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); min-width: 0; }
+  .d-swatch i { width: 32px; height: 32px; border-radius: var(--radius-sm); flex: none; box-shadow: inset 0 0 0 1px var(--border); }
+  .d-swatch b { display: block; font-size: var(--fs-xs); font-weight: var(--fw-semibold); overflow: hidden; text-overflow: ellipsis; }
+  .d-swatch code { font-size: 11px; color: var(--muted); }
+  .d-group-title { font-size: var(--fs-xs); font-weight: var(--fw-bold); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: var(--space-3) 0 var(--space-2); }
+  .d-controls { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
+  .d-controls .s-select { width: auto; min-width: 150px; }
+  .d-type > * + * { margin-top: var(--space-2); }
+  .d-radius { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+  .d-radius div { width: 72px; height: 56px; display: grid; place-items: center; background: var(--primary-soft); color: var(--primary-text); border: 1px solid var(--primary); font-size: var(--fs-xs); font-weight: var(--fw-semibold); }
+  .d-code { margin: 0; padding: var(--space-3); border-radius: var(--radius-md); background: var(--surface-2); border: 1px solid var(--border); overflow-x: auto; font-family: var(--font-mono); font-size: var(--fs-xs); line-height: 1.6; }
+  section[id] { scroll-margin-top: calc(var(--topbar-h) + 12px); }
+  @media (max-width: 767px) { .d-hide-sm { display: none; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- Icons: Lucide (ISC licence), https://lucide.dev -->
+  <defs>
+    <symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  </defs>
+</svg>
+
+<div class="s-shell s-shell--self-service" id="shell">
+  <aside class="s-sidebar" id="sidebar" aria-label="Mục lục">
+    <div class="s-brand"><span class="s-brand__mark">S</span><span>Suite Design</span></div>
+    <div class="s-nav-group">Nền tảng</div>
+    <a class="s-nav-item" href="#tokens" aria-current="page"><svg class="s-ico"><use href="#i-house"/></svg>Màu và token</a>
+    <a class="s-nav-item" href="#type"><svg class="s-ico"><use href="#i-file"/></svg>Chữ và bo góc</a>
+    <a class="s-nav-item" href="#contrast"><svg class="s-ico"><use href="#i-check-circle"/></svg>Độ tương phản</a>
+    <div class="s-nav-group">Component</div>
+    <a class="s-nav-item" href="#buttons"><svg class="s-ico"><use href="#i-plus"/></svg>Nút</a>
+    <a class="s-nav-item" href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg>Form</a>
+    <a class="s-nav-item" href="#status"><svg class="s-ico"><use href="#i-bell"/></svg>Trạng thái <span class="s-count">3</span></a>
+    <a class="s-nav-item" href="#table"><svg class="s-ico"><use href="#i-users"/></svg>Bảng</a>
+    <a class="s-nav-item" href="#overlays"><svg class="s-ico"><use href="#i-calendar"/></svg>Dialog và toast</a>
+    <div class="s-nav-group">Hướng dẫn</div>
+    <a class="s-nav-item" href="#new-theme"><svg class="s-ico"><use href="#i-clock"/></svg>Tạo theme mới</a>
+  </aside>
+  <div class="s-scrim" id="scrim"></div>
+
+  <div class="s-main">
+    <header class="s-topbar">
+      <button class="s-btn s-btn--ghost s-btn--icon s-menu-toggle" id="menuToggle" aria-label="Mở mục lục" aria-controls="sidebar" aria-expanded="false"><svg class="s-ico"><use href="#i-menu"/></svg></button>
+      <div class="s-topbar__title">Suite Design System <span class="s-muted d-hide-sm" id="version"></span></div>
+      <div class="s-topbar__spacer"></div>
+      <button class="s-btn s-btn--ghost s-btn--icon" id="modeToggle" aria-label="Đổi chế độ sáng/tối"><svg class="s-ico"><use href="#i-moon"/></svg></button>
+    </header>
+
+    <main class="s-content">
+      <div class="s-page-head">
+        <div>
+          <nav class="s-breadcrumb" aria-label="Breadcrumb"><a href="#">Design system</a><span>/</span><span>Xem trước theme</span></nav>
+          <h1 id="themeName">Suite mặc định</h1>
+          <p id="themeDesc"></p>
+        </div>
+        <div class="d-controls">
+          <label class="s-sr-only" for="themeSel">Theme</label>
+          <select class="s-select" id="themeSel"></select>
+          <label class="s-sr-only" for="densitySel">Mật độ</label>
+          <select class="s-select" id="densitySel">
+            <option value="">Mật độ theo theme</option>
+            <option value="comfortable">Thoáng</option>
+            <option value="compact">Dày</option>
+          </select>
+          <label class="s-sr-only" for="productSel">Workspace</label>
+          <select class="s-select" id="productSel">
+            <option value="">Không có workspace</option>
+            <option value="hrm">HRM</option><option value="erp">ERP</option><option value="crm">CRM</option>
+            <option value="dms">DMS</option><option value="bi">BI</option><option value="wf">Workflow</option>
+          </select>
+        </div>
+      </div>
+
+      <section id="tokens" class="s-card">
+        <div class="s-card__head"><div><div class="s-card__title">Màu theo hợp đồng token</div><div class="s-card__sub">Giá trị của theme và chế độ đang chọn. Ô có viền đứt là token được suy ra từ màu thương hiệu.</div></div></div>
+        <div class="s-card__body" id="swatches"></div>
+      </section>
+
+      <section id="type" class="s-grid">
+        <div class="s-card"><div class="s-card__head"><div class="s-card__title">Chữ</div></div>
+          <div class="s-card__body d-type">
+            <div style="font-size:var(--fs-2xl);font-weight:var(--fw-semibold)">Chào buổi sáng, Lan</div>
+            <div style="font-size:var(--fs-lg);font-weight:var(--fw-semibold)">Bảng công tháng 11/2026</div>
+            <p>Nhân viên đã chấm công đủ 21 ngày, nghỉ phép 1,5 ngày. Hợp đồng sắp hết hạn vào 15/12/2026.</p>
+            <p class="s-muted" style="font-size:var(--fs-sm)">Cập nhật lúc 08:30 · Phòng Kinh doanh · 48 nhân viên</p>
+            <p class="s-num" style="font-size:var(--fs-xl);font-weight:var(--fw-semibold)">15.000.000 ₫ · 1.234,5 · 08:00–17:00</p>
+            <p><code>HĐLĐ/2026/0042</code> · Nhấn <span class="s-kbd">Ctrl</span> + <span class="s-kbd">K</span> để tìm</p>
+          </div>
+        </div>
+        <div class="s-card"><div class="s-card__head"><div class="s-card__title">Bo góc và bóng</div></div>
+          <div class="s-card__body s-stack">
+            <div class="d-radius">
+              <div style="border-radius:var(--radius-sm)">sm</div>
+              <div style="border-radius:var(--radius-md)">md</div>
+              <div style="border-radius:var(--radius-lg)">lg</div>
+              <div style="border-radius:var(--radius-full);width:56px">full</div>
+            </div>
+            <div class="s-row">
+              <div class="s-card" style="padding:12px;box-shadow:var(--shadow-sm)">shadow-sm</div>
+              <div class="s-card" style="padding:12px;box-shadow:var(--shadow-md)">shadow-md</div>
+              <div class="s-card" style="padding:12px;box-shadow:var(--shadow-lg)">shadow-lg</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="buttons" class="s-card">
+        <div class="s-card__head"><div class="s-card__title">Nút</div></div>
+        <div class="s-card__body s-stack">
+          <div class="s-row">
+            <button class="s-btn s-btn--primary"><svg class="s-ico"><use href="#i-plus"/></svg>Thêm nhân viên</button>
+            <button class="s-btn">Xuất Excel</button>
+            <button class="s-btn s-btn--ghost">Bỏ qua</button>
+            <button class="s-btn s-btn--danger">Cho nghỉ việc</button>
+            <button class="s-btn s-btn--link">Xem chi tiết</button>
+          </div>
+          <div class="s-row">
+            <button class="s-btn s-btn--primary s-btn--sm">Duyệt</button>
+            <button class="s-btn s-btn--sm">Từ chối</button>
+            <button class="s-btn s-btn--primary s-btn--lg">Chấm công vào</button>
+            <button class="s-btn s-btn--primary" aria-busy="true">Đang lưu</button>
+            <button class="s-btn" disabled>Không khả dụng</button>
+            <button class="s-btn s-btn--icon" aria-label="Tìm kiếm"><svg class="s-ico"><use href="#i-search"/></svg></button>
+          </div>
+        </div>
+      </section>
+
+      <section id="forms" class="s-card">
+        <div class="s-card__head"><div><div class="s-card__title">Form</div><div class="s-card__sub">1 cột trên điện thoại, 2 cột từ 768px.</div></div></div>
+        <div class="s-card__body">
+          <form class="s-form-grid" onsubmit="return false">
+            <label class="s-field"><span class="s-field__label" data-required>Họ và tên</span><input class="s-input" value="Nguyễn Thị Lan"></label>
+            <label class="s-field"><span class="s-field__label">Mã nhân viên</span><input class="s-input" value="NV00042" readonly><span class="s-field__hint">Tự sinh theo pháp nhân.</span></label>
+            <label class="s-field"><span class="s-field__label" data-required>Phòng ban</span>
+              <select class="s-select"><option>Kinh doanh</option><option>Kế toán</option><option>Nhân sự</option></select></label>
+            <label class="s-field"><span class="s-field__label" data-required>Lương cơ bản</span>
+              <span class="s-input-group"><input class="s-input s-input--num" value="15.000.000"><span class="s-input-group__suffix">₫</span></span></label>
+            <label class="s-field"><span class="s-field__label" data-required>Số CCCD</span><input class="s-input" value="07909" aria-invalid="true"><span class="s-field__error">Số CCCD phải có 12 chữ số.</span></label>
+            <label class="s-field"><span class="s-field__label">Tìm nhân viên</span>
+              <span class="s-input-group"><svg class="s-ico"><use href="#i-search"/></svg><input class="s-input" placeholder="Tên, mã hoặc số CCCD"></span></label>
+            <label class="s-field s-span-all"><span class="s-field__label">Ghi chú</span><textarea class="s-textarea" placeholder="Lý do điều chỉnh lương"></textarea></label>
+            <fieldset class="s-fieldset">
+              <legend>Loại hợp đồng</legend>
+              <div class="s-stack" style="gap:8px">
+                <label class="s-check"><input type="radio" name="ct" checked><span>Xác định thời hạn<small>Tối đa 36 tháng</small></span></label>
+                <label class="s-check"><input type="radio" name="ct"><span>Không xác định thời hạn</span></label>
+              </div>
+            </fieldset>
+            <div class="s-stack" style="gap:10px">
+              <label class="s-check"><input type="checkbox" checked><span>Gửi lời mời dùng cổng nhân viên</span></label>
+              <label class="s-switch"><input type="checkbox" role="switch" checked><span>Cho phép chấm công bằng điện thoại</span></label>
+              <label class="s-switch"><input type="checkbox" role="switch"><span>Bắt buộc ở trong vùng làm việc</span></label>
+            </div>
+          </form>
+        </div>
+        <div class="s-card__foot"><button class="s-btn">Hủy</button><button class="s-btn s-btn--primary">Lưu</button></div>
+      </section>
+
+      <section id="status" class="s-stack">
+        <div class="s-grid">
+          <div class="s-card"><div class="s-card__body s-kpi"><span class="s-kpi__label">Đang làm việc</span><span class="s-kpi__value">248<small>người</small></span><span class="s-kpi__delta s-kpi__delta--up">+6 so với tháng trước</span></div></div>
+          <div class="s-card"><div class="s-card__body s-kpi"><span class="s-kpi__label">Đi muộn hôm nay</span><span class="s-kpi__value">12<small>người</small></span><span class="s-kpi__delta s-kpi__delta--down">+3 so với hôm qua</span></div></div>
+          <div class="s-card"><div class="s-card__body s-kpi"><span class="s-kpi__label">Hoàn thành bảng công</span><span class="s-kpi__value">86<small>%</small></span><div class="s-progress"><span style="width:86%"></span></div></div></div>
+        </div>
+        <div class="s-card"><div class="s-card__body s-stack">
+          <div class="s-row">
+            <span class="s-badge s-badge--success s-badge--dot">Đã duyệt</span>
+            <span class="s-badge s-badge--warning s-badge--dot">Chờ duyệt</span>
+            <span class="s-badge s-badge--danger s-badge--dot">Từ chối</span>
+            <span class="s-badge s-badge--info">Thử việc</span>
+            <span class="s-badge s-badge--primary">Chính thức</span>
+            <span class="s-badge">Nháp</span>
+            <span class="s-badge s-badge--pill s-badge--warning">Còn 7 ngày</span>
+          </div>
+          <div class="s-alert s-alert--warning"><svg class="s-ico"><use href="#i-alert"/></svg><div class="s-alert__body"><div class="s-alert__title">3 hợp đồng sắp hết hạn</div>Hợp đồng của Trần Văn Minh, Lê Thu Hà và Phạm Quốc Bảo hết hạn trong 30 ngày tới.</div></div>
+          <div class="s-alert s-alert--danger"><svg class="s-ico"><use href="#i-x"/></svg><div class="s-alert__body"><div class="s-alert__title">Không khóa được bảng công</div>Còn 4 ngày quên chấm công chưa được điều chỉnh.</div></div>
+          <div class="s-alert s-alert--success"><svg class="s-ico"><use href="#i-check-circle"/></svg><div class="s-alert__body">Đã khóa bảng công tháng 10/2026.</div></div>
+          <div class="s-alert"><svg class="s-ico"><use href="#i-info"/></svg><div class="s-alert__body">Phép năm được cộng 1 ngày vào ngày 1 hằng tháng.</div></div>
+        </div></div>
+      </section>
+
+      <section id="table" class="s-card s-card--flush">
+        <div class="s-card__head">
+          <div><div class="s-card__title">Nhân viên</div><div class="s-card__sub">Thu hẹp cửa sổ dưới 640px: mỗi hàng thành một thẻ, không cần JavaScript.</div></div>
+          <div class="s-tabs" role="tablist" aria-label="Trạng thái">
+            <button class="s-tab" role="tab" aria-selected="true">Đang làm (248)</button>
+            <button class="s-tab" role="tab" aria-selected="false">Thử việc (14)</button>
+            <button class="s-tab" role="tab" aria-selected="false">Đã nghỉ (37)</button>
+          </div>
+        </div>
+        <div class="s-card__body" style="margin-top:12px">
+          <div class="s-table-wrap">
+            <table class="s-table s-table--stack">
+              <thead><tr>
+                <th><button class="s-sort" aria-sort="ascending">Họ tên</button></th>
+                <th>Phòng ban</th><th>Hợp đồng</th><th class="is-num">Lương cơ bản</th><th>Ngày vào làm</th><th>Trạng thái</th>
+              </tr></thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="s-pager"><span>1–5 trên 248 nhân viên</span><div class="s-row"><button class="s-btn s-btn--sm" disabled>Trước</button><button class="s-btn s-btn--sm">Sau</button></div></div>
+      </section>
+
+      <section id="overlays" class="s-grid">
+        <div class="s-card"><div class="s-card__head"><div class="s-card__title">Dialog và toast</div></div>
+          <div class="s-card__body s-stack">
+            <p class="s-muted">Dialog dùng thẻ <code>&lt;dialog&gt;</code> có sẵn của trình duyệt. Trên điện thoại nó thành bottom sheet.</p>
+            <div class="s-row"><button class="s-btn s-btn--primary" id="openDialog">Xin nghỉ phép</button><button class="s-btn" id="openToast">Hiện toast</button></div>
+            <div class="s-seg" role="group" aria-label="Khoảng thời gian"><button aria-pressed="true">Tháng</button><button aria-pressed="false">Quý</button><button aria-pressed="false">Năm</button></div>
+          </div>
+        </div>
+        <div class="s-card"><div class="s-card__head"><div class="s-card__title">Trống và đang tải</div></div>
+          <div class="s-card__body">
+            <div class="s-empty"><svg class="s-ico"><use href="#i-inbox"/></svg><div class="s-empty__title">Chưa có đơn nghỉ nào</div><div>Đơn bạn tạo sẽ hiện ở đây.</div><button class="s-btn s-btn--sm s-btn--primary">Tạo đơn nghỉ</button></div>
+            <div class="s-stack" style="gap:8px"><span class="s-skeleton" style="width:60%"></span><span class="s-skeleton"></span><span class="s-skeleton" style="width:80%"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contrast" class="s-card s-card--flush">
+        <div class="s-card__head"><div><div class="s-card__title">Kiểm tra độ tương phản</div><div class="s-card__sub" id="contrastSum"></div></div></div>
+        <div class="s-card__body" style="margin-top:12px"><div class="s-table-wrap"><table class="s-table s-table--stack">
+          <thead><tr><th>Chữ / UI</th><th>Trên nền</th><th class="is-num">Tỉ lệ</th><th class="is-num">Tối thiểu</th><th>Kết quả</th></tr></thead>
+          <tbody id="contrastRows"></tbody>
+        </table></div></div>
+      </section>
+
+      <section id="new-theme" class="s-card">
+        <div class="s-card__head"><div class="s-card__title">Tạo theme cho khách hàng mới</div></div>
+        <div class="s-card__body s-stack">
+          <p>Chỉ cần màu thương hiệu. Công cụ tự suy ra màu nhấn, hover, nền nhạt, chữ link và vòng focus cho cả 2 chế độ, rồi kiểm tra toàn bộ cặp tương phản.</p>
+<pre class="d-code">node tools/build.mjs new-theme --id acme --name "Acme" --primary "#0b6e4f" --accent "#b45309" --radius 8 --font "Inter" --density compact</pre>
+          <p class="s-muted">Kết quả: <code>themes/acme.json</code> và <code>dist/themes/acme.css</code>. Mở lại trang này để xem theme trong danh sách.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="s-bottom-nav" aria-label="Điều hướng nhanh">
+    <a href="#tokens" aria-current="page"><svg class="s-ico"><use href="#i-house"/></svg>Token</a>
+    <a href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg>Form</a>
+    <a href="#table"><svg class="s-ico"><use href="#i-users"/></svg>Bảng</a>
+    <a href="#contrast"><svg class="s-ico"><use href="#i-check-circle"/></svg>Tương phản</a>
+  </nav>
+</div>
+
+<dialog class="s-dialog" id="dialog" aria-labelledby="dlgTitle">
+  <div class="s-dialog__head">
+    <div><div class="s-dialog__title" id="dlgTitle">Xin nghỉ phép</div><div class="s-muted" style="font-size:var(--fs-sm)">Còn 8,5 ngày phép năm</div></div>
+    <button class="s-btn s-btn--ghost s-btn--icon s-btn--sm" data-close aria-label="Đóng"><svg class="s-ico"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="s-dialog__body">
+    <form class="s-form-grid" onsubmit="return false">
+      <label class="s-field s-span-all"><span class="s-field__label" data-required>Loại nghỉ</span><select class="s-select"><option>Nghỉ phép năm</option><option>Nghỉ không lương</option><option>Nghỉ ốm</option></select></label>
+      <label class="s-field"><span class="s-field__label" data-required>Từ ngày</span><input class="s-input" type="date" value="2026-12-03"></label>
+      <label class="s-field"><span class="s-field__label" data-required>Đến ngày</span><input class="s-input" type="date" value="2026-12-04"></label>
+      <div class="s-alert s-span-all"><svg class="s-ico"><use href="#i-info"/></svg><div class="s-alert__body">Tính là <b>2 ngày</b>. Sau khi duyệt còn 6,5 ngày.</div></div>
+      <label class="s-field s-span-all"><span class="s-field__label">Lý do</span><textarea class="s-textarea"></textarea></label>
+    </form>
+  </div>
+  <div class="s-dialog__foot"><button class="s-btn" data-close>Hủy</button><button class="s-btn s-btn--primary" data-close data-toast="Đã gửi đơn nghỉ phép">Gửi đơn</button></div>
+</dialog>
+<div class="s-toasts" id="toasts" aria-live="polite"></div>
+
+<script>
+(function () {
+  var data = window.SuiteThemes;
+  var html = document.documentElement;
+  var $ = function (id) { return document.getElementById(id); };
+  var store = {
+    get: function (k) { try { return localStorage.getItem('suite-demo.' + k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem('suite-demo.' + k, v); } catch (e) {} }
+  };
+  if (!data) { document.body.insertAdjacentHTML('afterbegin', '<div class="s-banner">Chưa có dist/. Chạy "node tools/build.mjs" trước.</div>'); return; }
+  $('version').textContent = 'v' + data.version;
+
+  var themeSel = $('themeSel');
+  data.themes.forEach(function (t) { var o = document.createElement('option'); o.value = t.id; o.textContent = t.name; themeSel.appendChild(o); });
+
+  function theme() { return data.themes.find(function (t) { return t.id === html.dataset.brand; }) || data.themes[0]; }
+  function mode() { return html.dataset.theme === 'dark' ? 'dark' : 'light'; }
+
+  function renderSwatches() {
+    var t = theme(), m = mode(), derived = t.derived[m] || [];
+    var groups = {};
+    data.contract.color.forEach(function (c) { (groups[c.group] = groups[c.group] || []).push(c); });
+    var names = { surface: 'Nền', text: 'Chữ', line: 'Đường kẻ', brand: 'Thương hiệu', status: 'Trạng thái', data: 'Biểu đồ', product: 'Workspace' };
+    $('swatches').innerHTML = Object.keys(groups).map(function (g) {
+      return '<div class="d-group-title">' + (names[g] || g) + '</div><div class="d-swatches">' + groups[g].map(function (c) {
+        var isDerived = derived.indexOf(c.name) >= 0;
+        return '<div class="d-swatch" title="' + c.usage.replace(/"/g, '&quot;') + '"' + (isDerived ? ' style="border-style:dashed"' : '') + '>' +
+          '<i style="background:var(--' + c.name + ')"></i><div style="min-width:0"><b>' + c.name + '</b><code>' + t.modes[m][c.name] + '</code></div></div>';
+      }).join('') + '</div>';
+    }).join('');
+  }
+
+  function renderContrast() {
+    var t = theme(), m = mode();
+    var rows = t.contrast.filter(function (r) { return r.mode === m; });
+    var ok = rows.filter(function (r) { return r.ok; }).length;
+    $('contrastSum').textContent = ok + '/' + rows.length + ' cặp đạt chuẩn WCAG AA (chữ 4.5:1, thành phần giao diện 3:1) ở chế độ ' + (m === 'dark' ? 'tối' : 'sáng') + '.';
+    $('contrastRows').innerHTML = rows.map(function (r) {
+      return '<tr><td data-label=""><span class="s-cell"><span class="s-badge" style="background:var(--' + r.bg + ');color:var(--' + r.fg + ');box-shadow:inset 0 0 0 1px var(--border)">Aa</span><b>' + r.fg + '</b></span></td>' +
+        '<td data-label="Trên nền">' + r.bg + '</td><td class="is-num" data-label="Tỉ lệ">' + r.ratio.toFixed(2) + ':1</td><td class="is-num" data-label="Tối thiểu">' + r.min + ':1</td>' +
+        '<td data-label="Kết quả">' + (r.ok ? '<span class="s-badge s-badge--success">Đạt</span>' : '<span class="s-badge s-badge--danger">Không đạt</span>') + '</td></tr>';
+    }).join('');
+  }
+
+  function apply() {
+    var t = theme();
+    $('themeName').textContent = t.name;
+    $('themeDesc').textContent = t.description;
+    themeSel.value = t.id;
+    $('modeToggle').innerHTML = '<svg class="s-ico"><use href="#i-' + (mode() === 'dark' ? 'sun' : 'moon') + '"/></svg>';
+    renderSwatches();
+    renderContrast();
+  }
+
+  html.dataset.brand = store.get('brand') || 'default';
+  html.dataset.theme = store.get('mode') || 'light';
+  var d = store.get('density'); if (d) { html.dataset.density = d; $('densitySel').value = d; }
+  var p = store.get('product'); if (p) { html.dataset.product = p; $('productSel').value = p; }
+
+  themeSel.addEventListener('change', function () { html.dataset.brand = themeSel.value; store.set('brand', themeSel.value); apply(); });
+  $('modeToggle').addEventListener('click', function () { html.dataset.theme = mode() === 'dark' ? 'light' : 'dark'; store.set('mode', html.dataset.theme); apply(); });
+  $('densitySel').addEventListener('change', function (e) {
+    if (e.target.value) html.dataset.density = e.target.value; else delete html.dataset.density;
+    store.set('density', e.target.value);
+  });
+  $('productSel').addEventListener('change', function (e) {
+    if (e.target.value) html.dataset.product = e.target.value; else delete html.dataset.product;
+    store.set('product', e.target.value);
+  });
+
+  var people = [
+    ['Nguyễn Thị Lan', 'NV00042', 'Kinh doanh', 'Xác định thời hạn', '15.000.000', '03/02/2023', ['success', 'Chính thức']],
+    ['Trần Văn Minh', 'NV00057', 'Kế toán', 'Xác định thời hạn', '18.500.000', '14/06/2022', ['warning', 'Sắp hết hạn HĐ']],
+    ['Lê Thu Hà', 'NV00103', 'Nhân sự', 'Thử việc', '12.000.000', '01/11/2026', ['info', 'Thử việc']],
+    ['Phạm Quốc Bảo', 'NV00011', 'Kỹ thuật', 'Không xác định thời hạn', '32.000.000', '20/08/2019', ['success', 'Chính thức']],
+    ['Võ Minh Châu', 'NV00088', 'Kinh doanh', 'Xác định thời hạn', '14.200.000', '09/09/2024', ['danger', 'Nghỉ việc 30/11']]
+  ];
+  $('rows').innerHTML = people.map(function (r) {
+    var initials = r[0].split(' ').slice(-2).map(function (w) { return w[0]; }).join('');
+    return '<tr><td data-label=""><span class="s-cell"><span class="s-avatar">' + initials + '</span><span><b>' + r[0] + '</b><small>' + r[1] + '</small></span></span></td>' +
+      '<td data-label="Phòng ban">' + r[2] + '</td><td data-label="Hợp đồng">' + r[3] + '</td><td class="is-num" data-label="Lương cơ bản">' + r[4] + ' ₫</td>' +
+      '<td data-label="Ngày vào làm">' + r[5] + '</td><td data-label="Trạng thái"><span class="s-badge s-badge--dot s-badge--' + r[6][0] + '">' + r[6][1] + '</span></td></tr>';
+  }).join('');
+
+  document.querySelectorAll('.s-tabs [role=tab]').forEach(function (tab) {
+    tab.addEventListener('click', function () { tab.parentElement.querySelectorAll('[role=tab]').forEach(function (x) { x.setAttribute('aria-selected', String(x === tab)); }); });
+  });
+  document.querySelectorAll('.s-seg button').forEach(function (b) {
+    b.addEventListener('click', function () { b.parentElement.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); });
+  });
+  document.querySelectorAll('.s-sort').forEach(function (b) {
+    b.addEventListener('click', function () { b.setAttribute('aria-sort', b.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending'); });
+  });
+
+  function toast(text) {
+    var el = document.createElement('div');
+    el.className = 's-toast'; el.setAttribute('role', 'status');
+    el.innerHTML = '<span></span><button type="button">Hoàn tác</button>';
+    el.firstChild.textContent = text;
+    $('toasts').appendChild(el);
+    el.querySelector('button').addEventListener('click', function () { el.remove(); });
+    setTimeout(function () { el.remove(); }, 4000);
+  }
+  var dialog = $('dialog');
+  $('openDialog').addEventListener('click', function () { dialog.showModal(); });
+  $('openToast').addEventListener('click', function () { toast('Đã lưu hồ sơ nhân viên'); });
+  dialog.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-close]');
+    if (btn) { dialog.close(); if (btn.dataset.toast) toast(btn.dataset.toast); }
+    else if (e.target === dialog) dialog.close();
+  });
+
+  var shell = $('shell');
+  function setMenu(open) { shell.classList.toggle('is-open', open); $('menuToggle').setAttribute('aria-expanded', String(open)); }
+  $('menuToggle').addEventListener('click', function () { setMenu(!shell.classList.contains('is-open')); });
+  $('scrim').addEventListener('click', function () { setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  document.querySelectorAll('.s-sidebar a, .s-bottom-nav a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      setMenu(false);
+      var list = a.closest('.s-sidebar, .s-bottom-nav').querySelectorAll('a');
+      list.forEach(function (x) { if (x === a) x.setAttribute('aria-current', 'page'); else x.removeAttribute('aria-current'); });
+    });
+  });
+
+  apply();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+/* ---------- tabs, segmented ---------- */
+.s-tabs {
+  display: flex; gap: var(--space-1); border-bottom: 1px solid var(--border);
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.s-tabs::-webkit-scrollbar { display: none; }
+.s-tab {
+  flex: none; display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: var(--control-h); padding: 0 var(--space-3); margin-bottom: -1px;
+  border: 0; border-bottom: 2px solid transparent; background: none;
+  color: var(--muted); font: inherit; font-weight: var(--fw-semibold); text-decoration: none; cursor: pointer;
+}
+.s-tab:hover { color: var(--fg); }
+.s-tab[aria-selected="true"], .s-tab[aria-current="page"] { color: var(--primary-text); border-bottom-color: var(--primary); }
+
+.s-seg { display: inline-flex; padding: 3px; gap: 2px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.s-seg button {
+  min-height: calc(var(--control-h-sm) - 6px); padding: 0 var(--space-3); border: 0; border-radius: calc(var(--radius-md) - 2px);
+  background: none; color: var(--fg-2); font: inherit; font-size: var(--fs-sm); font-weight: var(--fw-semibold); cursor: pointer;
+}
+.s-seg button[aria-pressed="true"] { background: var(--surface); color: var(--fg); box-shadow: var(--shadow-sm); }
+@media (pointer: coarse) { .s-tab { min-height: var(--touch-min); } }

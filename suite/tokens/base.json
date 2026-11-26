@@ -1,0 +1,71 @@
+{
+  "$comment": "Token không đổi theo khách hàng: thang chữ, khoảng cách, chuyển động, z-index, mật độ. Theme không ghi đè được các giá trị này (trừ chọn density mặc định).",
+  "version": 1,
+  "fontWhitelist": [
+    { "family": "Be Vietnam Pro", "note": "Mặc định. Đủ dấu tiếng Việt, số tabular." },
+    { "family": "Inter", "note": "Đủ dấu tiếng Việt từ bản 4." },
+    { "family": "Roboto", "note": "Đủ dấu tiếng Việt." },
+    { "family": "Noto Sans", "note": "Đủ dấu tiếng Việt, phù hợp khách hàng khối nhà nước." }
+  ],
+  "tokens": {
+    "fs-xs": "12px",
+    "fs-sm": "13px",
+    "fs-base": "14px",
+    "fs-md": "15px",
+    "fs-lg": "17px",
+    "fs-xl": "20px",
+    "fs-2xl": "24px",
+    "fs-3xl": "30px",
+    "lh-tight": "1.25",
+    "lh-base": "1.5",
+    "fw-regular": "400",
+    "fw-medium": "500",
+    "fw-semibold": "600",
+    "fw-bold": "700",
+    "radius-full": "9999px",
+    "space-1": "4px",
+    "space-2": "8px",
+    "space-3": "12px",
+    "space-4": "16px",
+    "space-5": "20px",
+    "space-6": "24px",
+    "space-8": "32px",
+    "content-max": "1440px",
+    "sidebar-w": "248px",
+    "sidebar-rail-w": "64px",
+    "topbar-h": "56px",
+    "touch-min": "44px",
+    "dur-fast": "120ms",
+    "dur-base": "200ms",
+    "dur-slow": "320ms",
+    "ease-out": "cubic-bezier(.2, .8, .2, 1)",
+    "ease-in": "cubic-bezier(.4, 0, 1, 1)",
+    "z-sticky": "10",
+    "z-sidebar": "30",
+    "z-overlay": "40",
+    "z-dialog": "50",
+    "z-toast": "60"
+  },
+  "density": {
+    "comfortable": {
+      "control-h": "40px",
+      "control-h-sm": "32px",
+      "control-h-lg": "48px",
+      "control-px": "12px",
+      "row-h": "48px",
+      "cell-px": "14px",
+      "card-pad": "20px",
+      "gap": "16px"
+    },
+    "compact": {
+      "control-h": "32px",
+      "control-h-sm": "28px",
+      "control-h-lg": "40px",
+      "control-px": "10px",
+      "row-h": "36px",
+      "cell-px": "10px",
+      "card-pad": "14px",
+      "gap": "12px"
+    }
+  }
+}

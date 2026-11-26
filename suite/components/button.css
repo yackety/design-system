@@ -1,0 +1,37 @@
+/* ---------- button ---------- */
+.s-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: var(--control-h); padding: 0 calc(var(--control-px) + 4px);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-md);
+  background: var(--surface); color: var(--fg);
+  font: inherit; font-weight: var(--fw-semibold); font-size: var(--fs-base); line-height: 1;
+  text-decoration: none; white-space: nowrap; cursor: pointer; user-select: none;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.s-btn:hover { background: var(--surface-2); }
+.s-btn:active { background: var(--surface-3); }
+.s-btn--primary { background: var(--primary); border-color: var(--primary); color: var(--primary-fg); }
+.s-btn--primary:hover, .s-btn--primary:active { background: var(--primary-hover); border-color: var(--primary-hover); }
+.s-btn--danger { background: var(--danger); border-color: var(--danger); color: var(--danger-fg); }
+.s-btn--danger:hover, .s-btn--danger:active { background: var(--danger-hover); border-color: var(--danger-hover); }
+.s-btn--ghost { background: transparent; border-color: transparent; color: var(--fg-2); }
+.s-btn--ghost:hover { background: var(--surface-2); color: var(--fg); }
+.s-btn--link { background: none; border-color: transparent; color: var(--primary-text); padding: 0 var(--space-1); }
+.s-btn--link:hover { background: none; text-decoration: underline; }
+.s-btn--sm { min-height: var(--control-h-sm); padding: 0 var(--control-px); font-size: var(--fs-sm); }
+.s-btn--lg { min-height: var(--control-h-lg); padding: 0 calc(var(--control-px) + 8px); font-size: var(--fs-md); }
+.s-btn--block { display: flex; width: 100%; }
+.s-btn--icon { padding: 0; width: var(--control-h); }
+.s-btn--icon.s-btn--sm { width: var(--control-h-sm); }
+.s-btn:disabled, .s-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+.s-btn[aria-busy="true"] { cursor: progress; }
+.s-btn[aria-busy="true"]::before {
+  content: ""; width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid currentColor; border-right-color: transparent;
+  animation: s-spin 0.7s linear infinite;
+}
+@keyframes s-spin { to { transform: rotate(360deg); } }
+@media (pointer: coarse) {
+  .s-btn, .s-btn--sm { min-height: max(var(--control-h), var(--touch-min)); }
+  .s-btn--icon, .s-btn--icon.s-btn--sm { width: max(var(--control-h), var(--touch-min)); }
+}
