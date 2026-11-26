@@ -20,7 +20,7 @@ const COLOR_NAMES = contract.color.map((t) => t.name);
 const MODE_NAMES = [...COLOR_NAMES, ...contract.modeTokens.map((t) => t.name)];
 const THEME_NAMES = contract.themeTokens.map((t) => t.name);
 const ALPHA_ALLOWED = new Set(['overlay']);
-const COMPONENT_FILES = ['base', 'button', 'form', 'card', 'badge', 'alert', 'tabs', 'table', 'dialog', 'toast', 'shell', 'misc'];
+const COMPONENT_FILES = ['base', 'button', 'form', 'card', 'badge', 'alert', 'tabs', 'table', 'dialog', 'toast', 'shell', 'misc', 'listbox', 'calendar', 'upload', 'stepper', 'filter', 'extra'];
 
 // ---------- themes ----------
 

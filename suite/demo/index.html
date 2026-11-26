@@ -65,7 +65,12 @@
     <a class="s-nav-item" href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg>Form</a>
     <a class="s-nav-item" href="#status"><svg class="s-ico"><use href="#i-bell"/></svg>Trạng thái <span class="s-count">3</span></a>
     <a class="s-nav-item" href="#table"><svg class="s-ico"><use href="#i-users"/></svg>Bảng</a>
-    <a class="s-nav-item" href="#overlays"><svg class="s-ico"><use href="#i-calendar"/></svg>Dialog và toast</a>
+    <a class="s-nav-item" href="#listbox"><svg class="s-ico"><use href="#i-menu"/></svg>Popover</a>
+    <a class="s-nav-item" href="#calendar"><svg class="s-ico"><use href="#i-calendar"/></svg>Lịch</a>
+    <a class="s-nav-item" href="#upload"><svg class="s-ico"><use href="#i-file"/></svg>Tải file</a>
+    <a class="s-nav-item" href="#stepper"><svg class="s-ico"><use href="#i-check-circle"/></svg>Bước và lọc</a>
+    <a class="s-nav-item" href="#extras"><svg class="s-ico"><use href="#i-house"/></svg>Launcher</a>
+    <a class="s-nav-item" href="#overlays"><svg class="s-ico"><use href="#i-bell"/></svg>Dialog và toast</a>
     <div class="s-nav-group">Hướng dẫn</div>
     <a class="s-nav-item" href="#new-theme"><svg class="s-ico"><use href="#i-clock"/></svg>Tạo theme mới</a>
   </aside>
@@ -225,8 +230,9 @@
           <div class="s-table-wrap">
             <table class="s-table s-table--stack">
               <thead><tr>
+                <th class="s-col-select"><span class="s-sr-only">Chọn</span></th>
                 <th><button class="s-sort" aria-sort="ascending">Họ tên</button></th>
-                <th>Phòng ban</th><th>Hợp đồng</th><th class="is-num">Lương cơ bản</th><th>Ngày vào làm</th><th>Trạng thái</th>
+                <th>Phòng ban</th><th>Hợp đồng</th><th class="is-num" data-priority="2">Lương cơ bản</th><th data-priority="3">Ngày vào làm</th><th>Trạng thái</th>
               </tr></thead>
               <tbody id="rows"></tbody>
             </table>
@@ -247,6 +253,128 @@
           <div class="s-card__body">
             <div class="s-empty"><svg class="s-ico"><use href="#i-inbox"/></svg><div class="s-empty__title">Chưa có đơn nghỉ nào</div><div>Đơn bạn tạo sẽ hiện ở đây.</div><button class="s-btn s-btn--sm s-btn--primary">Tạo đơn nghỉ</button></div>
             <div class="s-stack" style="gap:8px"><span class="s-skeleton" style="width:60%"></span><span class="s-skeleton"></span><span class="s-skeleton" style="width:80%"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="listbox" class="s-card">
+        <div class="s-card__head"><div class="s-card__title">Popover và listbox</div></div>
+        <div class="s-card__body s-row" style="align-items:flex-start">
+          <div class="s-popover" style="position:static">
+            <ul class="s-listbox" role="listbox" aria-label="Phòng ban">
+              <li class="s-listbox__group">
+                <div class="s-listbox__label">Khối văn phòng</div>
+                <button type="button" class="s-option" role="option">Kinh doanh</button>
+                <button type="button" class="s-option is-active" role="option" aria-selected="true">Nhân sự</button>
+              </li>
+              <li class="s-listbox__group">
+                <div class="s-listbox__label">Khối vận hành</div>
+                <button type="button" class="s-option" role="option">Kỹ thuật</button>
+              </li>
+            </ul>
+          </div>
+          <div class="s-popover" style="position:static">
+            <div class="s-listbox__loading">Đang tìm…</div>
+          </div>
+          <div class="s-popover" style="position:static">
+            <div class="s-listbox__empty">Không có kết quả</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="calendar" class="s-card">
+        <div class="s-card__head"><div class="s-card__title">Lịch</div><div class="s-card__sub">Lưới tháng từ 768px. Hẹp hơn thì hiện agenda.</div></div>
+        <div class="s-card__body">
+          <div class="s-calendar">
+            <div class="s-calendar__month">
+              <div class="s-calendar__head"><span class="s-calendar__title">Tháng 11, 2026</span></div>
+              <div class="s-calendar__weekdays"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div>
+              <div class="s-calendar__grid">
+                <button type="button" class="s-calendar__day is-outside" disabled>26</button>
+                <button type="button" class="s-calendar__day is-outside" disabled>27</button>
+                <button type="button" class="s-calendar__day is-outside" disabled>28</button>
+                <button type="button" class="s-calendar__day is-outside" disabled>29</button>
+                <button type="button" class="s-calendar__day is-outside" disabled>30</button>
+                <button type="button" class="s-calendar__day is-outside" disabled>31</button>
+                <button type="button" class="s-calendar__day">1</button>
+                <button type="button" class="s-calendar__day is-in-range">23</button>
+                <button type="button" class="s-calendar__day is-selected">24</button>
+                <button type="button" class="s-calendar__day is-today">26</button>
+                <button type="button" class="s-calendar__day is-disabled" disabled>29</button>
+                <button type="button" class="s-calendar__day is-holiday">30</button>
+              </div>
+            </div>
+            <ul class="s-calendar__agenda">
+              <li><span>26/11 · Hôm nay</span><time>Họp giao ban</time></li>
+              <li><span>30/11 · Nghỉ lễ</span><time>Ngày nghỉ</time></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="upload" class="s-card">
+        <div class="s-card__head"><div class="s-card__title">Tải file</div></div>
+        <div class="s-card__body">
+          <div class="s-dropzone"><strong>Kéo thả hồ sơ vào đây</strong><span class="s-muted">PDF, tối đa 10 MB</span></div>
+          <ul class="s-file-list">
+            <li class="s-file"><span class="s-file__name">hop-dong.pdf</span><span class="s-file__meta">64%</span><span class="s-file__bar"><span style="--value:64%"></span></span></li>
+            <li class="s-file is-error"><span class="s-file__name">anh-the.bmp</span><span class="s-file__meta">Không đúng loại file</span><span class="s-file__bar"><span style="--value:100%"></span></span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="stepper" class="s-grid">
+        <div class="s-card">
+          <div class="s-card__head"><div class="s-card__title">Bước</div></div>
+          <div class="s-card__body">
+            <div class="s-stepper">
+              <div class="s-stepper__track">
+                <div class="s-stepper__item is-done"><span class="s-stepper__index">1</span>Hồ sơ</div>
+                <div class="s-stepper__item is-current"><span class="s-stepper__index">2</span>Hợp đồng</div>
+                <div class="s-stepper__item"><span class="s-stepper__index">3</span>Xác nhận</div>
+              </div>
+              <div class="s-stepper__compact"><span>Bước 2/3 · Hợp đồng</span><div class="s-progress"><span style="width:66%"></span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-card">
+          <div class="s-card__head"><div class="s-card__title">Bộ lọc</div></div>
+          <div class="s-card__body s-stack">
+            <div class="s-filter-bar">
+              <label class="s-filter-bar__search"><span class="s-sr-only">Tìm</span><input class="s-input" placeholder="Tìm nhân viên"></label>
+              <div class="s-filter-bar__filters">
+                <select class="s-select"><option>Mọi phòng ban</option></select>
+                <select class="s-select"><option>Mọi trạng thái</option></select>
+              </div>
+              <button type="button" class="s-btn s-filter-bar__sheet">Bộ lọc (2)</button>
+            </div>
+            <div class="s-row">
+              <span class="s-chip">Phòng Nhân sự<button type="button" class="s-chip__remove" aria-label="Xóa bộ lọc Phòng Nhân sự"><svg class="s-ico s-ico--sm"><use href="#i-x"/></svg></button></span>
+              <span class="s-chip">Chính thức<button type="button" class="s-chip__remove" aria-label="Xóa bộ lọc Chính thức"><svg class="s-ico s-ico--sm"><use href="#i-x"/></svg></button></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="extras" class="s-stack">
+        <div class="s-card">
+          <div class="s-card__head"><div class="s-card__title">Tooltip và dòng thời gian</div></div>
+          <div class="s-card__body s-stack">
+            <span class="s-tooltip" role="tooltip">Còn 8,5 ngày phép năm</span>
+            <ol class="s-timeline">
+              <li class="s-timeline__item"><time>26/11/2026 08:30</time>Ký hợp đồng HĐLĐ/2026/0042</li>
+              <li class="s-timeline__item"><time>01/11/2026</time>Bắt đầu thử việc</li>
+            </ol>
+          </div>
+        </div>
+        <div class="s-card">
+          <div class="s-card__head"><div class="s-card__title">Launcher</div></div>
+          <div class="s-card__body">
+            <div class="s-launcher">
+              <a class="s-launcher__tile" href="#extras" data-product="hrm"><strong>Nhân sự</strong><small>Hồ sơ và hợp đồng</small></a>
+              <a class="s-launcher__tile" href="#extras" data-product="crm"><strong>Khách hàng</strong><small>Cơ hội và liên hệ</small></a>
+              <a class="s-launcher__tile" href="#extras" data-product="erp"><strong>Vận hành</strong><small>Mua hàng và kho</small></a>
+            </div>
           </div>
         </div>
       </section>
@@ -375,9 +503,10 @@
   ];
   $('rows').innerHTML = people.map(function (r) {
     var initials = r[0].split(' ').slice(-2).map(function (w) { return w[0]; }).join('');
-    return '<tr><td data-label=""><span class="s-cell"><span class="s-avatar">' + initials + '</span><span><b>' + r[0] + '</b><small>' + r[1] + '</small></span></span></td>' +
-      '<td data-label="Phòng ban">' + r[2] + '</td><td data-label="Hợp đồng">' + r[3] + '</td><td class="is-num" data-label="Lương cơ bản">' + r[4] + ' ₫</td>' +
-      '<td data-label="Ngày vào làm">' + r[5] + '</td><td data-label="Trạng thái"><span class="s-badge s-badge--dot s-badge--' + r[6][0] + '">' + r[6][1] + '</span></td></tr>';
+    return '<tr><td class="s-col-select" data-label=""><input type="checkbox" aria-label="Chọn ' + r[0] + '"></td>' +
+      '<td data-label=""><span class="s-cell"><span class="s-avatar">' + initials + '</span><span><b>' + r[0] + '</b><small>' + r[1] + '</small></span></span></td>' +
+      '<td data-label="Phòng ban">' + r[2] + '</td><td data-label="Hợp đồng">' + r[3] + '</td><td class="is-num" data-priority="2" data-label="Lương cơ bản">' + r[4] + ' ₫</td>' +
+      '<td class="is-hide-stack" data-priority="3" data-label="Ngày vào làm">' + r[5] + '</td><td data-label="Trạng thái"><span class="s-badge s-badge--dot s-badge--' + r[6][0] + '">' + r[6][1] + '</span></td></tr>';
   }).join('');
 
   document.querySelectorAll('.s-tabs [role=tab]').forEach(function (tab) {

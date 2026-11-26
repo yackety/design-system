@@ -1,0 +1,39 @@
+/* ---------- calendar ----------
+   Month grid from 768px. Below that, .s-calendar__agenda replaces the grid. */
+.s-calendar { min-width: 0; }
+.s-calendar__head, .s-calendar__nav {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.s-calendar__title { font-weight: var(--fw-semibold); }
+.s-calendar__weekdays, .s-calendar__grid {
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px;
+}
+.s-calendar__weekdays { color: var(--muted); font-size: var(--fs-xs); font-weight: var(--fw-semibold); text-align: center; }
+.s-calendar__day {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 36px; min-width: 0;
+  border: 1px solid transparent; border-radius: var(--radius-sm);
+  background: none; color: var(--fg); font: inherit; cursor: pointer;
+}
+.s-calendar__day:hover { background: var(--surface-2); }
+.s-calendar__day.is-outside { color: var(--muted); }
+.s-calendar__day.is-today { border-color: var(--primary); color: var(--primary-text); font-weight: var(--fw-semibold); }
+.s-calendar__day.is-selected, .s-calendar__day[aria-selected="true"] { background: var(--primary); border-color: var(--primary); color: var(--primary-fg); }
+.s-calendar__day.is-in-range { background: var(--primary-soft); color: var(--primary-text); }
+.s-calendar__day.is-holiday { color: var(--danger); }
+.s-calendar__day.is-holiday.is-selected { color: var(--primary-fg); }
+.s-calendar__day:disabled, .s-calendar__day.is-disabled { color: var(--muted); background: none; cursor: not-allowed; text-decoration: line-through; }
+.s-calendar__agenda { display: none; list-style: none; margin: 0; padding: 0; }
+.s-calendar__agenda li {
+  display: flex; justify-content: space-between; gap: var(--space-3);
+  padding: var(--space-3) 0; border-bottom: 1px solid var(--border);
+}
+.s-calendar__agenda time { color: var(--muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 767px) {
+  .s-calendar__month { display: none; }
+  .s-calendar__agenda { display: block; }
+}
+@media (pointer: coarse) {
+  .s-calendar__day { min-height: var(--touch-min); }
+}
