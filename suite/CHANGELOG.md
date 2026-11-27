@@ -4,6 +4,12 @@ Mọi thay đổi của Suite design system, mới nhất ở trên. Ghi thay đ
 
 ## [Unreleased]
 
+## [0.3.1] — 2026-11-27
+
+### Added
+- `.s-pager__pages` và `.s-pager__more`: số trang hiện từ 768px, nút xem thêm khi hẹp hơn.
+- `.s-page-actions`: hàng nút của page head. Dưới 768px hàng này dính đáy và chừa `safe-area`.
+
 ## [0.3.0] — 2026-11-27
 
 Theme mặc định chuyển sang ngôn ngữ thiết kế Halvo. Suite trở thành nền để dựng design system cho từng khách hàng: mỗi khách hàng là một theme, và theme chọn một style preset.
