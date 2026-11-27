@@ -141,6 +141,26 @@ Sidebar luôn có **đủ các vùng**. Mở một trang không bao giờ làm m
   - Bên phải: card chi tiết.
   - Trên điện thoại: `.s-list` đi sâu từng cấp, có breadcrumb.
 
+**Trên điện thoại (dưới 768px):**
+
+```
+.s-shell
+  .s-sidebar               thành drawer, mở bằng nút "Thêm"
+  .s-main
+    header.s-topbar        [.s-topbar__back] tiêu đề · chuông · button.s-user-menu
+  nav.s-bottom-nav         con cuối của .s-shell, tối đa 5 mục
+    a × ≤ 4                Trang chủ, mục chính của workspace, Chờ duyệt (.s-count)
+    button.s-bottom-nav__more   "Thêm": mở drawer, aria-controls = id của sidebar
+```
+
+- Mục của thanh tab: `svg.s-ico` + `span` nhãn ngắn (1–2 từ). Mục đang mở có `aria-current="page"`. Thanh tab có `pill()`.
+- Thanh tab và sidebar lấy từ **cùng một** danh sách menu. Thanh tab chỉ là vài mục được chọn ra, không phải một menu thứ hai.
+- Có `.s-bottom-nav__more` thì nút ☰ trên topbar tự ẩn. Từ 768px đến 1023px không có thanh tab, nên ☰ vẫn hiện.
+- `.s-topbar__back` (nút icon quay lại) chỉ hiện dưới 1024px, ở trang chi tiết, và thay chỗ của ☰. Desktop dùng breadcrumb.
+- Topbar không chứa nút chữ. Đổi pháp nhân, giao diện và đăng xuất nằm trong menu của `button.s-user-menu`. Menu đó là `.s-menu` có `.s-menu__head` (avatar, tên, email) ở trên cùng. Dưới 768px nút chỉ còn avatar.
+- `.s-page-actions` tự nằm trên thanh tab.
+- `.s-shell--self-service` vẫn hoạt động như trước. Từ 0.4.1, mọi shell có `.s-bottom-nav` đều được chừa chỗ ở dưới.
+
 ### Chuyển động
 
 Chuyển từ motion kit của Halvo, nhanh và nhẹ hơn cho màn hình nghiệp vụ. Tất cả tắt khi người dùng bật `prefers-reduced-motion`.

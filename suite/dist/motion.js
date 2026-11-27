@@ -1,4 +1,4 @@
-/*! Suite design system v0.4.0 — motion helpers. Framework-free ES module; Angular (@suite/ui) wraps them as directives.
+/*! Suite design system v0.4.1 — motion helpers. Framework-free ES module; Angular (@suite/ui) wraps them as directives.
  *  pill(track, options)        sliding highlight for .s-tabs, .s-seg, .s-nav, .s-bottom-nav
  *  countTo(el, value, options) number counts up from its last value
  *  replay(el)                  re-run the CSS entrance (.s-motion-rise / -slide / -fade) of an element

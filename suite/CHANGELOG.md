@@ -4,6 +4,25 @@ Mọi thay đổi của Suite design system, mới nhất ở trên. Ghi thay đ
 
 ## [Unreleased]
 
+## [0.4.1] — 2026-11-27
+
+Thanh tab ở đáy và topbar gọn cho điện thoại, dùng được ở mọi vùng, không chỉ cổng tự phục vụ.
+
+### Added
+- `button.s-bottom-nav__more`: mục "Thêm" mở drawer. Khi có nút này, nút ☰ trên topbar tự ẩn dưới 768px.
+- `.s-count` trong thanh tab nằm ở góc icon.
+- `.s-user-menu`: nút avatar ở cuối topbar (avatar và tên từ 768px, chỉ avatar khi hẹp hơn), và `.s-menu__head` (dòng avatar, tên, email trong menu).
+- `.s-topbar__back`: nút quay lại ở trang chi tiết, dưới 1024px, thay chỗ của ☰.
+- Demo: shell thường (không còn tự phục vụ) có thanh tab 5 mục, mục "Thêm" và menu tài khoản.
+
+### Changed
+- `.s-bottom-nav` hiện ở mọi `.s-shell` dưới 768px, không còn cần `.s-shell--self-service`.
+- Thanh tab chừa chỗ cho nội dung, và `.s-page-actions` nằm trên thanh tab, cho mọi shell có thanh tab.
+- Mục của thanh tab có thể là `<a>` hoặc `<button>`. Nhãn dài bị cắt bằng dấu "…".
+
+### Fixed
+- `.s-pill-track` (0.4.0) ghi đè `position: fixed` của thanh tab ở đáy khi thanh tab có pill. Giờ rule này có độ ưu tiên 0 (`:where()`).
+
 ## [0.4.0] — 2026-11-27
 
 Điều hướng có cấu trúc, component cây và danh sách, và lớp chuyển động chuyển từ Halvo.

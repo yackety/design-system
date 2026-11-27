@@ -45,7 +45,8 @@
 /* Sliding pill. The track gets .s-pill-track; motion.mjs inserts one .s-pill, sets --pill-t/r/b/l to the active
    item's edges and data-axis / data-dir, then adds .is-pill to the track. The leading edge moves first, the
    trailing edge catches up, so the pill stretches and settles (as in Halvo). */
-.s-pill-track { position: relative; isolation: isolate; }
+/* :where() keeps this at zero specificity so a track that is fixed or sticky (e.g. .s-bottom-nav) stays that way. */
+:where(.s-pill-track) { position: relative; isolation: isolate; }
 .s-pill {
   position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0;
   clip-path: inset(var(--pill-t) var(--pill-r) var(--pill-b) var(--pill-l) round var(--pill-radius, 12px));

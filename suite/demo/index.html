@@ -53,11 +53,14 @@
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
     <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
     <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></symbol>
+    <symbol id="i-log-out" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
     <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
   </defs>
 </svg>
 
-<div class="s-shell s-shell--self-service" id="shell">
+<div class="s-shell" id="shell">
   <aside class="s-sidebar" id="sidebar" aria-label="Mục lục">
     <button type="button" class="s-switcher" aria-haspopup="listbox" aria-expanded="false" title="Chuyển sản phẩm">
       <span class="s-brand__mark">S</span>
@@ -101,6 +104,18 @@
       <div class="s-topbar__title">Suite Design System <span class="s-muted d-hide-sm" id="version"></span></div>
       <div class="s-topbar__spacer"></div>
       <button class="s-btn s-btn--ghost s-btn--icon" id="modeToggle" aria-label="Đổi chế độ sáng/tối"><svg class="s-ico"><use href="#i-moon"/></svg></button>
+      <button class="s-btn s-btn--ghost s-btn--icon" aria-label="Thông báo"><svg class="s-ico"><use href="#i-bell"/></svg></button>
+      <button class="s-user-menu" id="userMenuBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu">
+        <span class="s-avatar">LA</span><span class="s-user-menu__name">Lan Anh</span><svg class="s-ico s-ico--sm"><use href="#i-chevron"/></svg>
+      </button>
+      <div class="s-menu" id="userMenu" role="menu" hidden style="position:absolute; top:calc(100% + 8px); right:8px; z-index:var(--z-overlay); width:260px">
+        <div class="s-menu__head"><span class="s-avatar s-avatar--lg">LA</span><div><b>Nguyễn Lan Anh</b><small>lan.anh@acme.vn</small></div></div>
+        <div class="s-menu__sep"></div>
+        <button class="s-menu__item" role="menuitem"><svg class="s-ico"><use href="#i-building"/></svg>Pháp nhân: Acme Việt Nam</button>
+        <button class="s-menu__item" role="menuitem"><svg class="s-ico"><use href="#i-sun"/></svg>Giao diện</button>
+        <div class="s-menu__sep"></div>
+        <button class="s-menu__item s-menu__item--danger" role="menuitem"><svg class="s-ico"><use href="#i-log-out"/></svg>Đăng xuất</button>
+      </div>
     </header>
 
     <main class="s-content">
@@ -524,10 +539,11 @@ provideRouter(routes, withViewTransitions({ skipInitialTransition: true }))
   </div>
 
   <nav class="s-bottom-nav" aria-label="Điều hướng nhanh" data-pill>
-    <a href="#tokens" aria-current="page"><svg class="s-ico"><use href="#i-house"/></svg>Token</a>
-    <a href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg>Form</a>
-    <a href="#table"><svg class="s-ico"><use href="#i-users"/></svg>Bảng</a>
-    <a href="#contrast"><svg class="s-ico"><use href="#i-check-circle"/></svg>Tương phản</a>
+    <a href="#tokens" aria-current="page"><svg class="s-ico"><use href="#i-house"/></svg><span>Tổng quan</span></a>
+    <a href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg><span>Form</span></a>
+    <a href="#table"><svg class="s-ico"><use href="#i-users"/></svg><span>Bảng</span></a>
+    <a href="#overlays"><svg class="s-ico"><use href="#i-check-circle"/></svg><span>Chờ duyệt</span><span class="s-count">3</span></a>
+    <button type="button" class="s-bottom-nav__more" id="moreBtn" aria-controls="sidebar" aria-expanded="false"><svg class="s-ico"><use href="#i-grid"/></svg><span>Thêm</span></button>
   </nav>
 </div>
 
@@ -667,10 +683,20 @@ provideRouter(routes, withViewTransitions({ skipInitialTransition: true }))
   });
 
   var shell = $('shell');
-  function setMenu(open) { shell.classList.toggle('is-open', open); $('menuToggle').setAttribute('aria-expanded', String(open)); }
+  function setMenu(open) {
+    shell.classList.toggle('is-open', open);
+    $('menuToggle').setAttribute('aria-expanded', String(open));
+    $('moreBtn').setAttribute('aria-expanded', String(open));
+  }
   $('menuToggle').addEventListener('click', function () { setMenu(!shell.classList.contains('is-open')); });
+  $('moreBtn').addEventListener('click', function () { setMenu(!shell.classList.contains('is-open')); });
   $('scrim').addEventListener('click', function () { setMenu(false); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+  var userBtn = $('userMenuBtn'), userMenu = $('userMenu');
+  function setUserMenu(open) { userMenu.hidden = !open; userBtn.setAttribute('aria-expanded', String(open)); }
+  userBtn.addEventListener('click', function (e) { e.stopPropagation(); setUserMenu(userMenu.hidden); });
+  document.addEventListener('click', function (e) { if (!userMenu.hidden && !userMenu.contains(e.target)) setUserMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setMenu(false); setUserMenu(false); } });
   document.querySelectorAll('.s-sidebar a, .s-bottom-nav a').forEach(function (a) {
     a.addEventListener('click', function () {
       setMenu(false);
