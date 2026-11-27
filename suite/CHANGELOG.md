@@ -4,6 +4,36 @@ Mọi thay đổi của Suite design system, mới nhất ở trên. Ghi thay đ
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-11-27
+
+Theme mặc định chuyển sang ngôn ngữ thiết kế Halvo. Suite trở thành nền để dựng design system cho từng khách hàng: mỗi khách hàng là một theme, và theme chọn một style preset.
+
+### Breaking (cho app đang dùng 0.2.0)
+- `themes/default` giờ là kính, mặc định tối. Giao diện phẳng cũ nay là theme `classic`. Deployment muốn giữ giao diện cũ thì đổi `Branding:ThemeId` sang `classic`.
+- Theme không còn tự theo `prefers-color-scheme`. Không đặt `data-theme` thì dùng `defaultMode` của theme. Khi user chọn "Theo hệ thống", `ThemeService` phải tự đặt `data-theme` theo `matchMedia`.
+- `civic` và `evergreen` kế thừa `classic` / `default` thay cho `default` cũ.
+
+### Added
+- Hợp đồng token bản 2:
+  - Token màu mới: `surface-glass`, `surface-raised`, `rim`, `rim-2`, `primary-hi`, `glow`.
+  - Paint `backdrop` (nền trang) và `primary-fill` (nền nút chính, mặc định là gradient ở kiểu kính).
+  - Theme token `radius-xl`, `blur`, `blur-overlay`.
+  - 30 **component token**: sidebar, topbar, card, nút, input, tab, mục menu, header bảng, badge.
+  - Một số token màu được phép có alpha. Tương phản được đo sau khi chồng màu lên "ground" của token đó. Riêng kính được đo trên từng màu lấy từ `backdrop`.
+- Style preset `flat` và `glass` trong `tokens/base.json`. Theme chọn preset bằng `style`, và có thể ghi đè từng component token trong `components`.
+- Theme `classic` (phẳng). `evergreen` thành mẫu kính dựng từ `default` chỉ bằng màu thương hiệu.
+- `new-theme` nhận thêm `--style`, `--mode`, `--extends`. Lệnh tự suy ra thêm `primary-hi`, `glow` và `primary-fill`.
+- `.s-auth`: layout trang đăng nhập (card ở giữa, logo, form một cột, nút submit rộng hết card, link cạnh label).
+- `.s-card--glass`, `.s-glass`, `.s-section-label`, `.s-field__row`, `.s-form-actions`, `.s-page-head__eyebrow`, `.s-brand__text`, `.s-launcher__icon`.
+- `prefers-reduced-transparency`: kính thành đặc.
+
+### Changed
+- Khung ứng dụng: sidebar và topbar nổi, cách mép `--shell-inset`, bo `radius-xl` / `radius-lg`, có kính. Thanh tab ở đáy trên điện thoại nổi, mục đang chọn là pill màu thương hiệu.
+- Nút cao 42px, nút chính có gradient và quầng sáng. Input cao 44px, focus có vòng sáng. Tab dạng pill trong một dải kính. Mục sidebar đang chọn có nền kính. Badge dạng pill. KPI có quầng màu ở góc.
+- Dialog, drawer, menu, popover, toast dùng `surface-raised` với blur. Dialog bo `radius-xl`, và có tay nắm khi thành bottom sheet.
+- Header bảng trong suốt ở kiểu kính. Cột đầu dính trái tô màu card bên dưới để nội dung cuộn không lộ qua.
+- Dải màu workspace trên topbar chỉ hiện khi có `data-product`.
+
 ## [0.2.0] — 2026-11-26
 
 ### Added

@@ -145,6 +145,18 @@ export function deriveBrand(primaryHex, mode, ctx, target = 4.6) {
   return out;
 }
 
+/** Moves a colour's OKLCH lightness by `dL` (positive = lighter), keeping hue and chroma where sRGB allows. */
+export function shiftLightness(hex, dL) {
+  const { L, C, H } = hexToOklch(hex);
+  return oklchToHex(clamp01(L + dL), C, H);
+}
+
+/** Adds an alpha channel (0..1) to an opaque hex colour. */
+export function withAlpha(hex, alpha) {
+  const c = parseHex(hex);
+  return toHex({ ...c, a: Math.max(0, Math.min(0.999, alpha)) });
+}
+
 /** Derives `accent` and `accent-fg` for one mode from a brand accent colour. */
 export function deriveAccent(accentHex, mode, target = 4.6) {
   const { L, C, H } = hexToOklch(accentHex);

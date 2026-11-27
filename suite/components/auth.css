@@ -1,0 +1,31 @@
+/* ---------- auth ----------
+   Sign-in, MFA, forgot / reset password, accept invite. One centred column:
+     <main class="s-auth">
+       <div class="s-auth__brand"> .s-brand__mark + app name </div>
+       <section class="s-auth__card"> h1.s-auth__title, p.s-auth__lead, form.s-auth__form ... </section>
+       <p class="s-auth__foot"> secondary links </p>
+     </main>
+   Fields always stack in one column. The submit button is full width and stays enabled;
+   validation errors show on the fields after submit, and a sign-in failure shows as .s-alert above the fields. */
+.s-auth {
+  min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-5);
+  padding: max(var(--space-6), env(safe-area-inset-top)) var(--space-4) max(var(--space-6), env(safe-area-inset-bottom));
+}
+.s-auth__brand { display: flex; align-items: center; gap: var(--space-3); font-size: var(--fs-lg); font-weight: var(--fw-bold); letter-spacing: -0.02em; }
+.s-auth__card {
+  width: min(420px, 100%); padding: calc(var(--card-pad) + 8px);
+  background: var(--card-glass-bg); border: var(--card-border); border-radius: var(--radius-xl);
+  -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur);
+  box-shadow: var(--card-shadow), var(--shadow-lg);
+}
+.s-auth__title { font-size: var(--fs-2xl); font-weight: var(--fw-semibold); letter-spacing: -0.025em; }
+.s-auth__lead { margin-top: var(--space-2); color: var(--fg-2); }
+.s-auth__form { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-6); }
+.s-auth__form .s-btn[type="submit"] { width: 100%; margin-top: var(--space-1); }
+.s-auth__link { font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--primary-text); text-decoration: none; }
+.s-auth__link:hover { text-decoration: underline; }
+.s-auth__foot { color: var(--muted); font-size: var(--fs-sm); text-align: center; }
+@media (max-width: 479px) {
+  .s-auth { justify-content: flex-start; padding-top: max(var(--space-8), env(safe-area-inset-top)); }
+  .s-auth__card { padding: var(--card-pad); }
+}

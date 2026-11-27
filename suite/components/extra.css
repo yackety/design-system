@@ -24,10 +24,22 @@
 }
 .s-launcher__tile {
   display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2);
-  min-height: 112px; padding: var(--card-pad);
-  border: 1px solid var(--border); border-radius: var(--radius-lg);
-  background: var(--surface); color: var(--fg); text-decoration: none;
-  box-shadow: inset 0 3px 0 var(--product);
+  position: relative; overflow: hidden;
+  min-height: 120px; padding: var(--card-pad);
+  border: var(--card-border); border-radius: var(--radius-lg);
+  background: var(--card-glass-bg); color: var(--fg); text-decoration: none; font-weight: var(--fw-semibold);
+  -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur);
+  box-shadow: inset 0 3px 0 var(--product), var(--card-shadow);
+  transition: transform var(--dur-base) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+.s-launcher__tile::before {
+  content: ""; position: absolute; top: -50px; right: -40px; width: 140px; height: 140px; border-radius: 50%;
+  background: radial-gradient(closest-side, var(--product), transparent); opacity: 0.18; pointer-events: none;
+}
+.s-launcher__tile:hover { transform: translateY(-3px); }
+.s-launcher__icon {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--product) 22%, transparent); color: var(--product);
 }
 .s-launcher__tile[data-product="crm"] { --product: var(--product-crm); }
 .s-launcher__tile[data-product="erp"] { --product: var(--product-erp); }
@@ -35,8 +47,8 @@
 .s-launcher__tile[data-product="dms"] { --product: var(--product-dms); }
 .s-launcher__tile[data-product="bi"] { --product: var(--product-bi); }
 .s-launcher__tile[data-product="wf"] { --product: var(--product-wf); }
-.s-launcher__tile:hover { background: var(--surface-2); }
-.s-launcher__tile small { color: var(--muted); }
+.s-launcher__tile small { color: var(--muted); font-weight: var(--body-fw); }
+@media (prefers-reduced-motion: reduce) { .s-launcher__tile:hover { transform: none; } }
 @media (pointer: coarse) {
   .s-launcher__tile { min-height: 120px; }
 }

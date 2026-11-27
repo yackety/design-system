@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi" data-brand="default" data-theme="light">
+<html lang="vi" data-brand="default" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -55,7 +55,7 @@
 
 <div class="s-shell s-shell--self-service" id="shell">
   <aside class="s-sidebar" id="sidebar" aria-label="Mục lục">
-    <div class="s-brand"><span class="s-brand__mark">S</span><span>Suite Design</span></div>
+    <div class="s-brand"><span class="s-brand__mark">S</span><span class="s-brand__text"><b>Suite</b><small>Design system</small></span></div>
     <div class="s-nav-group">Nền tảng</div>
     <a class="s-nav-item" href="#tokens" aria-current="page"><svg class="s-ico"><use href="#i-house"/></svg>Màu và token</a>
     <a class="s-nav-item" href="#type"><svg class="s-ico"><use href="#i-file"/></svg>Chữ và bo góc</a>
@@ -63,6 +63,7 @@
     <div class="s-nav-group">Component</div>
     <a class="s-nav-item" href="#buttons"><svg class="s-ico"><use href="#i-plus"/></svg>Nút</a>
     <a class="s-nav-item" href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg>Form</a>
+    <a class="s-nav-item" href="#auth"><svg class="s-ico"><use href="#i-users"/></svg>Đăng nhập</a>
     <a class="s-nav-item" href="#status"><svg class="s-ico"><use href="#i-bell"/></svg>Trạng thái <span class="s-count">3</span></a>
     <a class="s-nav-item" href="#table"><svg class="s-ico"><use href="#i-users"/></svg>Bảng</a>
     <a class="s-nav-item" href="#listbox"><svg class="s-ico"><use href="#i-menu"/></svg>Popover</a>
@@ -85,9 +86,9 @@
     </header>
 
     <main class="s-content">
-      <div class="s-page-head">
+      <div class="s-page-head s-card s-card--glass">
         <div>
-          <nav class="s-breadcrumb" aria-label="Breadcrumb"><a href="#">Design system</a><span>/</span><span>Xem trước theme</span></nav>
+          <div class="s-page-head__eyebrow">Design system · Xem trước theme</div>
           <h1 id="themeName">Suite mặc định</h1>
           <p id="themeDesc"></p>
         </div>
@@ -139,6 +140,28 @@
               <div class="s-card" style="padding:12px;box-shadow:var(--shadow-lg)">shadow-lg</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="auth" class="s-stack">
+        <div class="s-section-label">Đăng nhập (.s-auth) · trang thật dùng cả màn hình</div>
+        <div class="s-auth" style="min-height:auto;padding:var(--space-4) 0">
+          <div class="s-auth__brand"><span class="s-brand__mark">S</span>Suite</div>
+          <section class="s-auth__card" aria-labelledby="authTitle">
+            <h1 class="s-auth__title" id="authTitle">Đăng nhập</h1>
+            <p class="s-auth__lead">Dùng email công việc của bạn.</p>
+            <form class="s-auth__form" onsubmit="return false" novalidate>
+              <div class="s-alert s-alert--danger" role="alert"><svg class="s-ico"><use href="#i-alert"/></svg><div class="s-alert__body">Email hoặc mật khẩu không đúng.</div></div>
+              <label class="s-field"><span class="s-field__label">Email</span><input class="s-input" type="email" autocomplete="username" value="admin@local.demo"></label>
+              <div class="s-field">
+                <div class="s-field__row"><label class="s-field__label" for="authPwd">Mật khẩu</label><a class="s-auth__link" href="#">Quên mật khẩu?</a></div>
+                <input class="s-input" id="authPwd" type="password" autocomplete="current-password" placeholder="Mật khẩu">
+              </div>
+              <label class="s-check"><input type="checkbox"><span>Ghi nhớ đăng nhập trên thiết bị này</span></label>
+              <button class="s-btn s-btn--primary s-btn--lg" type="submit">Đăng nhập</button>
+            </form>
+          </section>
+          <p class="s-auth__foot">Chưa có tài khoản? Liên hệ quản trị viên của công ty.</p>
         </div>
       </section>
 
@@ -196,9 +219,9 @@
 
       <section id="status" class="s-stack">
         <div class="s-grid">
-          <div class="s-card"><div class="s-card__body s-kpi"><span class="s-kpi__label">Đang làm việc</span><span class="s-kpi__value">248<small>người</small></span><span class="s-kpi__delta s-kpi__delta--up">+6 so với tháng trước</span></div></div>
-          <div class="s-card"><div class="s-card__body s-kpi"><span class="s-kpi__label">Đi muộn hôm nay</span><span class="s-kpi__value">12<small>người</small></span><span class="s-kpi__delta s-kpi__delta--down">+3 so với hôm qua</span></div></div>
-          <div class="s-card"><div class="s-card__body s-kpi"><span class="s-kpi__label">Hoàn thành bảng công</span><span class="s-kpi__value">86<small>%</small></span><div class="s-progress"><span style="width:86%"></span></div></div></div>
+          <div class="s-card s-card--glass s-kpi"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-users"/></svg>Đang làm việc</span><span class="s-kpi__value">248<small>người</small></span><span class="s-kpi__delta s-kpi__delta--up">+6 so với tháng trước</span></div>
+          <div class="s-card s-card--glass s-kpi" style="--kpi-tint: var(--warning)"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-clock"/></svg>Đi muộn hôm nay</span><span class="s-kpi__value">12<small>người</small></span><span class="s-kpi__delta s-kpi__delta--down">+3 so với hôm qua</span></div>
+          <div class="s-card s-card--glass s-kpi" style="--kpi-tint: var(--info)"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-check-circle"/></svg>Hoàn thành bảng công</span><span class="s-kpi__value">86<small>%</small></span><div class="s-progress"><span style="width:86%"></span></div></div>
         </div>
         <div class="s-card"><div class="s-card__body s-stack">
           <div class="s-row">
@@ -479,11 +502,15 @@
   }
 
   html.dataset.brand = store.get('brand') || 'default';
-  html.dataset.theme = store.get('mode') || 'light';
+  html.dataset.theme = store.get('mode') || theme().defaultMode || 'light';
   var d = store.get('density'); if (d) { html.dataset.density = d; $('densitySel').value = d; }
   var p = store.get('product'); if (p) { html.dataset.product = p; $('productSel').value = p; }
 
-  themeSel.addEventListener('change', function () { html.dataset.brand = themeSel.value; store.set('brand', themeSel.value); apply(); });
+  themeSel.addEventListener('change', function () {
+    html.dataset.brand = themeSel.value; store.set('brand', themeSel.value);
+    html.dataset.theme = theme().defaultMode || 'light'; store.set('mode', '');
+    apply();
+  });
   $('modeToggle').addEventListener('click', function () { html.dataset.theme = mode() === 'dark' ? 'light' : 'dark'; store.set('mode', html.dataset.theme); apply(); });
   $('densitySel').addEventListener('change', function (e) {
     if (e.target.value) html.dataset.density = e.target.value; else delete html.dataset.density;

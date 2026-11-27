@@ -1,16 +1,16 @@
 /* ---------- badge ---------- */
 .s-badge {
   display: inline-flex; align-items: center; gap: 6px; max-width: 100%;
-  min-height: 22px; padding: 0 8px; border-radius: var(--radius-sm);
-  background: var(--surface-3); color: var(--fg-2);
+  min-height: 24px; padding: 0 9px; border-radius: var(--badge-radius);
+  background: var(--surface-2); color: var(--fg-2); box-shadow: inset 0 0 0 1px var(--border);
   font-size: var(--fs-xs); font-weight: var(--fw-semibold); line-height: 1; white-space: nowrap;
 }
 .s-badge--dot::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
-.s-badge--primary { background: var(--primary-soft); color: var(--primary-text); }
-.s-badge--success { background: var(--success-soft); color: var(--success); }
-.s-badge--warning { background: var(--warning-soft); color: var(--warning); }
-.s-badge--danger { background: var(--danger-soft); color: var(--danger); }
-.s-badge--info { background: var(--info-soft); color: var(--info); }
+.s-badge--primary { box-shadow: none; background: var(--primary-soft); color: var(--primary-text); }
+.s-badge--success { box-shadow: none; background: var(--success-soft); color: var(--success); }
+.s-badge--warning { box-shadow: none; background: var(--warning-soft); color: var(--warning); }
+.s-badge--danger { box-shadow: none; background: var(--danger-soft); color: var(--danger); }
+.s-badge--info { box-shadow: none; background: var(--info-soft); color: var(--info); }
 .s-badge--pill { border-radius: var(--radius-full); }
 
 .s-count {

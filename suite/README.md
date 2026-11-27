@@ -1,24 +1,37 @@
 # Suite design system
 
-Design system cho **Business Suite** (CRM, ERP, HRM, DMS, BI, Workflow): giao diện nghiệp vụ nhiều dữ liệu, dùng cả ngày, chạy trên desktop lẫn điện thoại. Mỗi khách hàng có thể có **theme riêng** mà không cần build lại ứng dụng.
+Design system cho **Business Suite** (CRM, ERP, HRM, DMS, BI, Workflow): giao diện nghiệp vụ nhiều dữ liệu, dùng cả ngày, chạy trên desktop lẫn điện thoại.
 
-> Bản 0.1.0 là bản mẫu để chuẩn hóa cách làm: hợp đồng token, cơ chế theme theo khách hàng, công cụ build có kiểm tra tương phản, CSS component và trang demo. Chưa có công cụ release như `halvo/tools/release.py`.
+Theme mặc định được **dựng từ Halvo**:
+- kính đặt trên nền có chiều sâu;
+- một màu teal cho thứ đang bật hoặc cho hành động chính;
+- bo góc lớn, lồng nhau;
+- sidebar và topbar nổi cách mép màn hình;
+- mặc định chế độ tối.
 
-## 1. Ba lớp: core, theme, brand
+Suite là **nền để dựng các design system khác** cho từng khách hàng. Mỗi khách hàng là một theme (có thể chọn kiểu kính hoặc phẳng), dùng chung một bộ CSS component, và đổi theme không cần build lại ứng dụng.
 
-| Lớp | Ai tạo | Đổi được gì | Ở đâu | Cần build lại app? |
-|---|---|---|---|---|
-| **Core** | Team design system | Hợp đồng token, thang chữ, khoảng cách, mật độ, chuyển động, CSS component | `tokens/`, `components/` | Có (ra version mới) |
-| **Theme** | Vendor (bạn), cho từng khách hàng | Màu thương hiệu, màu nền trung tính, font (trong danh sách cho phép), bo góc, mật độ mặc định | `themes/<id>.json` → `dist/themes/<id>.css` | **Không** |
-| **Brand** | Admin của khách hàng, trên màn hình branding | `brand.primary`, `brand.accent`, bo góc, font | Dữ liệu tenant (`platform.branding`) | **Không** |
+> Bản 0.3.0. Chưa có công cụ release như `halvo/tools/release.py`.
 
-Cả 3 lớp đi qua **cùng một hợp đồng token** (`tokens/contract.json`), nên mọi component hiển thị đúng với mọi theme. Đây là điểm khác với cách "mỗi khách hàng một design system riêng": nếu mỗi khách hàng có một gói component riêng, mỗi khách hàng sẽ cần một bản build riêng, trái với nguyên tắc "một codebase, một release cho mọi khách hàng" trong `docs/architecture.html` §16–§17.
+## 1. Bốn tầng
 
-Khi chạy thật, mỗi deployment chỉ cần một file CSS theme:
+| Tầng | Ai sửa | Gồm gì | Ở đâu |
+|---|---|---|---|
+| **Core** | Team design system | Hợp đồng token, thang chữ, khoảng cách, mật độ, chuyển động, CSS component | `tokens/contract.json`, `tokens/base.json` (`tokens`, `density`), `components/` |
+| **Style preset** | Team design system | Cách các component trông ra sao: kính hay phẳng, sidebar nổi hay dính mép, tab dạng pill hay gạch chân… Mỗi preset là một bộ giá trị **component token** | `tokens/base.json → styles` (`flat`, `glass`) |
+| **Theme** | Vendor, cho từng khách hàng | Chọn preset (`style`), chế độ mặc định (`defaultMode`), màu cho cả 2 chế độ, nền trang (`backdrop`), font, bo góc, blur, mật độ. Có thể ghi đè từng component token | `themes/<id>.json` → `dist/themes/<id>.css` |
+| **Brand** | Admin của khách hàng, trên màn hình branding (làm sau) | `brand.primary`, `brand.accent`, bo góc, font | Dữ liệu tenant |
 
-```
-GET /branding.css  =  dist/themes/<theme của khách hàng>.css  +  phần ghi đè brand của admin (nếu có)
-```
+Muốn có một "design system khác", **thường chỉ cần tạo theme mới**. Cần một kiểu giao diện hoàn toàn mới (ví dụ viền đậm kiểu "brutal", hay bo tròn kiểu "soft") thì **thêm một style preset**. Cả hai cách đều **không** sửa CSS component, nên app không phải đổi gì.
+
+Theme có sẵn:
+
+| Theme | Style | Mặc định | Ghi chú |
+|---|---|---|---|
+| `default` | glass | tối | Halvo. Theme gốc của mọi theme kính |
+| `evergreen` | glass | tối | Mẫu: kế thừa `default`, chỉ đổi màu thương hiệu, font, bo góc. Màu còn lại được suy ra |
+| `classic` | flat | sáng | Phẳng, xanh dương. Theme gốc của mọi theme phẳng |
+| `civic` | flat | sáng | Mẫu khối hành chính: navy, góc gần vuông, mật độ dày, Noto Sans |
 
 ## 2. Cấu trúc
 
@@ -26,13 +39,10 @@ GET /branding.css  =  dist/themes/<theme của khách hàng>.css  +  phần ghi 
 suite/
 ├─ package.json            @suite/design-system, version
 ├─ tokens/
-│  ├─ contract.json        token bắt buộc + công dụng + các cặp tương phản phải đạt
-│  └─ base.json            token cố định: thang chữ, khoảng cách, chuyển động, z-index, mật độ, font cho phép
-├─ themes/
-│  ├─ default.json         theme gốc, khai báo đủ mọi token
-│  ├─ evergreen.json       mẫu: chỉ khai báo màu thương hiệu + bo góc + font, phần còn lại được suy ra
-│  └─ civic.json           mẫu: khối hành chính, góc vuông, mật độ dày
-├─ components/*.css        CSS component, tiền tố s- (s-btn, s-input, s-table…)
+│  ├─ contract.json        token bắt buộc (màu, paint, bóng, theme, component) + cặp tương phản phải đạt + "ground" để chồng alpha
+│  └─ base.json            token cố định, mật độ, font cho phép, style preset (flat, glass)
+├─ themes/*.json           default, evergreen (kính) · classic, civic (phẳng)
+├─ components/*.css        CSS component, tiền tố s- (s-btn, s-input, s-table, s-auth…), chỉ dùng token
 ├─ tools/
 │  ├─ build.mjs            build + kiểm tra + lệnh new-theme (Node, không cần cài package)
 │  └─ color.mjs            OKLCH, tương phản WCAG, suy ra màu từ màu thương hiệu
@@ -51,23 +61,37 @@ suite/
 
 ```powershell
 node tools/build.mjs
-node tools/build.mjs new-theme --id acme --name "Acme" --primary "#0b6e4f" --accent "#b45309" --radius 8 --font "Inter" --density compact
+node tools/build.mjs new-theme --id acme --name "Acme" --primary "#0b6e4f" --accent "#b45309"
+node tools/build.mjs new-theme --id acme-gov --primary "#1e3a8a" --style flat --density compact --radius 4 --font "Noto Sans"
 python -m http.server 4173 --directory .
 ```
 
-Lệnh thứ ba mở demo tại `http://localhost:4173/demo/`.
+Lệnh cuối mở demo tại `http://localhost:4173/demo/`.
 
-`build` dừng với mã lỗi 1 khi một theme thiếu token, có token lạ, sai định dạng màu, hoặc **không đạt một cặp tương phản** trong `contract.json` (chữ 4.5:1, viền control và vòng focus 3:1, ở cả 2 chế độ).
+`build` dừng với mã lỗi 1 khi theme có một trong các lỗi sau:
+- Thiếu token, hoặc có token lạ.
+- Màu sai định dạng, hoặc có alpha ở token không được phép.
+- Style hoặc chế độ mặc định không hợp lệ.
+- **Không đạt một cặp tương phản** trong `contract.json` (chữ 4.5:1; viền control và vòng focus 3:1; ở cả 2 chế độ).
+
+Token có alpha được chồng lên "ground" của nó trước khi đo tương phản. Riêng **kính** (`surface-glass`) được đo trên **từng màu lấy từ `backdrop`**, và kết quả là trường hợp xấu nhất.
 
 ## 4. Tạo theme cho khách hàng mới
 
-1. Chạy `new-theme` với màu thương hiệu của khách hàng. Công cụ tự suy ra `primary`, `primary-hover`, `primary-fg`, `primary-soft`, `primary-text`, `focus` và `chart-1` cho cả chế độ sáng lẫn tối, sao cho đạt mọi cặp tương phản.
-2. Màu thương hiệu quá sáng (vàng, xanh lá mạ, xanh da trời nhạt) sẽ bị làm đậm lên ở chế độ sáng, để nút và vòng focus vẫn nhìn rõ trên nền trắng. Nếu khách hàng muốn màu sáng xuất hiện, truyền màu đó vào `--accent`.
-3. Muốn chỉnh thêm (nền ấm hơn, viền đậm hơn), sửa `themes/<id>.json` → `modes.light` / `modes.dark`. Giá trị khai báo tay luôn thắng giá trị suy ra.
-4. Chạy `build` và mở demo để xem. Ô màu viền đứt trong demo là token được suy ra.
-5. Font phải nằm trong `tokens/base.json → fontWhitelist` (đã kiểm tra đủ dấu tiếng Việt). Font khác chỉ sinh cảnh báo, nhưng phải tự kiểm tra dấu trước khi giao cho khách hàng.
+1. Chạy `new-theme` với màu thương hiệu.
+   - Mặc định theme mới kế thừa `default` (kính). Muốn kiểu phẳng thì thêm `--style flat` (kế thừa `classic`).
+   - Công cụ tự suy ra cho cả 2 chế độ: `primary`, `primary-hi` (đỉnh gradient), `primary-hover`, `primary-fg`, `primary-soft`, `primary-text`, `focus`, `glow`, `chart-1` và `primary-fill`, sao cho đạt mọi cặp tương phản.
+2. Màu thương hiệu quá sáng (vàng, xanh lá mạ) sẽ bị làm đậm lên ở chế độ sáng, để nút và vòng focus vẫn nhìn rõ. Muốn màu sáng xuất hiện thì truyền màu đó vào `--accent`.
+3. Muốn chỉnh thêm, sửa `themes/<id>.json`:
+   - `modes.light` / `modes.dark`: màu, `backdrop`.
+   - `theme`: font, bo góc, blur.
+   - `components`: ghi đè từng component token, ví dụ `"tab-active-bg": "var(--surface-3)"`.
 
-Một theme chỉ được khai báo các token có trong `contract.json`. Không có CSS tự do theo khách hàng.
+   Giá trị khai báo tay luôn thắng giá trị suy ra.
+4. Chạy `build` và mở demo để xem. Ô màu viền đứt trong demo là token được suy ra.
+5. Font phải nằm trong `tokens/base.json → fontWhitelist` (đã kiểm tra đủ dấu tiếng Việt).
+
+Không có CSS tự do theo khách hàng. Theme chỉ được khai báo token có trong `contract.json`.
 
 ## 5. Dùng trong ứng dụng Angular
 
@@ -75,37 +99,54 @@ Một theme chỉ được khai báo các token có trong `contract.json`. Khôn
 // angular.json → styles (thứ tự quan trọng)
 "styles": [
   "node_modules/@suite/design-system/dist/base.css",
-  "node_modules/@suite/design-system/dist/themes/default.css",
   "node_modules/@suite/design-system/dist/components.css",
   "src/styles.css"
 ]
 ```
 
-Khi chạy thật, `themes/default.css` được thay bằng `<link rel="stylesheet" href="/branding.css?v=…">` do server trả về theo khách hàng.
+Theme nạp bằng `<link id="suite-theme" href="assets/themes/<id>.css">` (deployment chọn id).
 
 Thuộc tính trên `<html>`:
 
 | Thuộc tính | Giá trị | Ai đặt |
 |---|---|---|
-| `data-theme` | `light` · `dark` (không đặt = theo hệ điều hành) | `ThemeService`, theo lựa chọn của user |
-| `data-density` | `comfortable` · `compact` (không đặt = mặc định của theme) | `ThemeService`, theo lựa chọn của user |
-| `data-product` | `crm` · `erp` · `hrm` · `dms` · `bi` · `wf` | Layout của workspace, đổi `--product` |
+| `data-theme` | `light` · `dark`. **Không đặt = `defaultMode` của theme** (`default` là tối). Design system không tự theo hệ điều hành: user chọn "Theo hệ thống" thì `ThemeService` đọc `matchMedia` rồi đặt `data-theme` | `ThemeService` |
+| `data-density` | `comfortable` · `compact` (không đặt = mặc định của theme) | `ThemeService` |
+| `data-product` | `crm` · `erp` · `hrm` · `dms` · `bi` · `wf`: đổi `--product` và hiện dải màu trên topbar | Layout của workspace |
 | `data-brand` | id theme | Chỉ dùng với `themes.all.css` (demo, console xem trước) |
 
-**Tailwind v4** (tùy chọn, dùng cho layout): `@import "tailwindcss"; @import "@suite/design-system/tailwind.css";`. File này xóa bảng màu của Tailwind, chỉ để lại màu của Suite (`bg-surface`, `text-muted`, `border-border`, `bg-primary`…). `rounded-sm|md|lg` và `font-sans` tự lấy giá trị của theme. Không cần prefix, vì class component dùng tiền tố `s-` nên không trùng tên với utility của Tailwind.
+**Tailwind v4** (tùy chọn, chỉ dùng cho bố cục): `@import "tailwindcss"; @import "@suite/design-system/tailwind.css";`. Bảng màu của Tailwind bị xóa, chỉ còn màu của Suite.
 
-Component Angular (`@suite/ui` trong Business Suite) render markup dùng các class `s-*` này và bổ sung hành vi (CDK overlay, bàn phím, ARIA). CSS nằm ở design system, nên theme áp lên mọi component mà không phải sửa code Angular.
+Component Angular (`@suite/ui`) render markup dùng class `s-*` và bổ sung hành vi (CDK overlay, bàn phím, ARIA). Không viết style hình thức trong Angular.
 
 ## 6. Quy tắc thiết kế
 
-- **Rõ ràng hơn hiệu ứng.** Nền phẳng, viền mảnh, bóng nhẹ. Không dùng glass hay blur cho bảng và form dày dữ liệu.
-- **Mật độ có 2 mức.** `comfortable` (control 40px, hàng bảng 48px) và `compact` (32px / 36px). Trên thiết bị cảm ứng, control luôn tối thiểu 44px, input 16px để iOS không tự zoom.
-- **Màu có nghĩa.** `primary` cho một hành động chính mỗi màn hình. Màu trạng thái chỉ dùng cho trạng thái, và luôn đi kèm chữ hoặc icon, không dùng màu đơn độc.
-- **Số liệu** dùng `tabular-nums` (`.s-num`, `.is-num`), canh phải trong bảng. Tiền theo định dạng `15.000.000 ₫`.
-- **Responsive:** breakpoint 640 / 768 / 1024 / 1280. Dưới 1024px sidebar thành drawer. Dưới 768px dialog thành bottom sheet, cổng tự phục vụ có thanh tab ở đáy. Bảng `.s-table--stack` thành thẻ khi khung hẹp hơn 640px (container query, không cần JS).
-- **Accessibility:** focus 2px màu `--focus`. Mọi cặp màu trong `contract.json` được kiểm tra tự động. Tôn trọng `prefers-reduced-motion`.
-- **Icon:** demo dùng Lucide (ISC), nét mảnh hợp với giao diện phẳng. Kế hoạch Business Suite hiện ghi Font Awesome: cần chốt một bộ.
+- **Kính chỉ dành cho khung ứng dụng và dashboard.**
+  - Có blur: sidebar, topbar, thanh tab, dialog, menu, popover, toast, `.s-card--glass` (KPI, page head, tile, card đăng nhập).
+  - Không blur, gần đặc: bề mặt chứa dữ liệu `.s-card` (bảng, form, danh sách). Không bọc một bảng dài trong `.s-card--glass`.
+  - Khi người dùng bật `prefers-reduced-transparency`, mọi kính thành đặc.
+- **Một hành động chính mỗi màn hình** (`.s-btn--primary`, nền gradient và quầng sáng). Teal chỉ để đánh dấu thứ đang bật, đang chọn hoặc là hành động chính, không dùng để trang trí.
+- **Màu trạng thái chỉ dùng cho trạng thái**, và luôn đi kèm chữ hoặc icon.
+- **Chữ:** Be Vietnam Pro. Thân chữ đậm 500, control và tiêu đề 600. Số dùng `tabular-nums`. Đơn vị đứng sau con số, cỡ nhỏ hơn và màu `muted`: `248 người`, `15.000.000 ₫`.
+- **Bo góc lồng nhau:** con luôn nhỏ hơn cha. `radius-xl` cho sidebar và dialog, `lg` cho card, `md` cho nút và input, `sm` cho ô nhỏ.
+- **Mật độ có 2 mức.** Trên thiết bị cảm ứng, control tối thiểu 44px, input 16px.
+- **Responsive:**
+  - Breakpoint 640 / 768 / 1024 / 1280.
+  - Dưới 1024px, sidebar thành drawer.
+  - Dưới 768px, dialog thành bottom sheet có tay nắm, và cổng tự phục vụ có thanh tab nổi ở đáy.
+  - Bảng `.s-table--stack` thành thẻ khi khung hẹp hơn 640px.
+- **Trang đăng nhập** dùng `.s-auth`:
+  - Một cột, card ở giữa, logo phía trên.
+  - Nút submit rộng hết card và **không bị vô hiệu hóa**: kiểm tra lỗi khi submit.
+  - Lỗi đăng nhập hiện bằng `.s-alert` phía trên các field.
+  - Link "Quên mật khẩu?" nằm cạnh label của mật khẩu.
+- **Accessibility:** focus 2px `--focus`. Mọi cặp màu trong `contract.json` được kiểm tra tự động. Tôn trọng `prefers-reduced-motion` và `prefers-reduced-transparency`.
+- **Icon:** demo dùng Lucide (ISC), nét mảnh, hợp với kính. Cần chốt với kế hoạch Business Suite (câu hỏi Q5).
 
 ## 7. Version
 
-Theo quy ước của repo: version trong `package.json`, thay đổi ghi vào `CHANGELOG.md`, tag `suite@X.Y.Z`. **Thêm hoặc sửa một theme khách hàng không làm đổi version của core**, vì theme là dữ liệu. Đổi tên hoặc xóa token trong `contract.json`, hoặc đổi tên class `s-*`, là thay đổi **major**.
+Version nằm trong `package.json`, thay đổi ghi vào `CHANGELOG.md`, tag dạng `suite@X.Y.Z`.
+
+- **Theme khách hàng là dữ liệu:** thêm hoặc sửa theme khách hàng không làm đổi version của core.
+- **Minor:** thêm token, thêm style preset, thêm class `s-*`.
+- **Major** (sau 1.0): đổi tên hoặc xóa token trong `contract.json`, hoặc đổi tên class `s-*`.

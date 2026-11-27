@@ -1,32 +1,45 @@
-/* ---------- card ---------- */
+/* ---------- card ----------
+   .s-card is a data surface: near-opaque, no blur (tables, forms, lists).
+   .s-card--glass is glass with blur: dashboard tiles, KPI, page head. Never wrap a long table in it. */
 .s-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm); min-width: 0;
+  position: relative; min-width: 0;
+  background: var(--card-bg); border: var(--card-border); border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+}
+.s-card--glass {
+  background: var(--card-glass-bg);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
 }
 .s-card__head {
   display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap;
-  padding: var(--card-pad) var(--card-pad) 0;
+  padding: calc(var(--card-pad) - 2px) var(--card-pad) 0;
 }
-.s-card__title { font-size: var(--fs-md); font-weight: var(--fw-semibold); }
-.s-card__sub { font-size: var(--fs-sm); color: var(--muted); }
+.s-card__title { font-size: var(--fs-md); font-weight: var(--fw-semibold); letter-spacing: -0.005em; }
+.s-card__sub { font-size: var(--fs-sm); color: var(--muted); margin-top: 2px; }
 .s-card__body { padding: var(--card-pad); }
 .s-card__foot {
   display: flex; justify-content: flex-end; gap: var(--space-2); flex-wrap: wrap;
   padding: var(--space-3) var(--card-pad); border-top: 1px solid var(--border);
-  background: var(--surface-2); border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 .s-card--flush > .s-card__body { padding: 0; }
 
-.s-kpi { display: flex; flex-direction: column; gap: var(--space-1); }
-.s-kpi__label { font-size: var(--fs-sm); color: var(--muted); font-weight: var(--fw-medium); }
-.s-kpi__value { font-size: var(--fs-2xl); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
-.s-kpi__value small { font-size: var(--fs-sm); color: var(--muted); font-weight: var(--fw-medium); margin-left: 4px; }
-.s-kpi__delta { font-size: var(--fs-xs); font-weight: var(--fw-semibold); }
-.s-kpi__delta--up { color: var(--success); }
-.s-kpi__delta--down { color: var(--danger); }
+/* KPI: label with icon, a big figure with a smaller unit, a footer with a delta. */
+.s-kpi { position: relative; display: flex; flex-direction: column; gap: var(--space-1); min-height: 112px; overflow: hidden; }
+.s-card.s-kpi { padding: calc(var(--card-pad) - 4px) calc(var(--card-pad) - 2px) calc(var(--card-pad) - 6px); }
+.s-card--glass.s-kpi::before {
+  content: ""; position: absolute; top: -50px; right: -40px; width: 150px; height: 150px; border-radius: 50%;
+  background: radial-gradient(closest-side, var(--kpi-tint, var(--primary)), transparent); opacity: 0.22; pointer-events: none;
+}
+.s-kpi__label { display: flex; align-items: center; gap: var(--space-2); font-size: var(--fs-sm); color: var(--muted); font-weight: var(--fw-semibold); }
+.s-kpi__value { margin-top: auto; font-size: var(--fs-2xl); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1.1; }
+.s-kpi__value small { font-size: var(--fs-sm); color: var(--muted); font-weight: var(--fw-semibold); margin-left: 4px; letter-spacing: 0; }
+.s-kpi__delta { display: inline-flex; align-items: center; gap: 2px; width: fit-content; padding: 2px 8px; border-radius: var(--radius-full); font-size: 11px; font-weight: var(--fw-bold); }
+.s-kpi__delta--up { color: var(--success); background: var(--success-soft); }
+.s-kpi__delta--down { color: var(--danger); background: var(--danger-soft); }
 
 .s-dl { display: grid; grid-template-columns: 1fr; gap: var(--space-3) var(--space-6); margin: 0; }
 @media (min-width: 640px) { .s-dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .s-dl > div { min-width: 0; }
-.s-dl dt { font-size: var(--fs-xs); color: var(--muted); font-weight: var(--fw-medium); margin-bottom: 2px; }
-.s-dl dd { margin: 0; font-weight: var(--fw-medium); overflow-wrap: anywhere; }
+.s-dl dt { font-size: var(--fs-xs); color: var(--muted); font-weight: var(--fw-semibold); margin-bottom: 2px; }
+.s-dl dd { margin: 0; font-weight: var(--fw-semibold); overflow-wrap: anywhere; }
