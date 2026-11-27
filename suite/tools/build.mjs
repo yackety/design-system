@@ -24,7 +24,7 @@ const MODE_NAMES = [...COLOR_NAMES, ...PAINT_NAMES, ...contract.modeTokens.map((
 const THEME_NAMES = contract.themeTokens.map((t) => t.name);
 const COMPONENT_NAMES = contract.componentTokens.map((t) => t.name);
 const STYLES = Object.fromEntries(Object.entries(base.styles).filter(([k]) => !k.startsWith('$')));
-const COMPONENT_FILES = ['base', 'button', 'form', 'card', 'badge', 'alert', 'tabs', 'table', 'dialog', 'toast', 'shell', 'auth', 'misc', 'listbox', 'calendar', 'upload', 'stepper', 'filter', 'extra'];
+const COMPONENT_FILES = ['base', 'button', 'form', 'card', 'badge', 'alert', 'tabs', 'table', 'dialog', 'toast', 'shell', 'auth', 'misc', 'listbox', 'list', 'calendar', 'upload', 'stepper', 'filter', 'extra', 'motion'];
 
 // ---------- colour helpers bound to one mode ----------
 
@@ -167,7 +167,7 @@ function baseCss() {
     `:root {\n${decls(base.tokens)}\n  --product: var(--primary);\n}`,
     ...Object.entries(base.density).map(([id, v]) => `[data-density="${id}"] {\n${decls(v)}\n}`),
     products.map((p) => `[data-product="${p}"] { --product: var(--product-${p}); --product-strip: var(--product-${p}); }`).join('\n'),
-    `@media (prefers-reduced-motion: reduce) {\n  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; }\n}`,
+    `@media (prefers-reduced-motion: reduce) {\n  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; --dur-reveal: 0ms; --stagger: 0ms; }\n}`,
   ].join('\n\n') + '\n';
 }
 
@@ -225,6 +225,9 @@ function build() {
   writeFileSync(join(dist, 'base.css'), baseOut);
   writeFileSync(join(dist, 'components.css'), components);
   writeFileSync(join(dist, 'tailwind.css'), tailwindCss());
+  const motion = readFileSync(join(root, 'components', 'motion.mjs'), 'utf8').replace('/*! Suite motion helpers.', `/*! Suite design system v${pkg.version} — motion helpers.`);
+  writeFileSync(join(dist, 'motion.mjs'), motion);
+  writeFileSync(join(dist, 'motion.js'), motion); // same ES module; some static servers serve .mjs as text/plain
   for (const { t } of themes) writeFileSync(join(dist, 'themes', `${t.id}.css`), banner(`theme ${t.id}`) + themeCss(t, false));
   writeFileSync(join(dist, 'themes.all.css'), banner('all themes, scoped by data-brand (previews, console)') + themes.map(({ t }) => themeCss(t, true)).join('\n'));
   const defaultTheme = themes.find(({ t }) => t.id === 'default').t;

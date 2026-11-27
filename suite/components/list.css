@@ -1,0 +1,72 @@
+/* ---------- list and tree ----------
+   .s-list: rows with a leading tile/avatar, title + subtitle, and trailing meta or chevron.
+   Use it for drill-down navigation on phones, short lists in cards, and pickers.
+     <ul class="s-list">
+       <li><a class="s-list__item" href="…" aria-current="true">
+         <span class="s-list__lead">…icon or avatar…</span>
+         <span class="s-list__text"><b>Title</b><small>Subtitle</small></span>
+         <span class="s-list__meta">12</span><svg class="s-ico s-list__chevron">…</svg>
+       </a></li>
+     </ul>
+   .s-tree: a hierarchy (org chart, categories). role="tree" > li[role="treeitem"][aria-level][aria-expanded] >
+     .s-tree__row (toggle + label) and a nested ul[role="group"]. Indentation comes from --level on the row. */
+.s-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.s-list--divided { gap: 0; }
+.s-list--divided > li + li { border-top: 1px solid var(--border); }
+.s-list__item {
+  display: flex; align-items: center; gap: var(--space-3); width: 100%;
+  min-height: calc(var(--control-h) + 12px); padding: var(--space-2) var(--space-3);
+  border: 0; border-radius: var(--radius-md); background: none; color: var(--fg);
+  font: inherit; text-align: start; text-decoration: none; cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+a.s-list__item:hover, button.s-list__item:hover { background: var(--surface-2); }
+.s-list__item[aria-current="true"], .s-list__item[aria-current="page"], .s-list__item[aria-selected="true"] {
+  background: var(--nav-active-bg); color: var(--nav-active-fg); box-shadow: var(--nav-active-shadow);
+}
+.s-list__lead {
+  display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: calc(var(--radius-md) - 2px);
+  background: var(--surface-2); color: var(--muted);
+}
+.s-list__item[aria-current] .s-list__lead, .s-list__item[aria-selected="true"] .s-list__lead { color: var(--primary-text); background: var(--primary-soft); }
+.s-list__text { flex: 1; min-width: 0; }
+.s-list__text b { display: block; font-weight: var(--fw-semibold); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.s-list__text small { display: block; color: var(--muted); font-size: var(--fs-xs); font-weight: var(--body-fw); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.s-list__meta { flex: none; color: var(--muted); font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+.s-list__chevron { flex: none; color: var(--muted); }
+
+.s-tree, .s-tree ul { list-style: none; margin: 0; padding: 0; }
+.s-tree { display: flex; flex-direction: column; gap: 2px; }
+.s-tree ul { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
+.s-tree [aria-expanded="false"] > ul { display: none; }
+.s-tree__row {
+  --level: 1;
+  display: flex; align-items: center; gap: var(--space-2); width: 100%;
+  min-height: var(--control-h); padding: 0 var(--space-2) 0 calc(var(--space-2) + (var(--level) - 1) * 20px);
+  border-radius: calc(var(--radius-md) - 2px); color: var(--fg-2); font-weight: var(--fw-semibold); cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.s-tree__row:hover { background: var(--surface-2); color: var(--fg); }
+[aria-selected="true"] > .s-tree__row { background: var(--nav-active-bg); color: var(--nav-active-fg); box-shadow: var(--nav-active-shadow); }
+[aria-selected="true"] > .s-tree__row > .s-ico { color: var(--primary-text); }
+.s-tree__row > .s-ico { color: var(--muted); }
+.s-tree__toggle {
+  display: grid; place-items: center; flex: none; width: 24px; height: 24px; padding: 0;
+  border: 0; border-radius: 6px; background: none; color: var(--muted); cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-expo), background-color var(--dur-fast) var(--ease-out);
+}
+.s-tree__toggle:hover { background: var(--surface-3); color: var(--fg); }
+[aria-expanded="false"] > .s-tree__row > .s-tree__toggle { transform: rotate(-90deg); }
+.s-tree__spacer { flex: none; width: 24px; }
+.s-tree__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.s-tree__meta { flex: none; color: var(--muted); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; }
+@media (pointer: coarse) {
+  .s-tree__row, .s-list__item { min-height: var(--touch-min); }
+  .s-tree__toggle { width: 32px; height: 32px; }
+}
+
+/* Master-detail: tree or list on the left, detail on the right; one column below 1024px. */
+.s-split { display: grid; gap: var(--gap); grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 1024px) { .s-split { grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); } }
+.s-split__aside { position: sticky; top: calc(var(--topbar-h) + var(--shell-inset) * 2); }
+@media (max-width: 1023px) { .s-split__aside { position: static; } }

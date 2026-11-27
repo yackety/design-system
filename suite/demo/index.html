@@ -50,30 +50,48 @@
     <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
   </defs>
 </svg>
 
 <div class="s-shell s-shell--self-service" id="shell">
   <aside class="s-sidebar" id="sidebar" aria-label="Mục lục">
-    <div class="s-brand"><span class="s-brand__mark">S</span><span class="s-brand__text"><b>Suite</b><small>Design system</small></span></div>
-    <div class="s-nav-group">Nền tảng</div>
-    <a class="s-nav-item" href="#tokens" aria-current="page"><svg class="s-ico"><use href="#i-house"/></svg>Màu và token</a>
-    <a class="s-nav-item" href="#type"><svg class="s-ico"><use href="#i-file"/></svg>Chữ và bo góc</a>
-    <a class="s-nav-item" href="#contrast"><svg class="s-ico"><use href="#i-check-circle"/></svg>Độ tương phản</a>
-    <div class="s-nav-group">Component</div>
-    <a class="s-nav-item" href="#buttons"><svg class="s-ico"><use href="#i-plus"/></svg>Nút</a>
-    <a class="s-nav-item" href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg>Form</a>
-    <a class="s-nav-item" href="#auth"><svg class="s-ico"><use href="#i-users"/></svg>Đăng nhập</a>
-    <a class="s-nav-item" href="#status"><svg class="s-ico"><use href="#i-bell"/></svg>Trạng thái <span class="s-count">3</span></a>
-    <a class="s-nav-item" href="#table"><svg class="s-ico"><use href="#i-users"/></svg>Bảng</a>
-    <a class="s-nav-item" href="#listbox"><svg class="s-ico"><use href="#i-menu"/></svg>Popover</a>
-    <a class="s-nav-item" href="#calendar"><svg class="s-ico"><use href="#i-calendar"/></svg>Lịch</a>
-    <a class="s-nav-item" href="#upload"><svg class="s-ico"><use href="#i-file"/></svg>Tải file</a>
-    <a class="s-nav-item" href="#stepper"><svg class="s-ico"><use href="#i-check-circle"/></svg>Bước và lọc</a>
-    <a class="s-nav-item" href="#extras"><svg class="s-ico"><use href="#i-house"/></svg>Launcher</a>
-    <a class="s-nav-item" href="#overlays"><svg class="s-ico"><use href="#i-bell"/></svg>Dialog và toast</a>
-    <div class="s-nav-group">Hướng dẫn</div>
-    <a class="s-nav-item" href="#new-theme"><svg class="s-ico"><use href="#i-clock"/></svg>Tạo theme mới</a>
+    <button type="button" class="s-switcher" aria-haspopup="listbox" aria-expanded="false" title="Chuyển sản phẩm">
+      <span class="s-brand__mark">S</span>
+      <span class="s-switcher__text"><b>Suite</b><small>Design system · 0.4</small></span>
+      <svg class="s-ico s-ico--sm"><use href="#i-chevron"/></svg>
+    </button>
+    <nav class="s-nav" id="sideNav" aria-label="Mục lục">
+      <div class="s-nav-section">
+        <a class="s-nav-item" href="#tokens" aria-current="page"><svg class="s-ico"><use href="#i-house"/></svg><span class="s-nav-item__label">Tổng quan</span></a>
+        <a class="s-nav-item" href="#overlays"><svg class="s-ico"><use href="#i-check-circle"/></svg><span class="s-nav-item__label">Chờ duyệt</span><span class="s-count">3</span></a>
+      </div>
+      <div class="s-nav-section">
+        <div class="s-nav-group">Nền tảng</div>
+        <a class="s-nav-item" href="#type"><svg class="s-ico"><use href="#i-file"/></svg><span class="s-nav-item__label">Chữ và bo góc</span></a>
+        <a class="s-nav-item" href="#navigation"><svg class="s-ico"><use href="#i-menu"/></svg><span class="s-nav-item__label">Điều hướng và cây</span></a>
+        <a class="s-nav-item" href="#motion"><svg class="s-ico"><use href="#i-sparkle"/></svg><span class="s-nav-item__label">Chuyển động</span></a>
+        <div class="s-nav-group">Component</div>
+        <a class="s-nav-item" href="#buttons"><svg class="s-ico"><use href="#i-plus"/></svg><span class="s-nav-item__label">Nút</span></a>
+        <a class="s-nav-item" href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg><span class="s-nav-item__label">Form</span></a>
+        <a class="s-nav-item" href="#auth"><svg class="s-ico"><use href="#i-users"/></svg><span class="s-nav-item__label">Đăng nhập</span></a>
+        <a class="s-nav-item" href="#status"><svg class="s-ico"><use href="#i-bell"/></svg><span class="s-nav-item__label">Trạng thái</span></a>
+        <a class="s-nav-item" href="#table"><svg class="s-ico"><use href="#i-users"/></svg><span class="s-nav-item__label">Bảng</span></a>
+        <a class="s-nav-item" href="#listbox"><svg class="s-ico"><use href="#i-menu"/></svg><span class="s-nav-item__label">Popover</span></a>
+        <a class="s-nav-item" href="#calendar"><svg class="s-ico"><use href="#i-calendar"/></svg><span class="s-nav-item__label">Lịch</span></a>
+        <a class="s-nav-item" href="#upload"><svg class="s-ico"><use href="#i-file"/></svg><span class="s-nav-item__label">Tải file</span></a>
+        <a class="s-nav-item" href="#stepper"><svg class="s-ico"><use href="#i-check-circle"/></svg><span class="s-nav-item__label">Bước và lọc</span></a>
+        <a class="s-nav-item" href="#extras"><svg class="s-ico"><use href="#i-house"/></svg><span class="s-nav-item__label">Launcher</span></a>
+      </div>
+      <div class="s-nav-section">
+        <div class="s-nav-group">Cài đặt</div>
+        <a class="s-nav-item" href="#contrast"><svg class="s-ico"><use href="#i-check-circle"/></svg><span class="s-nav-item__label">Độ tương phản</span></a>
+        <a class="s-nav-item" href="#new-theme"><svg class="s-ico"><use href="#i-clock"/></svg><span class="s-nav-item__label">Tạo theme mới</span></a>
+      </div>
+    </nav>
   </aside>
   <div class="s-scrim" id="scrim"></div>
 
@@ -194,6 +212,8 @@
             <label class="s-field"><span class="s-field__label">Mã nhân viên</span><input class="s-input" value="NV00042" readonly><span class="s-field__hint">Tự sinh theo pháp nhân.</span></label>
             <label class="s-field"><span class="s-field__label" data-required>Phòng ban</span>
               <select class="s-select"><option>Kinh doanh</option><option>Kế toán</option><option>Nhân sự</option></select></label>
+            <div class="s-field"><span class="s-field__label">Pháp nhân (button.s-select, trigger của listbox)</span>
+              <button type="button" class="s-select" aria-haspopup="listbox" aria-expanded="false"><span class="s-select__value">Công ty TNHH Demo</span></button></div>
             <label class="s-field"><span class="s-field__label" data-required>Lương cơ bản</span>
               <span class="s-input-group"><input class="s-input s-input--num" value="15.000.000"><span class="s-input-group__suffix">₫</span></span></label>
             <label class="s-field"><span class="s-field__label" data-required>Số CCCD</span><input class="s-input" value="07909" aria-invalid="true"><span class="s-field__error">Số CCCD phải có 12 chữ số.</span></label>
@@ -218,10 +238,10 @@
       </section>
 
       <section id="status" class="s-stack">
-        <div class="s-grid">
-          <div class="s-card s-card--glass s-kpi"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-users"/></svg>Đang làm việc</span><span class="s-kpi__value">248<small>người</small></span><span class="s-kpi__delta s-kpi__delta--up">+6 so với tháng trước</span></div>
-          <div class="s-card s-card--glass s-kpi" style="--kpi-tint: var(--warning)"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-clock"/></svg>Đi muộn hôm nay</span><span class="s-kpi__value">12<small>người</small></span><span class="s-kpi__delta s-kpi__delta--down">+3 so với hôm qua</span></div>
-          <div class="s-card s-card--glass s-kpi" style="--kpi-tint: var(--info)"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-check-circle"/></svg>Hoàn thành bảng công</span><span class="s-kpi__value">86<small>%</small></span><div class="s-progress"><span style="width:86%"></span></div></div>
+        <div class="s-grid s-motion-rise" id="kpis">
+          <div class="s-card s-card--glass s-kpi s-lift"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-users"/></svg>Đang làm việc</span><span class="s-kpi__value"><span data-count="248">248</span><small>người</small></span><span class="s-kpi__delta s-kpi__delta--up">+6 so với tháng trước</span></div>
+          <div class="s-card s-card--glass s-kpi s-lift" style="--kpi-tint: var(--warning)"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-clock"/></svg>Đi muộn hôm nay</span><span class="s-kpi__value"><span data-count="12">12</span><small>người</small></span><span class="s-kpi__delta s-kpi__delta--down">+3 so với hôm qua</span></div>
+          <div class="s-card s-card--glass s-kpi s-lift" style="--kpi-tint: var(--info)"><span class="s-kpi__label"><svg class="s-ico s-ico--sm"><use href="#i-check-circle"/></svg>Hoàn thành bảng công</span><span class="s-kpi__value"><span data-count="86">86</span><small>%</small></span><div class="s-progress"><span style="width:86%"></span></div></div>
         </div>
         <div class="s-card"><div class="s-card__body s-stack">
           <div class="s-row">
@@ -243,7 +263,7 @@
       <section id="table" class="s-card s-card--flush">
         <div class="s-card__head">
           <div><div class="s-card__title">Nhân viên</div><div class="s-card__sub">Thu hẹp cửa sổ dưới 640px: mỗi hàng thành một thẻ, không cần JavaScript.</div></div>
-          <div class="s-tabs" role="tablist" aria-label="Trạng thái">
+          <div class="s-tabs" role="tablist" aria-label="Trạng thái" data-pill>
             <button class="s-tab" role="tab" aria-selected="true">Đang làm (248)</button>
             <button class="s-tab" role="tab" aria-selected="false">Thử việc (14)</button>
             <button class="s-tab" role="tab" aria-selected="false">Đã nghỉ (37)</button>
@@ -269,7 +289,7 @@
           <div class="s-card__body s-stack">
             <p class="s-muted">Dialog dùng thẻ <code>&lt;dialog&gt;</code> có sẵn của trình duyệt. Trên điện thoại nó thành bottom sheet.</p>
             <div class="s-row"><button class="s-btn s-btn--primary" id="openDialog">Xin nghỉ phép</button><button class="s-btn" id="openToast">Hiện toast</button></div>
-            <div class="s-seg" role="group" aria-label="Khoảng thời gian"><button aria-pressed="true">Tháng</button><button aria-pressed="false">Quý</button><button aria-pressed="false">Năm</button></div>
+            <div class="s-seg" role="group" aria-label="Khoảng thời gian" data-pill><button aria-pressed="true">Tháng</button><button aria-pressed="false">Quý</button><button aria-pressed="false">Năm</button></div>
           </div>
         </div>
         <div class="s-card"><div class="s-card__head"><div class="s-card__title">Trống và đang tải</div></div>
@@ -379,6 +399,88 @@
         </div>
       </section>
 
+      <section id="navigation" class="s-stack">
+        <div class="s-section-label">Điều hướng và cây: .s-split (cây trái, chi tiết phải) · .s-tree · .s-list (đi sâu từng cấp trên điện thoại)</div>
+        <div class="s-split">
+          <div class="s-card s-split__aside">
+            <div class="s-card__head"><div class="s-card__title">Tổ chức</div><button class="s-btn s-btn--sm s-btn--ghost s-btn--icon" aria-label="Thêm đơn vị"><svg class="s-ico s-ico--sm"><use href="#i-plus"/></svg></button></div>
+            <div class="s-card__body">
+              <ul class="s-tree" role="tree" aria-label="Cây tổ chức" id="orgTree">
+                <li role="treeitem" aria-level="1" aria-expanded="true" aria-selected="false">
+                  <div class="s-tree__row" style="--level:1"><button class="s-tree__toggle" tabindex="-1" aria-hidden="true"><svg class="s-ico s-ico--sm"><use href="#i-chevron"/></svg></button><svg class="s-ico s-ico--sm"><use href="#i-house"/></svg><span class="s-tree__label">Công ty TNHH Demo</span><span class="s-tree__meta">248</span></div>
+                  <ul role="group">
+                    <li role="treeitem" aria-level="2" aria-expanded="true" aria-selected="false">
+                      <div class="s-tree__row" style="--level:2"><button class="s-tree__toggle" tabindex="-1" aria-hidden="true"><svg class="s-ico s-ico--sm"><use href="#i-chevron"/></svg></button><svg class="s-ico s-ico--sm"><use href="#i-grid"/></svg><span class="s-tree__label">Chi nhánh Hà Nội</span><span class="s-tree__meta">132</span></div>
+                      <ul role="group">
+                        <li role="treeitem" aria-level="3" aria-selected="true"><div class="s-tree__row" style="--level:3"><span class="s-tree__spacer"></span><svg class="s-ico s-ico--sm"><use href="#i-users"/></svg><span class="s-tree__label">Phòng Kinh doanh</span><span class="s-tree__meta">48</span></div></li>
+                        <li role="treeitem" aria-level="3" aria-selected="false"><div class="s-tree__row" style="--level:3"><span class="s-tree__spacer"></span><svg class="s-ico s-ico--sm"><use href="#i-users"/></svg><span class="s-tree__label">Phòng Kế toán</span><span class="s-tree__meta">12</span></div></li>
+                      </ul>
+                    </li>
+                    <li role="treeitem" aria-level="2" aria-expanded="false" aria-selected="false">
+                      <div class="s-tree__row" style="--level:2"><button class="s-tree__toggle" tabindex="-1" aria-hidden="true"><svg class="s-ico s-ico--sm"><use href="#i-chevron"/></svg></button><svg class="s-ico s-ico--sm"><use href="#i-grid"/></svg><span class="s-tree__label">Chi nhánh TP. Hồ Chí Minh</span><span class="s-tree__meta">116</span></div>
+                      <ul role="group">
+                        <li role="treeitem" aria-level="3" aria-selected="false"><div class="s-tree__row" style="--level:3"><span class="s-tree__spacer"></span><svg class="s-ico s-ico--sm"><use href="#i-users"/></svg><span class="s-tree__label">Phòng Kỹ thuật</span><span class="s-tree__meta">64</span></div></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="s-stack">
+            <div class="s-card">
+              <div class="s-card__head">
+                <div><div class="s-card__title">Phòng Kinh doanh</div><div class="s-card__sub">Phòng ban · KD-HN · Chi nhánh Hà Nội</div></div>
+                <div class="s-row"><button class="s-btn s-btn--sm">Sửa</button><button class="s-btn s-btn--sm s-btn--primary">Thêm thành viên</button></div>
+              </div>
+              <div class="s-card__body s-stack">
+                <dl class="s-dl">
+                  <div><dt>Quản lý</dt><dd>Nguyễn Thị Lan</dd></div>
+                  <div><dt>Thành viên</dt><dd>48 người</dd></div>
+                  <div><dt>Đơn vị cha</dt><dd>Chi nhánh Hà Nội</dd></div>
+                  <div><dt>Mã</dt><dd>KD-HN</dd></div>
+                </dl>
+                <div class="s-tabs" role="tablist" aria-label="Chi tiết đơn vị" data-pill>
+                  <button class="s-tab" role="tab" aria-selected="true">Thành viên</button>
+                  <button class="s-tab" role="tab" aria-selected="false">Đơn vị con</button>
+                  <button class="s-tab" role="tab" aria-selected="false">Chức danh</button>
+                </div>
+                <ul class="s-list s-list--divided s-motion-slide">
+                  <li><a class="s-list__item" href="#navigation"><span class="s-avatar">TL</span><span class="s-list__text"><b>Nguyễn Thị Lan</b><small>Trưởng phòng · NV00042</small></span><span class="s-badge s-badge--success s-badge--dot">Chính thức</span></a></li>
+                  <li><a class="s-list__item" href="#navigation"><span class="s-avatar">VM</span><span class="s-list__text"><b>Trần Văn Minh</b><small>Chuyên viên · NV00057</small></span><span class="s-badge s-badge--warning s-badge--dot">Sắp hết hạn HĐ</span></a></li>
+                  <li><a class="s-list__item" href="#navigation"><span class="s-avatar">MC</span><span class="s-list__text"><b>Võ Minh Châu</b><small>Chuyên viên · NV00088</small></span><span class="s-badge s-badge--info s-badge--dot">Thử việc</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="s-card">
+              <div class="s-card__head"><div><div class="s-card__title">Trên điện thoại: .s-list đi sâu từng cấp</div><div class="s-card__sub">Thay cho cây khi màn hình hẹp. Breadcrumb ở trên, chạm để vào cấp con.</div></div></div>
+              <div class="s-card__body">
+                <nav class="s-breadcrumb" aria-label="Breadcrumb"><a href="#navigation">Công ty TNHH Demo</a><span>/</span><span>Chi nhánh Hà Nội</span></nav>
+                <ul class="s-list">
+                  <li><a class="s-list__item" href="#navigation" aria-current="true"><span class="s-list__lead"><svg class="s-ico"><use href="#i-users"/></svg></span><span class="s-list__text"><b>Phòng Kinh doanh</b><small>Phòng ban · KD-HN</small></span><span class="s-list__meta">48</span><svg class="s-ico s-ico--sm s-list__chevron"><use href="#i-chevron-right"/></svg></a></li>
+                  <li><a class="s-list__item" href="#navigation"><span class="s-list__lead"><svg class="s-ico"><use href="#i-users"/></svg></span><span class="s-list__text"><b>Phòng Kế toán</b><small>Phòng ban · KT-HN</small></span><span class="s-list__meta">12</span><svg class="s-ico s-ico--sm s-list__chevron"><use href="#i-chevron-right"/></svg></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="motion" class="s-card">
+        <div class="s-card__head">
+          <div><div class="s-card__title">Chuyển động</div><div class="s-card__sub">Nổi lên lần lượt, số đếm lên, pill trượt theo mục đang chọn, popover bật ra, chuyển trang. Tắt hết khi bật "giảm chuyển động".</div></div>
+          <div class="s-row"><button class="s-btn s-btn--sm" id="replayMotion">Phát lại</button><button class="s-btn s-btn--sm s-btn--primary" id="pageTransition">Chuyển trang (mô phỏng)</button></div>
+        </div>
+        <div class="s-card__body s-stack">
+          <div class="s-seg" role="group" aria-label="Khoảng thời gian" data-pill><button aria-pressed="true">Hôm nay</button><button aria-pressed="false">Tuần</button><button aria-pressed="false">Tháng</button><button aria-pressed="false">Năm</button></div>
+          <pre class="d-code">// Angular
+provideRouter(routes, withViewTransitions({ skipInitialTransition: true }))
+&lt;div class="s-grid s-motion-rise"&gt; … card … &lt;/div&gt;          // card nổi lên lần lượt
+&lt;nav class="s-tabs" suitePill&gt; … &lt;/nav&gt;                    // pill trượt (dist/motion.mjs → pill())
+&lt;span [suiteCount]="total"&gt;&lt;/span&gt;                          // số đếm lên (countTo())</pre>
+        </div>
+      </section>
+
       <section id="extras" class="s-stack">
         <div class="s-card">
           <div class="s-card__head"><div class="s-card__title">Tooltip và dòng thời gian</div></div>
@@ -393,10 +495,10 @@
         <div class="s-card">
           <div class="s-card__head"><div class="s-card__title">Launcher</div></div>
           <div class="s-card__body">
-            <div class="s-launcher">
-              <a class="s-launcher__tile" href="#extras" data-product="hrm"><strong>Nhân sự</strong><small>Hồ sơ và hợp đồng</small></a>
-              <a class="s-launcher__tile" href="#extras" data-product="crm"><strong>Khách hàng</strong><small>Cơ hội và liên hệ</small></a>
-              <a class="s-launcher__tile" href="#extras" data-product="erp"><strong>Vận hành</strong><small>Mua hàng và kho</small></a>
+            <div class="s-launcher s-motion-rise">
+              <a class="s-launcher__tile" href="#extras" data-product="hrm"><span class="s-product-tile" data-product="hrm">HR</span><strong>Nhân sự</strong><small>Hồ sơ và hợp đồng</small></a>
+              <a class="s-launcher__tile" href="#extras" data-product="crm"><span class="s-product-tile" data-product="crm">CR</span><strong>Khách hàng</strong><small>Cơ hội và liên hệ</small></a>
+              <a class="s-launcher__tile" href="#extras" data-product="erp"><span class="s-product-tile" data-product="erp">ER</span><strong>Vận hành</strong><small>Mua hàng và kho</small></a>
             </div>
           </div>
         </div>
@@ -421,7 +523,7 @@
     </main>
   </div>
 
-  <nav class="s-bottom-nav" aria-label="Điều hướng nhanh">
+  <nav class="s-bottom-nav" aria-label="Điều hướng nhanh" data-pill>
     <a href="#tokens" aria-current="page"><svg class="s-ico"><use href="#i-house"/></svg>Token</a>
     <a href="#forms"><svg class="s-ico"><use href="#i-settings"/></svg>Form</a>
     <a href="#table"><svg class="s-ico"><use href="#i-users"/></svg>Bảng</a>
@@ -579,6 +681,46 @@
 
   apply();
 })();
+</script>
+<script type="module">
+  import { pill, countTo, replay } from '../dist/motion.js';
+
+  // Sliding pills: tabs, segmented, sidebar nav, bottom nav. Re-place after any click that changes the active item.
+  const tracks = [...document.querySelectorAll('[data-pill]'), document.getElementById('sideNav')];
+  const pills = tracks.map((track) => ({ track, handle: pill(track) }));
+  document.addEventListener('click', () => requestAnimationFrame(() => pills.forEach(({ handle }) => handle.update())));
+  window.addEventListener('hashchange', () => pills.forEach(({ handle }) => handle.update()));
+
+  // Count-up for KPI figures.
+  const fmt = (v) => new Intl.NumberFormat('vi-VN').format(Math.round(v));
+  const counters = [...document.querySelectorAll('[data-count]')];
+  const runCounts = (from) => counters.forEach((el) => countTo(el, Number(el.dataset.count), { from, format: fmt, flash: true }));
+  runCounts(0);
+
+  document.getElementById('replayMotion').addEventListener('click', () => {
+    document.querySelectorAll('.s-motion-rise, .s-motion-slide').forEach(replay);
+    runCounts(0);
+  });
+
+  // Page transition: only the content area moves (View Transitions API; Angular: withViewTransitions()).
+  document.getElementById('pageTransition').addEventListener('click', () => {
+    const swap = () => {
+      document.querySelectorAll('.s-motion-rise, .s-motion-slide').forEach(replay);
+      window.scrollTo({ top: 0 });
+    };
+    if (document.startViewTransition) document.startViewTransition(swap); else swap();
+  });
+
+  // Tree: click a row to select it; the chevron expands or collapses.
+  document.getElementById('orgTree').addEventListener('click', (e) => {
+    const item = e.target.closest('[role="treeitem"]');
+    if (!item) return;
+    if (e.target.closest('.s-tree__toggle')) {
+      item.setAttribute('aria-expanded', String(item.getAttribute('aria-expanded') !== 'true'));
+      return;
+    }
+    document.querySelectorAll('#orgTree [role="treeitem"]').forEach((x) => x.setAttribute('aria-selected', String(x === item)));
+  });
 </script>
 </body>
 </html>

@@ -1,0 +1,78 @@
+/* ---------- motion ----------
+   Ported from Halvo's motion kit and tuned for business screens: faster, smaller, never on every data refresh.
+   Arrive with ease-out (expo), leave with ease-in and about a third of the time. Small things spring.
+   Everything collapses under prefers-reduced-motion (durations are 0 there, see base.css).
+
+   CSS only:   .s-motion-rise (cards, KPI, tiles: staggered rise) · .s-motion-slide (list rows) · .s-motion-fade
+               .s-lift (tile lifts on hover) · popovers and menus pop in · page transitions (View Transitions API)
+   With JS:    sliding pill on .s-tabs / .s-seg / .s-nav / .s-bottom-nav and count-up numbers
+               (dist/motion.mjs: pill(), countTo(); Angular wraps them as directives). */
+
+@property --pill-t { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --pill-r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --pill-b { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --pill-l { syntax: "<length>"; inherits: false; initial-value: 0px; }
+
+@keyframes s-rise { from { opacity: 0; transform: translateY(var(--rise-y, 20px)) scale(0.985); } }
+@keyframes s-slide-up { from { opacity: 0; transform: translateY(10px); } }
+@keyframes s-fade-in { from { opacity: 0; } }
+@keyframes s-pop-in { from { opacity: 0; transform: translateY(-6px) scale(0.94); } }
+@keyframes s-page-in { from { opacity: 0; transform: translateX(var(--page-dx, 18px)); } }
+@keyframes s-page-out { to { opacity: 0; transform: translateY(6px) scale(0.99); } }
+@keyframes s-flash { from { color: var(--primary-text); } }
+
+/* Staggered entrance: put the class on the container; its children rise one after another. */
+.s-motion-rise > * { animation: s-rise var(--dur-reveal) var(--ease-expo) both; animation-delay: calc(var(--i, 0) * var(--stagger)); }
+.s-motion-slide > * { animation: s-slide-up var(--dur-slow) var(--ease-power3) both; animation-delay: calc(var(--i, 0) * var(--stagger) * 0.6); }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(2) { --i: 1; }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(3) { --i: 2; }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(4) { --i: 3; }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(5) { --i: 4; }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(6) { --i: 5; }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(7) { --i: 6; }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(8) { --i: 7; }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(9) { --i: 8; }
+:is(.s-motion-rise, .s-motion-slide) > :nth-child(n+10) { --i: 9; }
+.s-motion-fade { animation: s-fade-in var(--dur-slow) var(--ease-out) both; }
+.s-flash { animation: s-flash 900ms var(--ease-out); }
+
+.s-lift { transition: transform var(--dur-slow) var(--ease-power3), box-shadow var(--dur-slow) var(--ease-power3); }
+.s-lift:hover { transform: translateY(-3px); }
+
+.s-popover, .s-menu { animation: s-pop-in var(--dur-slow) var(--ease-spring) both; transform-origin: 50% 0; }
+.s-toast { animation-timing-function: var(--ease-spring); }
+
+/* Sliding pill. The track gets .s-pill-track; motion.mjs inserts one .s-pill, sets --pill-t/r/b/l to the active
+   item's edges and data-axis / data-dir, then adds .is-pill to the track. The leading edge moves first, the
+   trailing edge catches up, so the pill stretches and settles (as in Halvo). */
+.s-pill-track { position: relative; isolation: isolate; }
+.s-pill {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0;
+  clip-path: inset(var(--pill-t) var(--pill-r) var(--pill-b) var(--pill-l) round var(--pill-radius, 12px));
+  background: var(--pill-bg, var(--tab-active-bg)); box-shadow: var(--pill-shadow, none);
+}
+.s-pill-track.is-pill > .s-pill { opacity: 1; }
+.s-pill.is-moving[data-axis="x"][data-dir="fwd"] { transition: --pill-r 360ms var(--ease-power3), --pill-l 550ms var(--ease-inout), --pill-t 450ms var(--ease-inout), --pill-b 450ms var(--ease-inout); }
+.s-pill.is-moving[data-axis="x"][data-dir="back"] { transition: --pill-l 360ms var(--ease-power3), --pill-r 550ms var(--ease-inout), --pill-t 450ms var(--ease-inout), --pill-b 450ms var(--ease-inout); }
+.s-pill.is-moving[data-axis="y"][data-dir="fwd"] { transition: --pill-b 360ms var(--ease-power3), --pill-t 550ms var(--ease-inout), --pill-l 450ms var(--ease-inout), --pill-r 450ms var(--ease-inout); }
+.s-pill.is-moving[data-axis="y"][data-dir="back"] { transition: --pill-t 360ms var(--ease-power3), --pill-b 550ms var(--ease-inout), --pill-l 450ms var(--ease-inout), --pill-r 450ms var(--ease-inout); }
+/* While a pill is drawn, the current item drops its own background so only the pill shows. */
+.s-pill-track.is-pill :is([aria-current="page"], [aria-selected="true"], [aria-pressed="true"]) { background: transparent; box-shadow: none; }
+.s-tabs > .s-pill { --pill-bg: var(--tab-active-bg); --pill-shadow: inset 0 -2px 0 var(--tab-indicator); --pill-radius: var(--tab-radius); }
+.s-seg > .s-pill { --pill-bg: var(--surface-3); --pill-radius: calc(var(--radius-md) - 3px); }
+.s-nav > .s-pill { --pill-bg: var(--nav-active-bg); --pill-radius: calc(var(--radius-md) + 1px); }
+.s-bottom-nav > .s-pill { --pill-bg: var(--tab-active-bg); --pill-radius: calc(var(--radius-xl) - 10px); }
+
+/* Page transitions: the app calls document.startViewTransition (Angular: withViewTransitions()).
+   Only the content area moves; sidebar and top bar stay still. */
+@media (prefers-reduced-motion: no-preference) {
+  .s-content { view-transition-name: s-page; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  ::view-transition-old(s-page) { animation: s-page-out 140ms var(--ease-in) both; }
+  ::view-transition-new(s-page) { animation: s-page-in var(--dur-reveal) var(--ease-expo) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .s-motion-rise > *, .s-motion-slide > *, .s-motion-fade, .s-popover, .s-menu, .s-flash { animation: none; }
+  .s-pill.is-moving { transition: none; }
+  .s-lift:hover { transform: none; }
+}

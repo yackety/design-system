@@ -4,6 +4,33 @@ Mọi thay đổi của Suite design system, mới nhất ở trên. Ghi thay đ
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-11-27
+
+Điều hướng có cấu trúc, component cây và danh sách, và lớp chuyển động chuyển từ Halvo.
+
+### Added
+- **Điều hướng:**
+  - `.s-nav` và `.s-nav-section`: sidebar chia vùng Chung / Workspace / Cài đặt, luôn hiện đủ các vùng.
+  - `.s-nav-item__label`, `.s-sidebar__foot`.
+  - `.s-switcher` (bộ chuyển sản phẩm), `.s-product-tile` (theo `data-product`).
+  - `.s-shell--rail`: sidebar chỉ có icon trên desktop.
+- **Cây và danh sách:**
+  - `.s-list`: hàng gồm lead, text, meta và chevron; có trạng thái đang chọn; biến thể `--divided`.
+  - `.s-tree`: thụt lề theo `--level`, nút mở/đóng xoay, trạng thái đang chọn.
+  - `.s-split`: bố cục master-detail, cột trái dính khi cuộn từ 1024px.
+- **Chuyển động** (`components/motion.css`, `dist/motion.mjs` / `motion.js`, export `@suite/design-system/motion`):
+  - `.s-motion-rise`, `.s-motion-slide`, `.s-motion-fade`, `.s-lift`, `.s-flash`.
+  - Popover và menu bật ra.
+  - Pill trượt cho tab, segmented, sidebar và thanh tab ở đáy (`pill()`, dùng `@property` để cạnh trước đi trước, cạnh sau đuổi theo như Halvo).
+  - Số đếm lên (`countTo()`), `replay()`.
+  - Chuyển trang bằng View Transitions (chỉ `.s-content` di chuyển).
+- Token chuyển động lấy từ Halvo: `--ease-expo`, `--ease-power3`, `--ease-inout`, `--ease-spring`, `--dur-reveal`, `--stagger`. Đổi `--ease-in` sang đường cong power2.in của Halvo.
+- Select: `button.s-select` cùng `.s-select__value`, `.s-select__placeholder`, và trạng thái mở (`aria-expanded`).
+
+### Fixed
+- `.s-select` dạng `<button>` bị canh chữ giữa. Giờ canh trái như input.
+- `.s-page-actions` (từ 0.3.1) không dính được đáy màn hình trên điện thoại, vì `position: sticky` nằm trong page head. Giờ là thanh nổi `position: fixed` có kính, và vùng nội dung được chừa chỗ ở dưới. Ở cổng tự phục vụ, thanh này nằm phía trên thanh tab ở đáy.
+
 ## [0.3.1] — 2026-11-27
 
 ### Added

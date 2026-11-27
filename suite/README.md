@@ -119,6 +119,47 @@ Thuộc tính trên `<html>`:
 
 Component Angular (`@suite/ui`) render markup dùng class `s-*` và bổ sung hành vi (CDK overlay, bàn phím, ARIA). Không viết style hình thức trong Angular.
 
+### Điều hướng
+
+Sidebar luôn có **đủ các vùng**. Mở một trang không bao giờ làm mất các vùng khác.
+
+```
+.s-sidebar
+  button.s-switcher        sản phẩm đang mở + popover chọn sản phẩm khác (chỉ có 1 sản phẩm thì dùng .s-brand)
+  nav.s-nav                (motion.mjs → pill() vẽ highlight trượt)
+    .s-nav-section         Chung: Trang chủ, Chờ duyệt (n), Thông báo
+    .s-nav-section         Workspace đang mở: một .s-nav-group cho mỗi module, mục có icon
+    .s-nav-section         Cài đặt (theo quyền): Người dùng, Vai trò, Tổ chức, …
+  .s-sidebar__foot         tài khoản, hiển thị
+```
+
+- Mục menu: `a.s-nav-item` > `svg.s-ico` + `span.s-nav-item__label` + (tùy chọn) `.s-count`. Mục đang mở có `aria-current="page"`.
+- Mỗi route khai báo nó thuộc vùng nào. **Không đoán vùng từ đoạn đầu URL.** Tiêu đề topbar lấy từ tên trang, không lấy từ URL.
+- Desktop thu gọn thành rail (chỉ icon) bằng `.s-shell--rail`.
+- Trang dạng cây (tổ chức, danh mục) dùng `.s-split`:
+  - Bên trái: `.s-tree` (`role="tree"`, `aria-level`, `aria-expanded`, `aria-selected`).
+  - Bên phải: card chi tiết.
+  - Trên điện thoại: `.s-list` đi sâu từng cấp, có breadcrumb.
+
+### Chuyển động
+
+Chuyển từ motion kit của Halvo, nhanh và nhẹ hơn cho màn hình nghiệp vụ. Tất cả tắt khi người dùng bật `prefers-reduced-motion`.
+
+| Hiệu ứng | Cách dùng |
+|---|---|
+| Card, KPI, tile nổi lên lần lượt | `.s-motion-rise` trên container (CSS, stagger 50ms) |
+| Dòng danh sách trượt vào | `.s-motion-slide` |
+| Tile nhấc lên khi hover | `.s-lift` |
+| Popover, menu bật ra | Tự có |
+| Pill trượt (tab, segmented, sidebar, thanh tab ở đáy) | `pill(track)` trong `dist/motion.mjs` (export `@suite/design-system/motion`); Angular bọc thành directive `suitePill` |
+| Số đếm lên | `countTo(el, value, { format, flash })`; Angular: `[suiteCount]` |
+| Chuyển trang | View Transitions API: `provideRouter(routes, withViewTransitions({ skipInitialTransition: true }))`. Chỉ vùng `.s-content` di chuyển |
+
+Quy tắc:
+- Không làm hiệu ứng cho từng dòng bảng mỗi lần lọc hoặc đổi trang dữ liệu.
+- Không làm hiệu ứng cho blur, kích thước hay màu. Chỉ làm cho transform, opacity, clip-path.
+- Vào thì dùng ease-out (`--ease-expo`). Ra thì dùng ease-in, thời gian khoảng 1/3 lúc vào. Thứ nhỏ (popover, badge) dùng `--ease-spring`.
+
 ## 6. Quy tắc thiết kế
 
 - **Kính chỉ dành cho khung ứng dụng và dashboard.**
